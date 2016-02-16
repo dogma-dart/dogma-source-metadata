@@ -27,7 +27,7 @@ import 'type_metadata.dart';
 /// are considered methods and member variables are considered variables.
 class FieldMetadata extends AnnotatedMetadata {
   //---------------------------------------------------------------------
-  // Library contents
+  // Member variables
   //---------------------------------------------------------------------
 
   /// The type information for the field.
@@ -38,6 +38,8 @@ class FieldMetadata extends AnnotatedMetadata {
   final bool getter;
   /// Whether the field has a setter.
   final bool setter;
+  /// Whether the field is private.
+  final bool isPrivate;
   /// Whether the field is constant.
   final bool isConst;
   /// Whether the field is final.
@@ -60,7 +62,8 @@ class FieldMetadata extends AnnotatedMetadata {
                 this.isProperty,
                 this.getter,
                 this.setter,
-               {this.isConst: false,
+               {this.isPrivate: false,
+                this.isConst: false,
                 this.isFinal: false,
                 this.isStatic: false,
                 this.defaultValue,
@@ -79,14 +82,17 @@ class FieldMetadata extends AnnotatedMetadata {
   ///     }
   FieldMetadata.field(String name,
                       this.type,
-                     {this.isConst: false,
-                      this.isFinal: false,
+                     {this.isPrivate: false,
+                      bool isConst: false,
+                      bool isFinal: false,
                       this.isStatic: false,
                       this.defaultValue,
                       List annotations,
                       String comments})
       : isProperty = false
       , getter = true
-      , setter = true
+      , setter = !(isConst || isFinal)
+      , isConst = isConst
+      , isFinal = isFinal
       , super(name, annotations, comments);
 }
