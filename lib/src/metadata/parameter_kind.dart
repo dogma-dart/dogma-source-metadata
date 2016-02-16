@@ -3,9 +3,6 @@
 // Use of this source code is governed by a zlib license that can be found in
 // the LICENSE file.
 
-/// Contains the [ParameterKind] enumeration.
-library dogma_source_analyzer.src.metadata.parameter_kind;
-
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
