@@ -14,6 +14,7 @@ import '../../metadata.dart';
 import 'comments.dart';
 import 'constructor_metadata.dart';
 import 'field_metadata.dart';
+import 'method_metadata.dart';
 import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -68,6 +69,7 @@ ClassMetadata classMetadata(ClassElement element) {
   for (var field in element.fields) {
     var fieldName = field.name;
     _logger.fine('Found field $fieldName on $name');
+
     fields.add(fieldMetadata(field));
   }
 
@@ -77,6 +79,8 @@ ClassMetadata classMetadata(ClassElement element) {
   for (var method in element.methods) {
     var methodName = method.name;
     _logger.fine('Found method $methodName on $name');
+
+    methods.add(methodMetadata(method));
   }
 
   // Get the constructors
