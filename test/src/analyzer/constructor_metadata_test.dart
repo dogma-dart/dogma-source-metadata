@@ -52,7 +52,7 @@ void main() {
         library,
         'DefaultConstructor',
         includeClasses: true
-    ) as ClassMetadata;
+    );
 
     expect(clazz, isNotNull);
 
