@@ -6,7 +6,7 @@ homepage: http://dogma-dart.github.io/
 environment:
   sdk: '>=1.14.0-any <2.0.0'
 dependencies:
-  analyzer: 0.27.1
+  analyzer: 0.27.2
   cli_util: ^0.0.1+2
   dogma_convert: ^0.0.1
   logging: ^0.11.1+1
