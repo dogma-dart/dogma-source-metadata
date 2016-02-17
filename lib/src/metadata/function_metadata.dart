@@ -9,6 +9,7 @@
 
 import 'annotated_metadata.dart';
 import 'parameter_metadata.dart';
+import 'privacy_metadata.dart';
 import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -16,7 +17,7 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a function.
-class FunctionMetadata extends AnnotatedMetadata {
+class FunctionMetadata extends AnnotatedMetadata with PrivacyMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -25,6 +26,8 @@ class FunctionMetadata extends AnnotatedMetadata {
   final TypeMetadata returnType;
   /// The list of parameters for the function.
   final List<ParameterMetadata> parameters;
+  @override
+  final bool isPrivate;
 
   //---------------------------------------------------------------------
   // Constructor
@@ -35,8 +38,10 @@ class FunctionMetadata extends AnnotatedMetadata {
   FunctionMetadata(String name,
                    this.returnType,
                   {List<ParameterMetadata> parameters,
+                   bool isPrivate,
                    List annotations,
                    String comments})
       : parameters = parameters ?? <ParameterMetadata>[]
+      , isPrivate = isPrivate ?? false
       , super(name, annotations, comments);
 }
