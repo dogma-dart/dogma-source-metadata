@@ -14,6 +14,8 @@ import 'package:logging/logging.dart';
 
 import 'src/analyzer/constructor_metadata_test.dart' as constructor_metadata_test;
 import 'src/analyzer/field_metadata_test.dart' as field_metadata_test;
+
+import 'src/metadata/parameter_metadata_test.dart' as parameter_metadata_test;
 import 'src/metadata/type_metadata_test.dart' as type_metadata_test;
 
 //---------------------------------------------------------------------
@@ -35,6 +37,7 @@ void main() {
 
   // Run metadata test
   group('Metadata tests', () {
+    group('ParameterMetadata', parameter_metadata_test.main);
     group('TypeMetadata', type_metadata_test.main);
   });
 }
