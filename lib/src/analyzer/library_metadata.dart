@@ -14,6 +14,7 @@ import 'package:logging/logging.dart' as logging;
 
 import '../../metadata.dart';
 import 'class_metadata.dart';
+import 'function_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -115,6 +116,11 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
     // Add class metadata
     for (var type in unit.types) {
       classes.add(classMetadata(type));
+    }
+
+    // Add function metadata
+    for (var function in unit.functions) {
+      functions.add(functionMetadata(function));
     }
   }
 
