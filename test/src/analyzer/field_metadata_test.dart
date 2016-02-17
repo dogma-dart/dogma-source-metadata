@@ -41,6 +41,7 @@ void main() {
     var field;
 
     field = classFieldByNameQuery(clazz, 'classField');
+    expect(field, isNotNull);
     expect(field.name, 'classField');
     expect(field.isStatic, true);
     expect(field.isProperty, false);
@@ -49,6 +50,7 @@ void main() {
     expect(field.setter, true);
 
     field = classFieldByNameQuery(clazz, 'classFinalField');
+    expect(field, isNotNull);
     expect(field.name, 'classFinalField');
     expect(field.isStatic, true);
     expect(field.isProperty, false);
@@ -57,6 +59,7 @@ void main() {
     expect(field.setter, false);
 
     field = classFieldByNameQuery(clazz, 'classConstField');
+    expect(field, isNotNull);
     expect(field.name, 'classConstField');
     expect(field.isStatic, true);
     expect(field.isProperty, false);
@@ -65,7 +68,9 @@ void main() {
     expect(field.setter, false);
 
     field = classFieldByNameQuery(clazz, 'classPrivateFieldGetter');
+    expect(field, isNotNull);
     expect(field.name, 'classPrivateFieldGetter');
+    expect(field.type, new TypeMetadata.string());
     expect(field.isStatic, true);
     expect(field.isProperty, true);
     expect(field.isConst, false);
