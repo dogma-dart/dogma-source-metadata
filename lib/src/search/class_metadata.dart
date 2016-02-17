@@ -8,8 +8,10 @@
 //---------------------------------------------------------------------
 
 import '../../metadata.dart';
+import 'constants.dart';
 import 'field_metadata.dart';
-import 'matcher.dart';
+import 'metadata.dart';
+import 'metadata_match_function.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -25,22 +27,39 @@ Iterable<ClassMetadata> _classes(ClassMetadata clazz,
 }
 
 Iterable<Metadata> _classMetadata(ClassMetadata clazz,
-                                  bool includeFields) sync* {
+                                  bool includeFields,
+                                  bool includeConstructors,
+                                  bool includeMethods) sync* {
   if (includeFields) {
     yield* clazz.fields;
+  }
+
+  if (includeConstructors) {
+    yield* clazz.constructors;
+  }
+
+  if (includeMethods) {
+    yield* clazz.methods;
   }
 }
 
 Iterable<Metadata /*=T*/>
     _expandClassMetadata/*<T extends Metadata>*/(ClassMetadata clazz,
-                                                 bool includeFields) {
+                                                 bool includeFields,
+                                                 bool includeConstructors,
+                                                 bool includeMethods) {
   // Get the classes to search through
   var searchClasses = _classes(clazz, false, false, false);
 
   // Expand the metadata within the library
   return searchClasses.expand(
       (value) =>
-          _classMetadata(value, includeFields)
+          _classMetadata(
+              value,
+              includeFields,
+              includeConstructors,
+              includeMethods
+          )
   );
 }
 
@@ -49,10 +68,14 @@ Iterable<Metadata /*=T*/>
 Metadata/*=T*/
     classMetadataQuery/*<T extends Metadata>*/(ClassMetadata clazz,
                                                MetadataMatchFunction matcher,
-                                              {includeFields: true}) =>
+                                              {includeFields: defaultInclude,
+                                               includeConstructors: defaultInclude,
+                                               includeMethods: defaultInclude}) =>
         _expandClassMetadata/*<T>*/(
             clazz,
-            includeFields
+            includeFields,
+            includeConstructors,
+            includeMethods
         ).firstWhere(matcher, orElse: () => null);
 
 /// Queries the [clazz] for a single instance of metadata which passes the
@@ -60,15 +83,23 @@ Metadata/*=T*/
 Iterable<Metadata/*=T*/>
    classMetadataQueryAll/*<T extends Metadata>*/(ClassMetadata clazz,
                                                  MetadataMatchFunction matcher,
-                                                {includeFields: true}) =>
+                                                {includeFields: defaultInclude,
+                                                 includeConstructors: defaultInclude,
+                                                 includeMethods: defaultInclude}) =>
         _expandClassMetadata/*<T>*/(
             clazz,
-            includeFields
+            includeFields,
+            includeConstructors,
+            includeMethods
         ).where(matcher);
 
 Metadata/*=FieldMetadata*/
     classFieldByNameQuery(ClassMetadata clazz, String name) =>
-        classMetadataQuery/*<FieldMetadata>*/(clazz, nameMatch(name));
+        classMetadataQuery/*<FieldMetadata>*/(
+            clazz,
+            nameMatch(name),
+            includeFields: true
+        );
 
 Iterable<Metadata/*=FieldMetadata*/>
     classStaticFieldQueryAll(ClassMetadata clazz) =>

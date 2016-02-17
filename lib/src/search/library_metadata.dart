@@ -8,7 +8,9 @@
 //---------------------------------------------------------------------
 
 import '../../metadata.dart';
-import 'matcher.dart';
+import 'constants.dart';
+import 'metadata.dart';
+import 'metadata_match_function.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -73,7 +75,7 @@ Iterable<Metadata /*=T*/>
   var searchLibraries = _libraries(library, includeImports, includeExports);
 
   // Expand the metadata within the library
-  return searchLibraries.expand(
+  return searchLibraries.expand/*<T>*/(
       (value) =>
           _libraryMetadata(
               value,
