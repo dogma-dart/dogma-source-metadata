@@ -16,7 +16,7 @@ import 'metadata_match_function.dart';
 
 /// Matches private metadata.
 bool privateMatch(Metadata metadata) =>
-    ((metadata is PrivacyMetadata) && (metadata.isPrivate));
+    (metadata is PrivacyMetadata) && (metadata.isPrivate);
 
 /// Matches public metadata.
 MetadataMatchFunction publicMatch = not(privateMatch);

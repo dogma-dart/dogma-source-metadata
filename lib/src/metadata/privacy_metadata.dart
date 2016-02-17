@@ -4,11 +4,17 @@
 // the LICENSE file.
 
 //---------------------------------------------------------------------
+// Imports
+//---------------------------------------------------------------------
+
+import 'metadata.dart';
+
+//---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 /// Contains metadata for a method.
-abstract class PrivacyMetadata {
+abstract class PrivacyMetadata implements Metadata {
   /// Whether the metadata is private to the library.
   bool get isPrivate;
 
