@@ -1,6 +1,9 @@
 #!/bin/sh
 set -ex
 
+# Clone dogma convert
+git clone https://github.com/dogma-dart/dogma-convert.git ../dogma-convert
+
 # Get version
 dart --version
 
