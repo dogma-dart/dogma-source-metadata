@@ -7,7 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'metadata.dart';
+import 'annotated_metadata.dart';
 import 'parameter_kind.dart';
 import 'type_metadata.dart';
 
@@ -16,7 +16,7 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a parameter on a function or method.
-class ParameterMetadata extends Metadata {
+class ParameterMetadata extends AnnotatedMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -41,8 +41,9 @@ class ParameterMetadata extends Metadata {
   ParameterMetadata(String name,
                     this.type,
                    {this.parameterKind: ParameterKind.required,
-                    this.defaultValue})
-      : super(name);
+                    this.defaultValue,
+                    List annotations})
+      : super(name, annotations, '');
 
   //---------------------------------------------------------------------
   // Properties
