@@ -11,6 +11,9 @@ import 'package:analyzer/src/generated/element.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import 'annotation.dart';
+import 'comments.dart';
+import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -23,8 +26,12 @@ final Logger _logger =
 FieldMetadata fieldMetadata(FieldElement element) {
   var name = element.name;
 
+  // Get the annotations
+  var annotations = createAnnotations(element, []);
+  var comments = elementComments(element);
+
   // Get the type
-  var type = new TypeMetadata('Foo');
+  var type = typeMetadata(element.type, annotations);
 
   // Get whether the field is a property
   var isFinal = element.isFinal;
@@ -58,6 +65,8 @@ FieldMetadata fieldMetadata(FieldElement element) {
       isPrivate: element.isPrivate,
       isConst: isConst,
       isFinal: isFinal,
-      isStatic: element.isStatic
+      isStatic: element.isStatic,
+      annotations: annotations,
+      comments: comments
   );
 }
