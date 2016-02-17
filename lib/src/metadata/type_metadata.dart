@@ -21,6 +21,8 @@ const String _string = 'String';
 const String _list = 'List';
 const String _map = 'Map';
 const String _null = 'Null';
+const String _dynamic = 'dynamic';
+const String _nullableType = '';
 
 /// Contains metadata for a type.
 ///
@@ -83,7 +85,10 @@ class TypeMetadata extends Metadata {
       : arguments = []
       , super(_string);
 
-  /// Creates an instance of [TypeMetadata]
+  /// Creates an instance of [TypeMetadata] representing a dynamic type.
+  TypeMetadata.dynamic()
+      : arguments = []
+      , super(_dynamic);
 
   /// Creates an instance of [TypeMetadata] representing a list.
   ///
@@ -138,6 +143,8 @@ class TypeMetadata extends Metadata {
   bool get isList => name == _list;
   /// Whether the type is a map.
   bool get isMap => name == _map;
+  /// Whether the type is dynamic.
+  bool get isDynamic => name == _dynamic;
 
   /// Whether the type is built in.
   ///
