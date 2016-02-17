@@ -48,6 +48,7 @@ AnalysisContext analysisContext({Uri projectPath, Uri sdkPath}) {
   var options = new AnalysisOptionsImpl()
       ..cacheSize = 256
       ..preserveComments = true
+      ..strongMode = true
       ..analyzeFunctionBodies = false;
 
   // Return the context
