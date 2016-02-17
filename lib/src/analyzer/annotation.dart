@@ -27,10 +27,34 @@ import 'package:analyzer/src/generated/element.dart';
 /// will return `null`.
 typedef dynamic AnalyzeAnnotation(ElementAnnotationImpl element);
 
+
 typedef dynamic CreateAnnotationInstance(ClassMirror mirror,
                                          Symbol constructor,
                                          List positionalArguments,
                                          Map<Symbol, dynamic> namedArguments);
+
+List createAnnotations(Element element,
+                       List<AnalyzeAnnotation> annotationCreators) {
+  var values = [];
+
+  for (var metadata in element.metadata) {
+    if (metadata.isOverride) {
+      values.add(override);
+    } else if (metadata.isDeprecated) {
+      values.add(deprecated);
+    } else {
+      for (var creator in annotationCreators) {
+        var value = creator(metadata);
+
+        if (value != null) {
+          values.add(value);
+        }
+      }
+    }
+  }
+
+  return values;
+}
 
 AnalyzeAnnotation analyze(String annotation,
                          {String library: '',
