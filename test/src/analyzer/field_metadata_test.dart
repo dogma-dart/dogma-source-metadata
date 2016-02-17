@@ -43,6 +43,9 @@ void main() {
     field = classFieldByNameQuery(clazz, 'classField');
     expect(field, isNotNull);
     expect(field.name, 'classField');
+    expect(field.type, new TypeMetadata.string());
+    expect(field.isPrivate, false);
+    expect(field.isPublic, true);
     expect(field.isStatic, true);
     expect(field.isProperty, false);
     expect(field.isConst, false);
@@ -52,6 +55,9 @@ void main() {
     field = classFieldByNameQuery(clazz, 'classFinalField');
     expect(field, isNotNull);
     expect(field.name, 'classFinalField');
+    expect(field.type, new TypeMetadata.string());
+    expect(field.isPrivate, false);
+    expect(field.isPublic, true);
     expect(field.isStatic, true);
     expect(field.isProperty, false);
     expect(field.isConst, false);
@@ -61,16 +67,33 @@ void main() {
     field = classFieldByNameQuery(clazz, 'classConstField');
     expect(field, isNotNull);
     expect(field.name, 'classConstField');
+    expect(field.type, new TypeMetadata.string());
+    expect(field.isPrivate, false);
+    expect(field.isPublic, true);
     expect(field.isStatic, true);
     expect(field.isProperty, false);
     expect(field.isConst, true);
     expect(field.getter, true);
     expect(field.setter, false);
 
+    field = classFieldByNameQuery(clazz, '_classPrivateField');
+    expect(field, isNotNull);
+    expect(field.name, '_classPrivateField');
+    expect(field.type, new TypeMetadata.string());
+    expect(field.isPrivate, true);
+    expect(field.isPublic, false);
+    expect(field.isStatic, true);
+    expect(field.isProperty, false);
+    expect(field.isConst, false);
+    expect(field.getter, true);
+    expect(field.setter, true);
+
     field = classFieldByNameQuery(clazz, 'classPrivateFieldGetter');
     expect(field, isNotNull);
     expect(field.name, 'classPrivateFieldGetter');
     expect(field.type, new TypeMetadata.string());
+    expect(field.isPrivate, false);
+    expect(field.isPublic, true);
     expect(field.isStatic, true);
     expect(field.isProperty, true);
     expect(field.isConst, false);
