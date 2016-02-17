@@ -10,7 +10,9 @@
 //---------------------------------------------------------------------
 
 import 'package:test/test.dart';
+import 'package:logging/logging.dart';
 
+import 'src/analyzer/constructor_metadata_test.dart' as constructor_metadata_test;
 import 'src/analyzer/field_metadata_test.dart' as field_metadata_test;
 import 'src/metadata/type_metadata_test.dart' as type_metadata_test;
 
@@ -19,9 +21,19 @@ import 'src/metadata/type_metadata_test.dart' as type_metadata_test;
 //---------------------------------------------------------------------
 
 void main() {
+  // Start logging
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((LogRecord rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
+
+  // Run analyzer tests
   group('Analyzer tests', () {
+    group('ConstructorMetadata', constructor_metadata_test.main);
     group('FieldMetadata', field_metadata_test.main);
   });
+
+  // Run metadata test
   group('Metadata tests', () {
     group('TypeMetadata', type_metadata_test.main);
   });
