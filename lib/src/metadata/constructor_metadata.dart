@@ -32,27 +32,30 @@ class ConstructorMetadata extends FunctionMetadata {
   /// constructor of the [returnType].
   ConstructorMetadata(TypeMetadata returnType,
                      {List<ParameterMetadata> parameters,
+                      bool isPrivate,
                       this.isFactory: false,
                       List annotations,
                       String comments})
       : super('',
               returnType,
               parameters: parameters,
+              isPrivate: isPrivate,
               annotations: annotations,
               comments: comments);
-
 
   /// Creates an instance of [ConstructorMetadata] with the given [name] and
   /// [returnType].
   ConstructorMetadata.named(String name,
                             TypeMetadata returnType,
                            {List<ParameterMetadata> parameters,
+                            bool isPrivate,
                             this.isFactory: false,
                             List annotations,
                             String comments})
       : super(name,
               returnType,
               parameters: parameters,
+              isPrivate: isPrivate,
               annotations: annotations,
               comments: comments);
 

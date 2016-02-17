@@ -33,12 +33,14 @@ class MethodMetadata extends FunctionMetadata {
   MethodMetadata(String name,
                  TypeMetadata returnType,
                 {List<ParameterMetadata> parameters,
+                 bool isPrivate,
                  this.isStatic: false,
                  List annotations,
                  String comments})
       : super(name,
               returnType,
               parameters: parameters,
+              isPrivate: isPrivate,
               annotations: annotations,
               comments: comments);
 }
