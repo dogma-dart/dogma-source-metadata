@@ -18,4 +18,4 @@ import 'package:analyzer/src/generated/element.dart';
 /// If no documentation comments are found then the empty string will be
 /// returned.
 String elementComments(Element element) =>
-    element.computeDocumentationComment() ?? '';
+    element.documentationComment ?? '';
