@@ -7,17 +7,17 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'annotated_metadata.dart';
 import 'class_metadata.dart';
 import 'field_metadata.dart';
 import 'function_metadata.dart';
-import 'metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 /// Contains metadata for a dart library.
-class LibraryMetadata extends Metadata {
+class LibraryMetadata extends AnnotatedMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -45,11 +45,13 @@ class LibraryMetadata extends Metadata {
                   List<LibraryMetadata> exported,
                   List<ClassMetadata> classes,
                   List<FunctionMetadata> functions,
-                  List<FieldMetadata> fields})
+                  List<FieldMetadata> fields,
+                  List annotations,
+                  String comments})
       : imported = imported ?? <LibraryMetadata>[]
       , exported = exported ?? <LibraryMetadata>[]
       , classes = classes ?? <ClassMetadata>[]
       , functions = functions ?? <FunctionMetadata>[]
       , fields = fields ?? <FieldMetadata>[]
-      , super(name);
+      , super(name, annotations, comments);
 }
