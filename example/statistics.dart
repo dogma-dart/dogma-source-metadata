@@ -11,7 +11,6 @@ import 'package:logging/logging.dart';
 
 import 'package:dogma_source_analyzer/analyzer.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
-import 'package:dogma_source_analyzer/path.dart';
 import 'package:dogma_source_analyzer/search.dart';
 
 //---------------------------------------------------------------------
