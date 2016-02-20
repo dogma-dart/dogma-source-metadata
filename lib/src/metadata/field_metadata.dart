@@ -9,6 +9,7 @@
 
 import 'annotated_metadata.dart';
 import 'privacy_metadata.dart';
+import 'static_metadata.dart';
 import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -23,27 +24,29 @@ import 'type_metadata.dart';
 ///
 /// This behavior is different from a how dart:mirrors behaves as properties
 /// are considered methods and member variables are considered variables.
-class FieldMetadata extends AnnotatedMetadata with PrivacyMetadata {
+class FieldMetadata extends AnnotatedMetadata
+                       with PrivacyMetadata
+                 implements StaticMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
   /// The type information for the field.
   final TypeMetadata type;
+  @override
+  final bool isPrivate;
+  @override
+  final bool isStatic;
   /// Whether the field is a property (getter and/or setter).
   final bool isProperty;
   /// Whether the field has a getter.
   final bool getter;
   /// Whether the field has a setter.
   final bool setter;
-  /// Whether the field is private.
-  final bool isPrivate;
   /// Whether the field is constant.
   final bool isConst;
   /// Whether the field is final.
   final bool isFinal;
-  /// Whether the field is a class field.
-  final bool isStatic;
   /// The default value of the field.
   ///
   /// This is used to write out any initialization of the field.
