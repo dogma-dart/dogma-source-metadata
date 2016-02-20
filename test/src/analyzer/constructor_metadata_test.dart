@@ -76,7 +76,7 @@ void main() {
         library,
         'NamedConstructor',
         includeClasses: true
-    ) as ClassMetadata;
+    );
 
     expect(clazz, isNotNull);
 
@@ -101,7 +101,7 @@ void main() {
         library,
         'FactoryConstructor',
         includeClasses: true
-    ) as ClassMetadata;
+    );
 
     expect(clazz, isNotNull);
 
