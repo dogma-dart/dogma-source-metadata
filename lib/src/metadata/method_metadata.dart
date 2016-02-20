@@ -9,6 +9,7 @@
 
 import 'function_metadata.dart';
 import 'parameter_metadata.dart';
+import 'static_metadata.dart';
 import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -16,12 +17,12 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a method.
-class MethodMetadata extends FunctionMetadata {
+class MethodMetadata extends FunctionMetadata implements StaticMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
-  /// Whether the method is a class method.
+  @override
   final bool isStatic;
 
   //---------------------------------------------------------------------
