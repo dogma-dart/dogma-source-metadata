@@ -7,10 +7,12 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'abstract_metadata.dart';
 import 'annotated_metadata.dart';
 import 'constructor_metadata.dart';
 import 'field_metadata.dart';
 import 'method_metadata.dart';
+import 'privacy_metadata.dart';
 import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -18,13 +20,19 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a class.
-class ClassMetadata extends AnnotatedMetadata {
+class ClassMetadata extends AnnotatedMetadata
+                       with PrivacyMetadata
+                 implements AbstractMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
   /// The type of the class.
   final TypeMetadata type;
+  @override
+  final bool isAbstract;
+  @override
+  final bool isPrivate;
   /// The parent class type.
   final TypeMetadata supertype;
   /// The types this class implements.
@@ -53,6 +61,8 @@ class ClassMetadata extends AnnotatedMetadata {
   /// is not available to query.
   ClassMetadata(String name,
                {this.supertype,
+                this.isAbstract: false,
+                bool isPrivate,
                 List<TypeMetadata> interfaces,
                 List<TypeMetadata> mixins,
                 List<TypeMetadata> typeParameters,
@@ -62,6 +72,7 @@ class ClassMetadata extends AnnotatedMetadata {
                 List annotations,
                 String comments})
       : type = new TypeMetadata(name)
+      , isPrivate = isPrivate ?? false
       , interfaces = interfaces ?? <TypeMetadata>[]
       , mixins = mixins ?? <TypeMetadata>[]
       , typeParameters = typeParameters ?? <TypeMetadata>[]
