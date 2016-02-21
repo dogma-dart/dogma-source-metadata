@@ -14,9 +14,25 @@ import 'metadata_match_function.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-/// Matches private metadata.
-bool privateMatch(Metadata metadata) =>
-    (metadata is PrivacyMetadata) && (metadata.isPrivate);
+/// Matches [metadata] that is an instance of [PrivacyMetadata].
+bool privacyMetadataMatch(Metadata metadata) => metadata is PrivacyMetadata;
 
-/// Matches public metadata.
-MetadataMatchFunction publicMatch = not(privateMatch);
+/// Matches [metadata] that is private.
+///
+/// The function assumes that [metadata] is [PrivacyMetadata]. For cases where
+/// the metadata being queried can return instances of [Metadata] that are not
+/// [PrivacyMetadata] then this function should be joined with
+/// staticMetadataMatch.
+///
+///     and(privacyMetadataMatch, privateMatch);
+bool privateMatch(Metadata metadata) => (metadata as PrivacyMetadata).isPrivate;
+
+/// Matches [metadata] that is scoped to an instance.
+///
+/// The function assumes that [metadata] is [PrivacyMetadata]. For cases where
+/// the metadata being queried can return instances of [Metadata] that are not
+/// [PrivacyMetadata] then this function should be joined with
+/// staticMetadataMatch.
+///
+///     and(privacyMetadataMatch, publicMatch);
+final MetadataMatchFunction publicMatch = not(privateMatch);
