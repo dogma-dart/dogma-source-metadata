@@ -131,15 +131,15 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
   // should be created.
   var metadataCount =
       importedLibraries.length +
-          exportedLibraries.length +
-          classes.length +
-          functions.length +
-          fields.length;
+      exportedLibraries.length +
+      classes.length +
+      functions.length +
+      fields.length;
 
   if (metadataCount > 0) {
     var metadata = new LibraryMetadata(
-        library.name,
         uri,
+        name: library.name,
         imported: importedLibraries,
         exported: exportedLibraries,
         classes: classes,
