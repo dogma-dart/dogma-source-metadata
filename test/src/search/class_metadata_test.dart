@@ -37,14 +37,14 @@ void main() {
     for (var field in staticFields) {
       expect(field.isStatic, true);
     }
-    expect(staticFields.length, 6);
+    expect(staticFields, hasLength(6));
 
     var staticConstFields = classMetadataQueryAll/*<FieldMetadata>*/(
         clazz,
         and(staticMatch, constFieldMatch),
         includeFields: true
     );
-    expect(staticConstFields.length, 1);
+    expect(staticConstFields, hasLength(1));
     var staticConstField = staticConstFields.first as FieldMetadata;
     expect(staticConstField.name, 'classConstField');
     expect(staticConstField.isConst, true);

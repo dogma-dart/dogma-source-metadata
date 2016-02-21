@@ -39,13 +39,13 @@ void main() {
     expect(clazz, isNotNull);
 
     constructors = clazz.constructors;
-    expect(constructors.length, 1);
+    expect(constructors, hasLength(1));
 
     constructor = constructors[0];
     expect(constructor.isDefault, true);
     expect(constructor.isPrivate, false);
     expect(constructor.isFactory, false);
-    expect(constructor.parameters.length, 0);
+    expect(constructor.parameters, isEmpty);
 
     // Get the class with a defined default constructor
     clazz = metadataByNameQuery/*<ClassMetadata>*/(
@@ -57,7 +57,7 @@ void main() {
     expect(clazz, isNotNull);
 
     constructors = clazz.constructors;
-    expect(constructors.length, 1);
+    expect(constructors, hasLength(1));
 
     constructor = constructors[0] as ConstructorMetadata;
     expect(constructor.isDefault, true);
@@ -65,7 +65,7 @@ void main() {
     expect(constructor.isFactory, false);
 
     parameters = constructor.parameters;
-    expect(parameters.length, 1);
+    expect(parameters, hasLength(1));
 
     parameter = parameters[0];
     expect(parameter.type, new TypeMetadata.int());
@@ -81,7 +81,7 @@ void main() {
     expect(clazz, isNotNull);
 
     constructors = clazz.constructors;
-    expect(constructors.length, 1);
+    expect(constructors, hasLength(1));
 
     constructor = constructors[0] as ConstructorMetadata;
     expect(constructor.isDefault, false);
@@ -90,7 +90,7 @@ void main() {
     expect(constructor.name, 'valued');
 
     parameters = constructor.parameters;
-    expect(parameters.length, 1);
+    expect(parameters, hasLength(1));
 
     parameter = parameters[0];
     expect(parameter.type, new TypeMetadata.int());
@@ -106,7 +106,7 @@ void main() {
     expect(clazz, isNotNull);
 
     constructors = clazz.constructors;
-    expect(constructors.length, 2);
+    expect(constructors, hasLength(2));
 
     // Shouldn't have a default constructor
     constructor = classDefaultConstructorQuery(clazz);
@@ -114,7 +114,7 @@ void main() {
 
     // Should have a private constructor
     constructors = classPrivateConstructorQueryAll(clazz).toList();
-    expect(constructors.length, 1);
+    expect(constructors, hasLength(1));
 
     constructor = constructors[0];
     expect(constructor.name, '_');
@@ -124,7 +124,7 @@ void main() {
 
     // Should have a named constructor
     constructors = classFactoryConstructorQueryAll(clazz).toList();
-    expect(constructors.length, 1);
+    expect(constructors, hasLength(1));
 
     constructor = constructors[0];
     expect(constructor.name, 'valued');
