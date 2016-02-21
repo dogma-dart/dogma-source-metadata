@@ -34,12 +34,8 @@ ClassMetadata classMetadata(ClassElement element) {
   var supertypeName = supertypeElement.name;
   var supertype;
 
-  if (supertypeName != 'Object') {
-    _logger.fine('Found that $name extends $supertypeName');
-  } else {
-    _logger.fine('Found that $name extends Object');
-    supertype = typeMetadata(supertypeElement);
-  }
+  _logger.fine('Found that $name extends $supertypeName');
+  supertype = typeMetadata(supertypeElement);
 
   // Get the classes that are mixed in
   var mixins = <TypeMetadata>[];
