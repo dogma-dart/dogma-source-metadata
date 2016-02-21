@@ -39,16 +39,17 @@ class LibraryMetadata extends AnnotatedMetadata {
   // Construction
   //---------------------------------------------------------------------
 
-  LibraryMetadata(String name,
-                  this.uri,
-                 {List<LibraryMetadata> imported,
+  LibraryMetadata(Uri uri,
+                 {String name: '',
+                  List<LibraryMetadata> imported,
                   List<LibraryMetadata> exported,
                   List<ClassMetadata> classes,
                   List<FunctionMetadata> functions,
                   List<FieldMetadata> fields,
                   List annotations,
                   String comments})
-      : imported = imported ?? <LibraryMetadata>[]
+      : uri = uri
+      , imported = imported ?? <LibraryMetadata>[]
       , exported = exported ?? <LibraryMetadata>[]
       , classes = classes ?? <ClassMetadata>[]
       , functions = functions ?? <FunctionMetadata>[]
