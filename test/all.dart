@@ -14,6 +14,7 @@ import 'package:logging/logging.dart';
 
 import 'analyzer.dart' as analyzer;
 import 'metadata.dart' as metadata;
+import 'search.dart' as search;
 
 //---------------------------------------------------------------------
 // Library contents
@@ -29,4 +30,5 @@ void main() {
   // Run tests
   group('Analyzer tests', analyzer.main);
   group('Metadata tests', metadata.main);
+  group('Search tests', search.main);
 }
