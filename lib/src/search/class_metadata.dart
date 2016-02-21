@@ -8,10 +8,12 @@
 //---------------------------------------------------------------------
 
 import '../../metadata.dart';
+import 'abstract_metadata.dart';
 import 'constants.dart';
 import 'field_metadata.dart';
 import 'metadata.dart';
 import 'metadata_match_function.dart';
+import 'static_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -102,10 +104,18 @@ Metadata/*=FieldMetadata*/
         );
 
 Iterable<Metadata/*=FieldMetadata*/>
+    classInstanceFieldQueryAll(ClassMetadata clazz) =>
+        classMetadataQueryAll/*<FieldMetadata>*/(
+            clazz,
+            instanceMatch,
+            includeFields: true
+        );
+
+Iterable<Metadata/*=FieldMetadata*/>
     classStaticFieldQueryAll(ClassMetadata clazz) =>
         classMetadataQueryAll/*<FieldMetadata>*/(
             clazz,
-            staticFieldMatch,
+            staticMatch,
             includeFields: true
         );
 
@@ -114,5 +124,23 @@ Iterable<Metadata/*=FieldMetadata*/>
         classMetadataQueryAll/*<FieldMetadata>*/(
             clazz,
             constFieldMatch,
+            includeFields: true
+        );
+
+/// Queries all fields within the [metadata] that are abstract.
+Iterable<Metadata/*=FieldMetadata*/>
+    classAbstractFieldQueryAll(ClassMetadata metadata) =>
+        classMetadataQueryAll/*<FieldMetadata>*/(
+            metadata,
+            abstractMatch,
+            includeFields: true
+        );
+
+/// Queries all fields within the [metadata] that are concrete.
+Iterable<Metadata/*=FieldMetadata*/>
+    classConcreteFieldQueryAll(ClassMetadata metadata) =>
+        classMetadataQueryAll/*<FieldMetadata>*/(
+            metadata,
+            concreteMatch,
             includeFields: true
         );
