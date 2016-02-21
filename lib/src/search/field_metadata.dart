@@ -13,8 +13,25 @@ import '../../metadata.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-bool staticFieldMatch(Metadata metadata) =>
-    (metadata is FieldMetadata) && (metadata.isStatic);
+/// Matches [metadata] that is an instance of [FieldMetadata].
+bool fieldMetadataMatch(Metadata metadata) => metadata is FieldMetadata;
 
-bool constFieldMatch(Metadata metadata) =>
-    (metadata is FieldMetadata) && (metadata.isConst);
+/// Matches field [metadata] that is constant.
+///
+/// The function assumes that [metadata] is [FieldMetadata]. For cases where
+/// the metadata being queried can return instances of [Metadata] that are not
+/// [FieldMetadata] then this function should be joined with
+/// fieldMetadataMatch.
+///
+///     and(fieldMetadataMatch, constFieldMatch);
+bool constFieldMatch(Metadata metadata) => (metadata as FieldMetadata).isConst;
+
+/// Matches field [metadata] that is final.
+///
+/// The function assumes that [metadata] is [FieldMetadata]. For cases where
+/// the metadata being queried can return instances of [Metadata] that are not
+/// [FieldMetadata] then this function should be joined with
+/// fieldMetadataMatch.
+///
+///     and(fieldMetadataMatch, finalFieldMatch);
+bool finalFieldMatch(Metadata metadata) => (metadata as FieldMetadata).isFinal;
