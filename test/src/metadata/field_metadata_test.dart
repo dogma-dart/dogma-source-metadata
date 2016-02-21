@@ -18,8 +18,8 @@ import 'base_metadata.dart';
 //---------------------------------------------------------------------
 
 void _expectFieldDefaults(FieldMetadata metadata) {
-  expect(metadata.isConst, false);
-  expect(metadata.isFinal, false);
+  expect(metadata.isConst, isFalse);
+  expect(metadata.isFinal, isFalse);
   expect(metadata.defaultValue, isNull);
 }
 
@@ -71,9 +71,9 @@ void main() {
 
     expect(field.name, fieldName);
     expect(field.type, fieldType);
-    expect(field.isProperty, false);
-    expect(field.getter, true);
-    expect(field.setter, true);
+    expect(field.isProperty, isFalse);
+    expect(field.getter, isTrue);
+    expect(field.setter, isTrue);
 
     // Const field
     var constFieldName = 'constField';
@@ -92,11 +92,11 @@ void main() {
     // FieldMetadata
     expect(constField.name, constFieldName);
     expect(constField.type, constFieldType);
-    expect(constField.isProperty, false);
-    expect(constField.getter, true);
-    expect(constField.setter, false);
-    expect(constField.isConst, true);
-    expect(constField.isFinal, false);
+    expect(constField.isProperty, isFalse);
+    expect(constField.getter, isTrue);
+    expect(constField.setter, isFalse);
+    expect(constField.isConst, isTrue);
+    expect(constField.isFinal, isFalse);
     expect(constField.defaultValue, isNull);
 
     // Final field
@@ -116,11 +116,11 @@ void main() {
     // FieldMetadata
     expect(finalField.name, finalFieldName);
     expect(finalField.type, finalFieldType);
-    expect(finalField.isProperty, false);
-    expect(finalField.getter, true);
-    expect(finalField.setter, false);
-    expect(finalField.isConst, false);
-    expect(finalField.isFinal, true);
+    expect(finalField.isProperty, isFalse);
+    expect(finalField.getter, isTrue);
+    expect(finalField.setter, isFalse);
+    expect(finalField.isConst, isFalse);
+    expect(finalField.isFinal, isTrue);
     expect(finalField.defaultValue, isNull);
   });
 }

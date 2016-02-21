@@ -17,7 +17,7 @@ import 'package:dogma_source_analyzer/metadata.dart';
 
 /// Checks the [metadata] for default values of [AbstractMetadata].
 void expectAbstractMetadataDefaults(AbstractMetadata metadata) {
-  expect(metadata.isAbstract, false);
+  expect(metadata.isAbstract, isFalse);
 }
 
 /// Checks the [metadata] for default values of [AnnotatedMetadata].
@@ -28,13 +28,13 @@ void expectAnnotatedMetadataDefaults(AnnotatedMetadata metadata) {
 
 /// Checks the [metadata] for default values of [PrivacyMetadata].
 void expectPrivacyMetadataDefaults(PrivacyMetadata metadata) {
-  expect(metadata.isPrivate, false);
-  expect(metadata.isPublic, true);
+  expect(metadata.isPrivate, isFalse);
+  expect(metadata.isPublic, isTrue);
 }
 
 /// Checks the [metadata] for default values of [StaticMetadata].
 void expectStaticMetadataDefaults(StaticMetadata metadata) {
-  expect(metadata.isStatic, false);
+  expect(metadata.isStatic, isFalse);
 }
 
 /// Checks the [metadata] for default values of [FunctionMetadata].

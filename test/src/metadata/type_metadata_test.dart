@@ -56,90 +56,90 @@ void main() {
   test('bool type', () {
     var type = _boolType();
 
-    expect(type.isInt, false);
-    expect(type.isDouble, false);
-    expect(type.isNum, false);
-    expect(type.isBool, true);
-    expect(type.isString, false);
-    expect(type.isList, false);
-    expect(type.isMap, false);
-    expect(type.isBuiltin, true);
+    expect(type.isInt, isFalse);
+    expect(type.isDouble, isFalse);
+    expect(type.isNum, isFalse);
+    expect(type.isBool, isTrue);
+    expect(type.isString, isFalse);
+    expect(type.isList, isFalse);
+    expect(type.isMap, isFalse);
+    expect(type.isBuiltin, isTrue);
   });
 
   test('int type', () {
     var type = _intType();
 
-    expect(type.isInt, true);
-    expect(type.isDouble, false);
-    expect(type.isNum, true);
-    expect(type.isBool, false);
-    expect(type.isString, false);
-    expect(type.isList, false);
-    expect(type.isMap, false);
-    expect(type.isBuiltin, true);
+    expect(type.isInt, isTrue);
+    expect(type.isDouble, isFalse);
+    expect(type.isNum, isTrue);
+    expect(type.isBool, isFalse);
+    expect(type.isString, isFalse);
+    expect(type.isList, isFalse);
+    expect(type.isMap, isFalse);
+    expect(type.isBuiltin, isTrue);
   });
 
   test('double type', () {
     var type = _doubleType();
 
-    expect(type.isInt, false);
-    expect(type.isDouble, true);
-    expect(type.isNum, true);
-    expect(type.isBool, false);
-    expect(type.isString, false);
-    expect(type.isList, false);
-    expect(type.isMap, false);
-    expect(type.isBuiltin, true);
+    expect(type.isInt, isFalse);
+    expect(type.isDouble, isTrue);
+    expect(type.isNum, isTrue);
+    expect(type.isBool, isFalse);
+    expect(type.isString, isFalse);
+    expect(type.isList, isFalse);
+    expect(type.isMap, isFalse);
+    expect(type.isBuiltin, isTrue);
   });
 
   test('num type', () {
     var type = _numType();
 
-    expect(type.isInt, false);
-    expect(type.isDouble, false);
-    expect(type.isNum, true);
-    expect(type.isBool, false);
-    expect(type.isString, false);
-    expect(type.isList, false);
-    expect(type.isMap, false);
-    expect(type.isBuiltin, true);
+    expect(type.isInt, isFalse);
+    expect(type.isDouble, isFalse);
+    expect(type.isNum, isTrue);
+    expect(type.isBool, isFalse);
+    expect(type.isString, isFalse);
+    expect(type.isList, isFalse);
+    expect(type.isMap, isFalse);
+    expect(type.isBuiltin, isTrue);
   });
 
   test('String type', () {
     var type = _stringType();
 
-    expect(type.isInt, false);
-    expect(type.isDouble, false);
-    expect(type.isNum, false);
-    expect(type.isBool, false);
-    expect(type.isString, true);
-    expect(type.isList, false);
-    expect(type.isMap, false);
-    expect(type.isBuiltin, true);
+    expect(type.isInt, isFalse);
+    expect(type.isDouble, isFalse);
+    expect(type.isNum, isFalse);
+    expect(type.isBool, isFalse);
+    expect(type.isString, isTrue);
+    expect(type.isList, isFalse);
+    expect(type.isMap, isFalse);
+    expect(type.isBuiltin, isTrue);
   });
 
   test('User defined type', () {
     var type = _userType();
 
-    expect(type.isInt, false);
-    expect(type.isDouble, false);
-    expect(type.isNum, false);
-    expect(type.isBool, false);
-    expect(type.isString, false);
-    expect(type.isList, false);
-    expect(type.isMap, false);
-    expect(type.isBuiltin, false);
+    expect(type.isInt, isFalse);
+    expect(type.isDouble, isFalse);
+    expect(type.isNum, isFalse);
+    expect(type.isBool, isFalse);
+    expect(type.isString, isFalse);
+    expect(type.isList, isFalse);
+    expect(type.isMap, isFalse);
+    expect(type.isBuiltin, isFalse);
   });
 
   test('List type', () {
     var expectListType = (type, builtin) {
-      expect(type.isInt, false);
-      expect(type.isDouble, false);
-      expect(type.isNum, false);
-      expect(type.isBool, false);
-      expect(type.isString, false);
-      expect(type.isList, true);
-      expect(type.isMap, false);
+      expect(type.isInt, isFalse);
+      expect(type.isDouble, isFalse);
+      expect(type.isNum, isFalse);
+      expect(type.isBool, isFalse);
+      expect(type.isString, isFalse);
+      expect(type.isList, isTrue);
+      expect(type.isMap, isFalse);
       expect(type.isBuiltin, builtin);
     };
 
@@ -149,23 +149,23 @@ void main() {
       }
     };
 
-    checkListWithType(_boolType(), _maxDepth, true);
-    checkListWithType(_intType(), _maxDepth, true);
-    checkListWithType(_doubleType(), _maxDepth, true);
-    checkListWithType(_numType(), _maxDepth, true);
-    checkListWithType(_stringType(), _maxDepth, true);
-    checkListWithType(_userType(), _maxDepth, false);
+    checkListWithType(_boolType(), _maxDepth, isTrue);
+    checkListWithType(_intType(), _maxDepth, isTrue);
+    checkListWithType(_doubleType(), _maxDepth, isTrue);
+    checkListWithType(_numType(), _maxDepth, isTrue);
+    checkListWithType(_stringType(), _maxDepth, isTrue);
+    checkListWithType(_userType(), _maxDepth, isFalse);
   });
 
   test('Map type', () {
     var expectMapType = (type, builtin) {
-      expect(type.isInt, false);
-      expect(type.isDouble, false);
-      expect(type.isNum, false);
-      expect(type.isBool, false);
-      expect(type.isString, false);
-      expect(type.isList, false);
-      expect(type.isMap, true);
+      expect(type.isInt, isFalse);
+      expect(type.isDouble, isFalse);
+      expect(type.isNum, isFalse);
+      expect(type.isBool, isFalse);
+      expect(type.isString, isFalse);
+      expect(type.isList, isFalse);
+      expect(type.isMap, isTrue);
       expect(type.isBuiltin, builtin);
     };
 
@@ -175,11 +175,11 @@ void main() {
       }
     };
 
-    checkMapWithType(_boolType(), _maxDepth, true);
-    checkMapWithType(_intType(), _maxDepth, true);
-    checkMapWithType(_doubleType(), _maxDepth, true);
-    checkMapWithType(_numType(), _maxDepth, true);
-    checkMapWithType(_stringType(), _maxDepth, true);
-    checkMapWithType(_userType(), _maxDepth, false);
+    checkMapWithType(_boolType(), _maxDepth, isTrue);
+    checkMapWithType(_intType(), _maxDepth, isTrue);
+    checkMapWithType(_doubleType(), _maxDepth, isTrue);
+    checkMapWithType(_numType(), _maxDepth, isTrue);
+    checkMapWithType(_stringType(), _maxDepth, isTrue);
+    checkMapWithType(_userType(), _maxDepth, isFalse);
   });
 }

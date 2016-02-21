@@ -31,7 +31,7 @@ void main() {
     // FunctionMetadata
     expect(metadata.returnType, returnType);
     expect(metadata.name, '');
-    expect(metadata.isDefault, true);
+    expect(metadata.isDefault, isTrue);
   });
   test('named constructor', () {
     var constructorName = 'bar';
@@ -46,6 +46,6 @@ void main() {
     // FunctionMetadata
     expect(metadata.returnType, returnType);
     expect(metadata.name, constructorName);
-    expect(metadata.isDefault, false);
+    expect(metadata.isDefault, isFalse);
   });
 }

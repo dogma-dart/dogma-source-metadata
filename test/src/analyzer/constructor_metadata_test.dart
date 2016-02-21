@@ -42,9 +42,9 @@ void main() {
     expect(constructors, hasLength(1));
 
     constructor = constructors[0];
-    expect(constructor.isDefault, true);
-    expect(constructor.isPrivate, false);
-    expect(constructor.isFactory, false);
+    expect(constructor.isDefault, isTrue);
+    expect(constructor.isPrivate, isFalse);
+    expect(constructor.isFactory, isFalse);
     expect(constructor.parameters, isEmpty);
 
     // Get the class with a defined default constructor
@@ -60,9 +60,9 @@ void main() {
     expect(constructors, hasLength(1));
 
     constructor = constructors[0] as ConstructorMetadata;
-    expect(constructor.isDefault, true);
-    expect(constructor.isPrivate, false);
-    expect(constructor.isFactory, false);
+    expect(constructor.isDefault, isTrue);
+    expect(constructor.isPrivate, isFalse);
+    expect(constructor.isFactory, isFalse);
 
     parameters = constructor.parameters;
     expect(parameters, hasLength(1));
@@ -84,9 +84,9 @@ void main() {
     expect(constructors, hasLength(1));
 
     constructor = constructors[0] as ConstructorMetadata;
-    expect(constructor.isDefault, false);
-    expect(constructor.isPrivate, false);
-    expect(constructor.isFactory, false);
+    expect(constructor.isDefault, isFalse);
+    expect(constructor.isPrivate, isFalse);
+    expect(constructor.isFactory, isFalse);
     expect(constructor.name, 'valued');
 
     parameters = constructor.parameters;
@@ -118,9 +118,9 @@ void main() {
 
     constructor = constructors[0];
     expect(constructor.name, '_');
-    expect(constructor.isDefault, false);
-    expect(constructor.isPrivate, true);
-    expect(constructor.isFactory, false);
+    expect(constructor.isDefault, isFalse);
+    expect(constructor.isPrivate, isTrue);
+    expect(constructor.isFactory, isFalse);
 
     // Should have a named constructor
     constructors = classFactoryConstructorQueryAll(clazz).toList();
@@ -128,8 +128,8 @@ void main() {
 
     constructor = constructors[0];
     expect(constructor.name, 'valued');
-    expect(constructor.isDefault, false);
-    expect(constructor.isPrivate, false);
-    expect(constructor.isFactory, true);
+    expect(constructor.isDefault, isFalse);
+    expect(constructor.isPrivate, isFalse);
+    expect(constructor.isFactory, isTrue);
   });
 }

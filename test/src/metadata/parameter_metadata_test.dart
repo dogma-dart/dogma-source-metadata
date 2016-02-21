@@ -28,8 +28,8 @@ void main() {
     expect(metadata.name, name);
     expect(metadata.type, type);
     expect(metadata.parameterKind, ParameterKind.required);
-    expect(metadata.isOptional, false);
-    expect(metadata.isRequired, true);
+    expect(metadata.isOptional, isFalse);
+    expect(metadata.isRequired, isTrue);
   });
 
   test('property test', () {
@@ -45,8 +45,8 @@ void main() {
     expect(required.name, requiredName);
     expect(required.type, requiredType);
     expect(required.parameterKind, ParameterKind.required);
-    expect(required.isOptional, false);
-    expect(required.isRequired, true);
+    expect(required.isOptional, isFalse);
+    expect(required.isRequired, isTrue);
 
     var optionalName = 'optional';
     var optionalType = new TypeMetadata.bool();
@@ -60,8 +60,8 @@ void main() {
     expect(optional.name, optionalName);
     expect(optional.type, optionalType);
     expect(optional.parameterKind, ParameterKind.optional);
-    expect(optional.isOptional, true);
-    expect(optional.isRequired, false);
+    expect(optional.isOptional, isTrue);
+    expect(optional.isRequired, isFalse);
 
     var namedName = 'named';
     var namedType = new TypeMetadata.bool();
@@ -75,7 +75,7 @@ void main() {
     expect(named.name, namedName);
     expect(named.type, namedType);
     expect(named.parameterKind, ParameterKind.named);
-    expect(named.isOptional, true);
-    expect(named.isRequired, false);
+    expect(named.isOptional, isTrue);
+    expect(named.isRequired, isFalse);
   });
 }
