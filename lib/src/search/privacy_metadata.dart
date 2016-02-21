@@ -22,7 +22,7 @@ bool privacyMetadataMatch(Metadata metadata) => metadata is PrivacyMetadata;
 /// The function assumes that [metadata] is [PrivacyMetadata]. For cases where
 /// the metadata being queried can return instances of [Metadata] that are not
 /// [PrivacyMetadata] then this function should be joined with
-/// staticMetadataMatch.
+/// privacyMetadataMatch.
 ///
 ///     and(privacyMetadataMatch, privateMatch);
 bool privateMatch(Metadata metadata) => (metadata as PrivacyMetadata).isPrivate;
@@ -32,7 +32,7 @@ bool privateMatch(Metadata metadata) => (metadata as PrivacyMetadata).isPrivate;
 /// The function assumes that [metadata] is [PrivacyMetadata]. For cases where
 /// the metadata being queried can return instances of [Metadata] that are not
 /// [PrivacyMetadata] then this function should be joined with
-/// staticMetadataMatch.
+/// privacyMetadataMatch.
 ///
 ///     and(privacyMetadataMatch, publicMatch);
 final MetadataMatchFunction publicMatch = not(privateMatch);
