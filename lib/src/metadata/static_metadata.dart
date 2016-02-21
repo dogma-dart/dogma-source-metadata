@@ -4,11 +4,17 @@
 // the LICENSE file.
 
 //---------------------------------------------------------------------
+// Imports
+//---------------------------------------------------------------------
+
+import 'metadata.dart';
+
+//---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 /// An interface for metadata that is statically scoped.
-abstract class StaticMetadata {
+abstract class StaticMetadata implements Metadata {
   /// Whether the metadata is statically scoped.
   bool get isStatic;
 }
