@@ -4,11 +4,17 @@
 // the LICENSE file.
 
 //---------------------------------------------------------------------
+// Imports
+//---------------------------------------------------------------------
+
+import 'metadata.dart';
+
+//---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 /// An interface for metadata that can be abstract.
-abstract class AbstractMetadata {
+abstract class AbstractMetadata implements Metadata {
   /// Whether the metadata is abstract.
   bool get isAbstract;
 }
