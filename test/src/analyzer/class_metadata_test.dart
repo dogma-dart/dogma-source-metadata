@@ -25,10 +25,11 @@ ClassMetadata _getClass(String name, LibraryMetadata library) {
       library,
       name,
       includeClasses: true
-  );
+  ) as ClassMetadata;
 
   expect(clazz, isNotNull);
   expect(clazz.name, name);
+  expect(clazz.enclosingMetadata, library);
 
   return clazz;
 }
