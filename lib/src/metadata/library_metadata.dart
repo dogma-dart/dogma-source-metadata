@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'annotated_metadata.dart';
+import 'enclosing_metadata.dart';
 import 'class_metadata.dart';
 import 'field_metadata.dart';
 import 'function_metadata.dart';
@@ -17,7 +18,7 @@ import 'function_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a dart library.
-class LibraryMetadata extends AnnotatedMetadata {
+class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -54,5 +55,11 @@ class LibraryMetadata extends AnnotatedMetadata {
       , classes = classes ?? <ClassMetadata>[]
       , functions = functions ?? <FunctionMetadata>[]
       , fields = fields ?? <FieldMetadata>[]
-      , super(name, annotations, comments);
+      , super(name, annotations, comments)
+  {
+    // Use `this` to properly scope the value
+    encloseList(this.classes);
+    encloseList(this.functions);
+    encloseList(this.fields);
+  }
 }
