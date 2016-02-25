@@ -50,6 +50,6 @@ class FunctionMetadata extends AnnotatedMetadata
       , super(name, annotations, comments)
   {
     // Use `this` to properly scope the value
-    encloseList(parameters);
+    encloseList(this.parameters);
   }
 }
