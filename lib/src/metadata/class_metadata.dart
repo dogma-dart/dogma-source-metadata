@@ -10,10 +10,12 @@
 import 'abstract_metadata.dart';
 import 'annotated_metadata.dart';
 import 'constructor_metadata.dart';
+import 'enclosing_metadata.dart';
 import 'field_metadata.dart';
 import 'method_metadata.dart';
 import 'privacy_metadata.dart';
 import 'type_metadata.dart';
+import 'typed_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -21,13 +23,16 @@ import 'type_metadata.dart';
 
 /// Contains metadata for a class.
 class ClassMetadata extends AnnotatedMetadata
-                       with PrivacyMetadata
-                 implements AbstractMetadata {
+                       with PrivacyMetadata,
+                            EnclosedMetadata,
+                            EnclosingMetadata
+                 implements AbstractMetadata,
+                            TypedMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
-  /// The type of the class.
+  @override
   final TypeMetadata type;
   @override
   final bool isAbstract;
@@ -79,5 +84,11 @@ class ClassMetadata extends AnnotatedMetadata
       , fields = fields ?? <FieldMetadata>[]
       , methods = methods ?? <MethodMetadata>[]
       , constructors = constructors ?? <ConstructorMetadata>[]
-      , super(name, annotations, comments);
+      , super(name, annotations, comments)
+  {
+    // Use `this` to properly scope the value
+    encloseList(this.fields);
+    encloseList(this.methods);
+    encloseList(this.constructors);
+  }
 }
