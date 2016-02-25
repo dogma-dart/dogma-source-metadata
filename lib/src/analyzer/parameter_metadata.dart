@@ -8,10 +8,12 @@
 //---------------------------------------------------------------------
 
 import 'package:analyzer/src/generated/element.dart';
+import 'package:analyzer/src/generated/utilities_dart.dart' as utilities;
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
 import 'annotation.dart';
+import 'constant_object.dart';
 import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -40,11 +42,24 @@ ParameterMetadata parameterMetadata(ParameterElement element) {
 
   _logger.fine('Found parameter $name of type ${type.name}');
 
+  var kind = parameterKind(element.parameterKind);
+
+  _logger.finer('Parameter is ${kind.toString().split('.')[1]}');
+
+  var defaultValue = element.constantValue;
+
+  if (defaultValue != null) {
+    defaultValue = dartValue(defaultValue);
+
+    _logger.finer('Parameter has default value of $defaultValue');
+  }
+
   return new ParameterMetadata(
       name,
       type,
-      parameterKind: parameterKind(element.parameterKind.name),
-      annotations: annotations
+      parameterKind: parameterKind(element.parameterKind),
+      annotations: annotations,
+      defaultValue: defaultValue
   );
 }
 
@@ -54,12 +69,12 @@ ParameterMetadata parameterMetadata(ParameterElement element) {
 /// These match to the following strings.
 ///
 /// * [ParameterKind.name] == 'NAMED'
-/// * [ParameterKind.optional] == 'OPTIONAL'
+/// * [ParameterKind.optional] == 'POSITIONAL'
 /// * [ParameterKind.required] == 'REQUIRED'
-ParameterKind parameterKind(String value) {
-  if (value == 'NAMED') {
+ParameterKind parameterKind(utilities.ParameterKind value) {
+  if (value == utilities.ParameterKind.NAMED) {
     return ParameterKind.named;
-  } else if (value == 'OPTIONAL') {
+  } else if (value == utilities.ParameterKind.POSITIONAL) {
     return ParameterKind.optional;
   } else {
     return ParameterKind.required;
