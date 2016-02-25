@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'annotated_metadata.dart';
+import 'enclosing_metadata.dart';
 import 'privacy_metadata.dart';
 import 'static_metadata.dart';
 import 'type_metadata.dart';
@@ -25,7 +26,8 @@ import 'type_metadata.dart';
 /// This behavior is different from a how dart:mirrors behaves as properties
 /// are considered methods and member variables are considered variables.
 class FieldMetadata extends AnnotatedMetadata
-                       with PrivacyMetadata
+                       with PrivacyMetadata,
+                            EnclosedMetadata
                  implements StaticMetadata {
   //---------------------------------------------------------------------
   // Member variables
