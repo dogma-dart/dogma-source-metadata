@@ -54,11 +54,11 @@
 ///         not(_nParameterFunctions(3))
 ///         includeFunctions: true
 ///     );
-library dogma_source_analyzer.search;
+library dogma_source_analyzer.query;
 
 //---------------------------------------------------------------------
 // Exports
 //---------------------------------------------------------------------
 
-export 'src/search/class_metadata.dart';
-export 'src/search/library_metadata.dart';
+export 'src/query/class_metadata.dart';
+export 'src/query/library_metadata.dart';
