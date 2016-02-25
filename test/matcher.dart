@@ -10,27 +10,17 @@
 //---------------------------------------------------------------------
 
 import 'package:test/test.dart';
-import 'package:logging/logging.dart';
 
-import 'analyzer.dart' as analyzer;
-import 'matcher.dart' as matcher;
-import 'metadata.dart' as metadata;
-import 'search.dart' as search;
+import 'src/matcher/abstract_metadata_test.dart' as abstract_metadata_test;
+import 'src/matcher/privacy_metadata_test.dart' as privacy_metadata_test;
+import 'src/matcher/static_metadata_test.dart' as static_metadata_test;
 
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 void main() {
-  // Start logging
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((LogRecord rec) {
-    print('${rec.level.name}: ${rec.time}: ${rec.message}');
-  });
-
-  // Run tests
-  group('Analyzer tests', analyzer.main);
-  group('Matcher tests', matcher.main);
-  group('Metadata tests', metadata.main);
-  group('Search tests', search.main);
+  group('AbstractMetadata', abstract_metadata_test.main);
+  group('PrivacyMetadata', privacy_metadata_test.main);
+  group('StaticMetadataTest', static_metadata_test.main);
 }
