@@ -62,4 +62,3 @@ library dogma_source_analyzer.search;
 
 export 'src/search/class_metadata.dart';
 export 'src/search/library_metadata.dart';
-
