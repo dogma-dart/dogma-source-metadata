@@ -8,20 +8,24 @@
 //---------------------------------------------------------------------
 
 import 'annotated_metadata.dart';
+import 'enclosing_metadata.dart';
 import 'parameter_kind.dart';
 import 'type_metadata.dart';
+import 'typed_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 /// Contains metadata for a parameter on a function or method.
-class ParameterMetadata extends AnnotatedMetadata {
+class ParameterMetadata extends AnnotatedMetadata
+                           with EnclosedMetadata
+                     implements TypedMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
-  /// The type information for the field.
+  @override
   final TypeMetadata type;
   /// The kind of parameter.
   final ParameterKind parameterKind;
