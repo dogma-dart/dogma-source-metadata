@@ -15,7 +15,7 @@ import 'metadata_match_function.dart';
 //---------------------------------------------------------------------
 
 /// Matches [metadata] that is an instance of [StaticMetadata].
-bool staticMetadataMatch(Metadata metadata) => metadata is AbstractMetadata;
+bool staticMetadataMatch(Metadata metadata) => metadata is StaticMetadata;
 
 /// Matches [metadata] that is statically scoped.
 ///
