@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'annotated_metadata.dart';
+import 'enclosing_metadata.dart';
 import 'parameter_metadata.dart';
 import 'privacy_metadata.dart';
 import 'type_metadata.dart';
@@ -17,7 +18,10 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a function.
-class FunctionMetadata extends AnnotatedMetadata with PrivacyMetadata {
+class FunctionMetadata extends AnnotatedMetadata
+                          with PrivacyMetadata,
+                               EnclosedMetadata,
+                               EnclosingMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -43,5 +47,9 @@ class FunctionMetadata extends AnnotatedMetadata with PrivacyMetadata {
                    String comments})
       : parameters = parameters ?? <ParameterMetadata>[]
       , isPrivate = isPrivate ?? false
-      , super(name, annotations, comments);
+      , super(name, annotations, comments)
+  {
+    // Use `this` to properly scope the value
+    encloseList(parameters);
+  }
 }
