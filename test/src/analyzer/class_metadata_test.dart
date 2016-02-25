@@ -10,6 +10,7 @@
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/analyzer.dart';
+import 'package:dogma_source_analyzer/matcher.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
 import 'package:dogma_source_analyzer/path.dart';
 import 'package:dogma_source_analyzer/search.dart';
@@ -20,10 +21,10 @@ import 'package:dogma_source_analyzer/search.dart';
 
 final _objectType = new TypeMetadata('Object');
 
-ClassMetadata _getClass(String name, LibraryMetadata library) {
-  var clazz = metadataByNameQuery/*<ClassMetadata*/(
+ClassMetadata _getClass(LibraryMetadata library, String name) {
+  var clazz = libraryMetadataQuery/*<ClassMetadata*/(
       library,
-      name,
+      nameMatch(name),
       includeClasses: true
   ) as ClassMetadata;
 
@@ -40,22 +41,22 @@ void main() {
   test('inheritance tests', () {
     var library = libraryMetadata(join('test/lib/inheritance.dart'), context);
 
-    var clazzA = _getClass('A', library);
+    var clazzA = _getClass(library, 'A');
     expect(clazzA.supertype, _objectType);
     expect(clazzA.interfaces, isEmpty);
     expect(clazzA.mixins, isEmpty);
 
-    var clazzB = _getClass('B', library);
+    var clazzB = _getClass(library, 'B');
     expect(clazzB.supertype, clazzA.type);
     expect(clazzB.interfaces, isEmpty);
     expect(clazzB.mixins, isEmpty);
 
-    var clazzC = _getClass('C', library);
+    var clazzC = _getClass(library, 'C');
     expect(clazzC.supertype, clazzB.type);
     expect(clazzC.interfaces, isEmpty);
     expect(clazzC.mixins, isEmpty);
 
-    var clazzD = _getClass('D', library);
+    var clazzD = _getClass(library, 'D');
     expect(clazzD.supertype, clazzC.type);
     expect(clazzD.interfaces, isEmpty);
     expect(clazzD.mixins, isEmpty);
@@ -63,23 +64,23 @@ void main() {
   test('interface tests', () {
     var library = libraryMetadata(join('test/lib/interfaces.dart'), context);
 
-    var clazzA = _getClass('A', library);
+    var clazzA = _getClass(library, 'A');
     expect(clazzA.supertype, _objectType);
     expect(clazzA.interfaces, isEmpty);
     expect(clazzA.mixins, isEmpty);
 
-    var clazzB = _getClass('B', library);
+    var clazzB = _getClass(library, 'B');
     expect(clazzB.supertype, _objectType);
     expect(clazzB.interfaces, isEmpty);
     expect(clazzB.mixins, isEmpty);
 
-    var clazzC = _getClass('C', library);
+    var clazzC = _getClass(library, 'C');
     expect(clazzC.supertype, _objectType);
     expect(clazzC.interfaces, isEmpty);
     expect(clazzC.mixins, isEmpty);
 
-    var clazzD = _getClass('D', library);
-    expect(clazzD.supertype, new TypeMetadata('Object'));
+    var clazzD = _getClass(library, 'D');
+    expect(clazzD.supertype, _objectType);
     expect(clazzD.mixins, isEmpty);
 
     expect(clazzD.interfaces, hasLength(3));
@@ -90,22 +91,22 @@ void main() {
   test('mixin tests', () {
     var library = libraryMetadata(join('test/lib/mixins.dart'), context);
 
-    var clazzA = _getClass('A', library);
+    var clazzA = _getClass(library, 'A');
     expect(clazzA.supertype, _objectType);
     expect(clazzA.interfaces, isEmpty);
     expect(clazzA.mixins, isEmpty);
 
-    var clazzB = _getClass('B', library);
+    var clazzB = _getClass(library, 'B');
     expect(clazzB.supertype, _objectType);
     expect(clazzB.interfaces, isEmpty);
     expect(clazzB.mixins, isEmpty);
 
-    var clazzC = _getClass('C', library);
+    var clazzC = _getClass(library, 'C');
     expect(clazzC.supertype, _objectType);
     expect(clazzC.interfaces, isEmpty);
     expect(clazzC.mixins, isEmpty);
 
-    var clazzD = _getClass('D', library);
+    var clazzD = _getClass(library, 'D');
     expect(clazzD.supertype, clazzA.type);
     expect(clazzD.interfaces, isEmpty);
 

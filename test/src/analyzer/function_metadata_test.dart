@@ -10,6 +10,7 @@
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/analyzer.dart';
+import 'package:dogma_source_analyzer/matcher.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
 import 'package:dogma_source_analyzer/path.dart';
 import 'package:dogma_source_analyzer/search.dart';
@@ -26,9 +27,9 @@ void main() {
 
     var function;
 
-    function = metadataByNameQuery/*<FunctionMetadata*/(
+    function = libraryMetadataQuery/*<FunctionMetadata*/(
         library,
-        'empty',
+        nameMatch('empty'),
         includeFunctions: true
     );
 

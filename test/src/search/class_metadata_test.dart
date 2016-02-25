@@ -27,14 +27,18 @@ void main() {
 
   });
   test('static field tests', () {
-    var clazz = metadataByNameQuery/*<ClassMetadata>*/(
+    var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         fieldLibrary,
-        'ClassFields',
+        nameMatch('ClassFields'),
         includeClasses: true
     );
     expect(clazz, isNotNull);
 
-    var staticFields = classStaticFieldQueryAll(clazz);
+    var staticFields = classMetadataQueryAll/*<FieldMetadata>*/(
+        clazz,
+        staticMatch,
+        includeFields: true
+    );
     for (var field in staticFields) {
       expect(field.isStatic, isTrue);
     }
@@ -46,7 +50,7 @@ void main() {
         includeFields: true
     );
     expect(staticConstFields, hasLength(1));
-    var staticConstField = staticConstFields.first as FieldMetadata;
+    var staticConstField = staticConstFields.first;
     expect(staticConstField.name, 'classConstField');
     expect(staticConstField.isConst, isTrue);
     expect(staticConstField.isStatic, isTrue);

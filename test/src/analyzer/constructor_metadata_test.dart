@@ -10,6 +10,7 @@
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/analyzer.dart';
+import 'package:dogma_source_analyzer/matcher.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
 import 'package:dogma_source_analyzer/path.dart';
 import 'package:dogma_source_analyzer/search.dart';
@@ -17,6 +18,20 @@ import 'package:dogma_source_analyzer/search.dart';
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
+
+ClassMetadata _getClass(LibraryMetadata library, String name) {
+  var clazz = libraryMetadataQuery/*<ClassMetadata*/(
+      library,
+      nameMatch(name),
+      includeClasses: true
+  ) as ClassMetadata;
+
+  expect(clazz, isNotNull);
+  expect(clazz.name, name);
+  expect(clazz.enclosingMetadata, library);
+
+  return clazz;
+}
 
 void main() {
   var context = analysisContext();
@@ -30,13 +45,7 @@ void main() {
     var parameter;
 
     // Get the class with a generated default constructor
-    clazz = metadataByNameQuery/*<ClassMetadata>*/(
-        library,
-        'SyntheticConstructor',
-        includeClasses: true
-    );
-
-    expect(clazz, isNotNull);
+    clazz = _getClass(library, 'SyntheticConstructor');
 
     constructors = clazz.constructors;
     expect(constructors, hasLength(1));
@@ -48,13 +57,7 @@ void main() {
     expect(constructor.parameters, isEmpty);
 
     // Get the class with a defined default constructor
-    clazz = metadataByNameQuery/*<ClassMetadata>*/(
-        library,
-        'DefaultConstructor',
-        includeClasses: true
-    );
-
-    expect(clazz, isNotNull);
+    clazz = _getClass(library, 'DefaultConstructor');
 
     constructors = clazz.constructors;
     expect(constructors, hasLength(1));
@@ -72,13 +75,7 @@ void main() {
     expect(parameter.name, 'value');
 
     // Get the class with a named constructor
-    clazz = metadataByNameQuery/*<ClassMetadata>*/(
-        library,
-        'NamedConstructor',
-        includeClasses: true
-    );
-
-    expect(clazz, isNotNull);
+    clazz = _getClass(library, 'NamedConstructor');
 
     constructors = clazz.constructors;
     expect(constructors, hasLength(1));
@@ -97,36 +94,42 @@ void main() {
     expect(parameter.name, 'value');
 
     // Get the class with a factory constructor and private constructor
-    clazz = metadataByNameQuery/*<ClassMetadata>*/(
-        library,
-        'FactoryConstructor',
-        includeClasses: true
-    );
-
-    expect(clazz, isNotNull);
+    clazz = _getClass(library, 'FactoryConstructor');
 
     constructors = clazz.constructors;
     expect(constructors, hasLength(2));
 
     // Shouldn't have a default constructor
-    constructor = classDefaultConstructorQuery(clazz);
+    constructor = classMetadataQuery/*<ConstructorMetadata>*/(
+        clazz,
+        defaultConstructorMatch,
+        includeConstructors: true
+    );
     expect(constructor, isNull);
 
     // Should have a private constructor
-    constructors = classPrivateConstructorQueryAll(clazz).toList();
+    constructors = classMetadataQueryAll/*<ConstructorMetadata>*/(
+        clazz,
+        privateMatch,
+        includeConstructors: true
+    );
     expect(constructors, hasLength(1));
 
-    constructor = constructors[0];
+    constructor = constructors.first;
     expect(constructor.name, '_');
     expect(constructor.isDefault, isFalse);
     expect(constructor.isPrivate, isTrue);
     expect(constructor.isFactory, isFalse);
 
     // Should have a named constructor
-    constructors = classFactoryConstructorQueryAll(clazz).toList();
+    constructors = classMetadataQueryAll/*<ConstructorMetadata>*/(
+        clazz,
+        and(namedConstructorMatch, publicMatch),
+        includeConstructors: true
+    );
     expect(constructors, hasLength(1));
 
-    constructor = constructors[0];
+    constructor = constructors.first;
     expect(constructor.name, 'valued');
     expect(constructor.isDefault, isFalse);
     expect(constructor.isPrivate, isFalse);

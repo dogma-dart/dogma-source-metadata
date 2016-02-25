@@ -14,6 +14,7 @@ import 'package:test/test.dart';
 //---------------------------------------------------------------------
 
 import 'package:dogma_source_analyzer/analyzer.dart';
+import 'package:dogma_source_analyzer/matcher.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
 import 'package:dogma_source_analyzer/path.dart';
 import 'package:dogma_source_analyzer/search.dart';
@@ -22,6 +23,19 @@ import 'package:dogma_source_analyzer/search.dart';
 // Library contents
 //---------------------------------------------------------------------
 
+FieldMetadata _getField(ClassMetadata clazz, String name) {
+  var field = classMetadataQuery/*<FieldMetadata>*/(
+      clazz,
+      nameMatch(name),
+      includeFields: true
+  );
+
+  expect(field, isNotNull);
+  expect(field.enclosingMetadata, clazz);
+
+  return field;
+}
+
 void main() {
   var context = analysisContext();
 
@@ -29,9 +43,9 @@ void main() {
     var library = libraryMetadata(join('test/lib/fields.dart'), context);
 
     // Get the class
-    var clazz = metadataByNameQuery/*<ClassMetadata>*/(
+    var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         library,
-        'ClassFields',
+        nameMatch('ClassFields'),
         includeClasses: true
     );
 
@@ -40,7 +54,7 @@ void main() {
     // Get the static fields
     var field;
 
-    field = classFieldByNameQuery(clazz, 'classField');
+    field = _getField(clazz, 'classField');
     expect(field, isNotNull);
     expect(field.name, 'classField');
     expect(field.type, new TypeMetadata.string());
@@ -52,7 +66,7 @@ void main() {
     expect(field.getter, isTrue);
     expect(field.setter, isTrue);
 
-    field = classFieldByNameQuery(clazz, 'classFinalField');
+    field = _getField(clazz, 'classFinalField');
     expect(field, isNotNull);
     expect(field.name, 'classFinalField');
     expect(field.type, new TypeMetadata.string());
@@ -64,7 +78,7 @@ void main() {
     expect(field.getter, isTrue);
     expect(field.setter, isFalse);
 
-    field = classFieldByNameQuery(clazz, 'classConstField');
+    field = _getField(clazz, 'classConstField');
     expect(field, isNotNull);
     expect(field.name, 'classConstField');
     expect(field.type, new TypeMetadata.string());
@@ -76,7 +90,7 @@ void main() {
     expect(field.getter, isTrue);
     expect(field.setter, isFalse);
 
-    field = classFieldByNameQuery(clazz, '_classPrivateField');
+    field = _getField(clazz, '_classPrivateField');
     expect(field, isNotNull);
     expect(field.name, '_classPrivateField');
     expect(field.type, new TypeMetadata.string());
@@ -88,7 +102,7 @@ void main() {
     expect(field.getter, isTrue);
     expect(field.setter, isTrue);
 
-    field = classFieldByNameQuery(clazz, 'classPrivateFieldGetter');
+    field = _getField(clazz, 'classPrivateFieldGetter');
     expect(field, isNotNull);
     expect(field.name, 'classPrivateFieldGetter');
     expect(field.type, new TypeMetadata.string());
