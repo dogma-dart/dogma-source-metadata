@@ -60,12 +60,7 @@ library dogma_source_analyzer.search;
 // Exports
 //---------------------------------------------------------------------
 
-export 'src/search/abstract_metadata.dart';
 export 'src/search/class_metadata.dart';
 export 'src/search/constructor_metadata.dart';
-export 'src/search/field_metadata.dart';
 export 'src/search/library_metadata.dart';
-export 'src/search/metadata.dart';
-export 'src/search/metadata_match_function.dart';
-export 'src/search/privacy_metadata.dart';
-export 'src/search/static_metadata.dart';
+

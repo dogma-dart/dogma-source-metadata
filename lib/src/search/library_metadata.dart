@@ -7,10 +7,9 @@
 // Imports
 //---------------------------------------------------------------------
 
+import '../../matcher.dart';
 import '../../metadata.dart';
 import 'constants.dart';
-import 'metadata.dart';
-import 'metadata_match_function.dart';
 
 //---------------------------------------------------------------------
 // Library contents
