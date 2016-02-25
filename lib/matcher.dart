@@ -10,6 +10,7 @@ library dogma_source_analyzer.matcher;
 //---------------------------------------------------------------------
 
 export 'src/matcher/abstract_metadata.dart';
+export 'src/matcher/constructor_metadata.dart';
 export 'src/matcher/field_metadata.dart';
 export 'src/matcher/metadata.dart';
 export 'src/matcher/metadata_match_function.dart';
