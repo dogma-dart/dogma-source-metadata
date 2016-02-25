@@ -13,8 +13,9 @@ import 'dart:mirrors';
 // Imports
 //---------------------------------------------------------------------
 
-import 'package:analyzer/src/generated/constant.dart';
 import 'package:analyzer/src/generated/element.dart';
+
+import 'constant_object.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -38,17 +39,11 @@ List createAnnotations(Element element,
   var values = [];
 
   for (var metadata in element.metadata) {
-    if (metadata.isOverride) {
-      values.add(override);
-    } else if (metadata.isDeprecated) {
-      values.add(deprecated);
-    } else {
-      for (var creator in annotationCreators) {
-        var value = creator(metadata);
+    for (var creator in annotationCreators) {
+      var value = creator(metadata);
 
-        if (value != null) {
-          values.add(value);
-        }
+      if (value != null) {
+        values.add(value);
       }
     }
   }
@@ -86,7 +81,7 @@ AnalyzeAnnotation analyze(String annotation,
       for (var parameter in representation.parameters) {
         var parameterName = parameter.name;
         var parameterField = evaluatedFields[parameterName];
-        var parameterValue = _toDartValue(parameterField);
+        var parameterValue = dartValue(parameterField);
 
         if (parameter.parameterKind == 'NAMED') {
           namedArguments[new Symbol(parameterName)] = parameterValue;
@@ -162,47 +157,3 @@ ClassMirror _findClassMirror(String name) {
   return mirror;
 }
 
-/// Attempts to convert the [value] into a Dart object.
-dynamic _toDartValue(DartObjectImpl value) {
-  var typeName = value.type.displayName;
-
-  switch (typeName) {
-    case 'String':
-      return value.toStringValue();
-    case 'Map':
-      return _toMapValue(value);
-    case 'List':
-      return _toListValue(value);
-    case 'int':
-      return value.toIntValue();
-    case 'double':
-    case 'num':
-      return value.toDoubleValue();
-    case 'bool':
-      return value.toBoolValue();
-    case 'Type':
-      return value.toTypeValue();
-    case 'Symbol':
-      return value.toSymbolValue();
-    case 'Null':
-      return null;
-    default:
-      assert(false);
-      return null;
-  }
-}
-
-/// Converts the [value] into a Dart List instance.
-List _toListValue(DartObjectImpl value) =>
-    value.toListValue().map((dartObject) => _toDartValue(dartObject)).toList();
-
-/// Converts the [value] into a Dart Map instance.
-Map _toMapValue(DartObjectImpl value) {
-  var map = {};
-
-  value.toMapValue().forEach((key, value) {
-    map[_toDartValue(key)] = _toDartValue(value);
-  });
-
-  return map;
-}
