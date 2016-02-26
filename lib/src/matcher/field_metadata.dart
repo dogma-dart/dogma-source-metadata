@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import '../../metadata.dart';
+import 'metadata_match_function.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -17,21 +18,20 @@ import '../../metadata.dart';
 bool fieldMetadataMatch(Metadata metadata) => metadata is FieldMetadata;
 
 /// Matches field [metadata] that is constant.
-///
-/// The function assumes that [metadata] is [FieldMetadata]. For cases where
-/// the metadata being queried can return instances of [Metadata] that are not
-/// [FieldMetadata] then this function should be joined with
-/// fieldMetadataMatch.
-///
-///     and(fieldMetadataMatch, constFieldMatch);
 bool constFieldMatch(Metadata metadata) => (metadata as FieldMetadata).isConst;
 
 /// Matches field [metadata] that is final.
-///
-/// The function assumes that [metadata] is [FieldMetadata]. For cases where
-/// the metadata being queried can return instances of [Metadata] that are not
-/// [FieldMetadata] then this function should be joined with
-/// fieldMetadataMatch.
-///
-///     and(fieldMetadataMatch, finalFieldMatch);
 bool finalFieldMatch(Metadata metadata) => (metadata as FieldMetadata).isFinal;
+
+/// Matches field [metadata] that uses properties.
+bool propertyFieldMatch(Metadata metadata) =>
+    (metadata as FieldMetadata).isProperty;
+
+/// Matches field [metadata] that contains a getter.
+bool getterFieldMatch(Metadata metadata) => (metadata as FieldMetadata).getter;
+
+/// Matches field [metadata] that contains a setter.
+bool setterFieldMatch(Metadata metadata) => (metadata as FieldMetadata).setter;
+
+/// Matches field [metadata] that is a field.
+final MetadataMatchFunction fieldMatch = not(propertyFieldMatch);
