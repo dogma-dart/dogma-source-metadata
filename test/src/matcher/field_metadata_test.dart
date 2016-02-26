@@ -24,26 +24,7 @@ final FieldMetadata _instanceField =
         isConst: false,
         isFinal: false
     );
-final ClassMetadata _concreteClass =
-new ClassMetadata('Concrete', isAbstract: false);
-final Metadata _notAbstractMetadata = new Metadata('NotAbstract');
 
 void main() {
-  test('abstractMetadataMatch', () {
-    expect(abstractMetadataMatch(_abstractClass), isTrue);
-    expect(abstractMetadataMatch(_concreteClass), isTrue);
-    expect(abstractMetadataMatch(_notAbstractMetadata), isFalse);
-  });
-  test('abstractMatch', () {
-    expect(abstractMatch(_abstractClass), isTrue);
-    expect(abstractMatch(_concreteClass), isFalse);
-    expect(() => abstractMatch(_notAbstractMetadata), throws);
-    expect(and(abstractMetadataMatch, abstractMatch)(_notAbstractMetadata), isFalse);
-  });
-  test('concreteMatch', () {
-    expect(concreteMatch(_abstractClass), isFalse);
-    expect(concreteMatch(_concreteClass), isTrue);
-    expect(() => concreteMatch(_notAbstractMetadata), throws);
-    expect(and(abstractMetadataMatch, concreteMatch)(_notAbstractMetadata), isFalse);
-  });
+
 }
