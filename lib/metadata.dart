@@ -26,3 +26,4 @@ export 'src/metadata/parameter_metadata.dart';
 export 'src/metadata/privacy_metadata.dart';
 export 'src/metadata/static_metadata.dart';
 export 'src/metadata/type_metadata.dart';
+export 'src/metadata/typed_metadata.dart';
