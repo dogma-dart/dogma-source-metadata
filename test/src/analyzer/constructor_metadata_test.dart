@@ -24,7 +24,7 @@ ClassMetadata _getClass(LibraryMetadata library, String name) {
       library,
       nameMatch(name),
       includeClasses: true
-  ) as ClassMetadata;
+  );
 
   expect(clazz, isNotNull);
   expect(clazz.name, name);

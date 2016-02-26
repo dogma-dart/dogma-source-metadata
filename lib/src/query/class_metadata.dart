@@ -57,7 +57,7 @@ Iterable<Metadata /*=T*/>
               includeFields,
               includeConstructors,
               includeMethods
-          )
+          ) as Iterable<dynamic/*=T*/>
   );
 }
 
