@@ -12,6 +12,9 @@
 import 'package:test/test.dart';
 
 import 'src/matcher/abstract_metadata_test.dart' as abstract_metadata_test;
+import 'src/matcher/class_metadata_test.dart' as class_metadata_test;
+import 'src/matcher/constructor_metadata_test.dart' as constructor_metadata_test;
+import 'src/matcher/field_metadata_test.dart' as field_metadata_test;
 import 'src/matcher/privacy_metadata_test.dart' as privacy_metadata_test;
 import 'src/matcher/static_metadata_test.dart' as static_metadata_test;
 
@@ -21,6 +24,9 @@ import 'src/matcher/static_metadata_test.dart' as static_metadata_test;
 
 void main() {
   group('AbstractMetadata', abstract_metadata_test.main);
+  group('ClassMetadata', class_metadata_test.main);
+  group('ConstructorMetadata', constructor_metadata_test.main);
+  group('FieldMetadata', field_metadata_test.main);
   group('PrivacyMetadata', privacy_metadata_test.main);
   group('StaticMetadataTest', static_metadata_test.main);
 }
