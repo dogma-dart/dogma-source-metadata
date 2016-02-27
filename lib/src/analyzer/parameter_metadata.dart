@@ -75,7 +75,7 @@ ParameterKind parameterKind(utilities.ParameterKind value) {
   if (value == utilities.ParameterKind.NAMED) {
     return ParameterKind.named;
   } else if (value == utilities.ParameterKind.POSITIONAL) {
-    return ParameterKind.optional;
+    return ParameterKind.positional;
   } else {
     return ParameterKind.required;
   }

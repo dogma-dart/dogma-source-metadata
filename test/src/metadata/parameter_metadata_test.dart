@@ -48,20 +48,20 @@ void main() {
     expect(required.isOptional, isFalse);
     expect(required.isRequired, isTrue);
 
-    var optionalName = 'optional';
-    var optionalType = new TypeMetadata.bool();
-    var optional = new ParameterMetadata(
-        optionalName,
-        optionalType,
-        parameterKind: ParameterKind.optional
+    var positionalName = 'positional';
+    var positionalType = new TypeMetadata.bool();
+    var positional = new ParameterMetadata(
+        positionalName,
+        positionalType,
+        parameterKind: ParameterKind.positional
     );
 
-    expectAnnotatedMetadataDefaults(optional);
-    expect(optional.name, optionalName);
-    expect(optional.type, optionalType);
-    expect(optional.parameterKind, ParameterKind.optional);
-    expect(optional.isOptional, isTrue);
-    expect(optional.isRequired, isFalse);
+    expectAnnotatedMetadataDefaults(positional);
+    expect(positional.name, positionalName);
+    expect(positional.type, positionalType);
+    expect(positional.parameterKind, ParameterKind.positional);
+    expect(positional.isOptional, isTrue);
+    expect(positional.isRequired, isFalse);
 
     var namedName = 'named';
     var namedType = new TypeMetadata.bool();
