@@ -32,3 +32,7 @@ MetadataMatchFunction interfaceMatch(TypeMetadata type) =>
 /// Matches class [metadata] that either descends or mixes in the given [type].
 MetadataMatchFunction supertypeOrMixinMatch(TypeMetadata type) =>
     or(supertypeMatch(type), mixinMatch(type));
+
+/// Matches class [metadata] that is generic.
+bool genericClassMatch(Metadata metadata) =>
+    (metadata as ClassMetadata).typeParameters.isNotEmpty;
