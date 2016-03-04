@@ -58,6 +58,13 @@ LibraryMetadata libraryMetadata(Uri path,
   return _libraryMetadata(context.computeLibraryElement(source), {}, shouldLoad);
 }
 
+LibraryMetadata libraryMetadataFromElement(LibraryElement element) {
+  var cached = <String, LibraryMetadata>{};
+  var shouldLoad = (LibraryElement value) => false;
+
+  return _libraryMetadata(element, cached, shouldLoad);
+}
+
 /// Creates a function that checks the [libraryName] to determine if the
 /// referenced library should be loaded.
 _ShouldLoadLibrary _checkPackagePath(String libraryName) =>

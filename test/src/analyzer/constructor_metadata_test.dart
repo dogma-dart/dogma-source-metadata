@@ -20,7 +20,7 @@ import 'package:dogma_source_analyzer/query.dart';
 //---------------------------------------------------------------------
 
 ClassMetadata _getClass(LibraryMetadata library, String name) {
-  var clazz = libraryMetadataQuery/*<ClassMetadata*/(
+  var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
       library,
       nameMatch(name),
       includeClasses: true
