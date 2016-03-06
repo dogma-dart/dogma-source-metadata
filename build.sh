@@ -2,7 +2,7 @@
 set -ex
 
 # Clone dogma convert
-git clone https://github.com/dogma-dart/dogma-convert.git ../dogma-convert
+git clone https://github.com/dogma-dart/dogma-union-type.git ../dogma-union-type
 
 # Get version
 dart --version
