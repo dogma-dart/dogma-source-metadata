@@ -11,7 +11,8 @@ import 'package:logging/logging.dart';
 
 import 'package:dogma_source_analyzer/analyzer.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
-import 'package:dogma_source_analyzer/search.dart';
+import 'package:dogma_source_analyzer/matcher.dart';
+import 'package:dogma_source_analyzer/query.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -54,7 +55,8 @@ void main() {
 
   // Get the number of default constructors
   var defaultConstructorQuery = classQuery.map/*<ConstructorMetadata>*/(
-      (metadata) => classDefaultConstructorQuery(metadata)
+      (metadata) =>
+          (metadata as ClassMetadata).constructors.where(defaultConstructorMatch)
   );
 
   var defaultConstructorCount = defaultConstructorQuery.length;
@@ -62,7 +64,8 @@ void main() {
 
   // Get the number of factory constructors
   var factoryConstructorQuery = classQuery.expand/*<ConstructorMetadata>*/(
-      (metadata) => classFactoryConstructorQueryAll(metadata)
+      (metadata) =>
+          (metadata as ClassMetadata).constructors.where(factoryConstructorMatch)
   );
 
   var factoryConstructorCount = factoryConstructorQuery.length;
@@ -70,7 +73,8 @@ void main() {
 
   // Get the number of named constructors
   var namedConstructorQuery = classQuery.expand/*<ConstructorMetadata>*/(
-      (metadata) => classNamedConstructorQueryAll(metadata)
+      (metadata) =>
+          (metadata as ClassMetadata).constructors.where(namedConstructorMatch)
   );
 
   var namedConstructorCount = namedConstructorQuery.length;
