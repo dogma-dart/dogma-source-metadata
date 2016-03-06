@@ -46,7 +46,7 @@ void main() {
 
     var staticConstFields = classMetadataQueryAll/*<FieldMetadata>*/(
         clazz,
-        and(staticMatch, constFieldMatch),
+        and(staticMatch, constantMatch),
         includeFields: true
     );
     expect(staticConstFields, hasLength(1));
