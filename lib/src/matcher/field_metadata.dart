@@ -17,9 +17,6 @@ import 'metadata_match_function.dart';
 /// Matches [metadata] that is an instance of [FieldMetadata].
 bool fieldMetadataMatch(Metadata metadata) => metadata is FieldMetadata;
 
-/// Matches field [metadata] that is constant.
-bool constFieldMatch(Metadata metadata) => (metadata as FieldMetadata).isConst;
-
 /// Matches field [metadata] that is final.
 bool finalFieldMatch(Metadata metadata) => (metadata as FieldMetadata).isFinal;
 
