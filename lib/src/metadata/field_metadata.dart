@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'annotated_metadata.dart';
+import 'constant_metadata.dart';
 import 'enclosing_metadata.dart';
 import 'privacy_metadata.dart';
 import 'static_metadata.dart';
@@ -28,7 +29,8 @@ import 'type_metadata.dart';
 class FieldMetadata extends AnnotatedMetadata
                        with PrivacyMetadata,
                             EnclosedMetadata
-                 implements StaticMetadata {
+                 implements ConstantMetadata,
+                            StaticMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -39,14 +41,14 @@ class FieldMetadata extends AnnotatedMetadata
   final bool isPrivate;
   @override
   final bool isStatic;
+  @override
+  final bool isConst;
   /// Whether the field is a property (getter and/or setter).
   final bool isProperty;
   /// Whether the field has a getter.
   final bool getter;
   /// Whether the field has a setter.
   final bool setter;
-  /// Whether the field is constant.
-  final bool isConst;
   /// Whether the field is final.
   final bool isFinal;
   /// The default value of the field.
