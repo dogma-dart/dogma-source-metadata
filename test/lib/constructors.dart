@@ -25,3 +25,11 @@ class FactoryConstructor {
 
   FactoryConstructor._(this.value);
 }
+
+class ConstConstructor {
+  final int value;
+
+  const ConstConstructor(this.value);
+  const ConstConstructor.foo() : this(3);
+  const factory ConstConstructor.bar() = ConstConstructor.foo;
+}
