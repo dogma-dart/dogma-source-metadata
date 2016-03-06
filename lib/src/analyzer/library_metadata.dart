@@ -13,7 +13,10 @@ import 'package:analyzer/src/generated/source_io.dart';
 import 'package:logging/logging.dart' as logging;
 
 import '../../metadata.dart';
+import 'annotation.dart';
+import 'comments.dart';
 import 'class_metadata.dart';
+import 'field_metadata.dart';
 import 'function_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -34,7 +37,10 @@ typedef bool _ShouldLoadLibrary(LibraryElement element);
 /// If a library cannot be found at the given [path] then the function will
 /// return `null`.
 LibraryMetadata libraryMetadata(Uri path,
-                                AnalysisContext context) {
+                                AnalysisContext context,
+                               {List<AnalyzeAnnotation> annotationCreators}) {
+  annotationCreators ??= <AnalyzeAnnotation>[];
+
   // Create the source from a URI
   //
   // This handles source based and package based URIs.
@@ -55,14 +61,22 @@ LibraryMetadata libraryMetadata(Uri path,
     _logger.warning('Source kind is unknown. Assuming optional library directive not present');
   }
 
-  return _libraryMetadata(context.computeLibraryElement(source), {}, shouldLoad);
+  return _libraryMetadata(
+      context.computeLibraryElement(source),
+      {},
+      shouldLoad,
+      annotationCreators
+  );
 }
 
-LibraryMetadata libraryMetadataFromElement(LibraryElement element) {
+LibraryMetadata libraryMetadataFromElement(LibraryElement element,
+                                          {List<AnalyzeAnnotation> annotationCreators}) {
+  annotationCreators ??= <AnalyzeAnnotation>[];
+
   var cached = <String, LibraryMetadata>{};
   var shouldLoad = (LibraryElement value) => false;
 
-  return _libraryMetadata(element, cached, shouldLoad);
+  return _libraryMetadata(element, cached, shouldLoad, annotationCreators);
 }
 
 /// Creates a function that checks the [libraryName] to determine if the
@@ -89,7 +103,8 @@ bool _checkFilePath(LibraryElement element) =>
 /// function will return `null`.
 LibraryMetadata _libraryMetadata(LibraryElement library,
                                  Map<String, LibraryMetadata> cached,
-                                 _ShouldLoadLibrary shouldLoad) {
+                                 _ShouldLoadLibrary shouldLoad,
+                                 List<AnalyzeAnnotation> annotationCreators) {
   // Use the URI
   var uri = library.definingCompilationUnit.source.uri;
   var uriString = uri.toString();
@@ -105,13 +120,17 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
   // Look at the dependencies for metadata
   for (var imported in library.importedLibraries) {
     if (shouldLoad(imported)) {
-      importedLibraries.add(_libraryMetadata(imported, cached, shouldLoad));
+      importedLibraries.add(
+          _libraryMetadata(imported, cached, shouldLoad, annotationCreators)
+      );
     }
   }
 
   for (var exported in library.exportedLibraries) {
     if (shouldLoad(exported)) {
-      exportedLibraries.add(_libraryMetadata(exported, cached, shouldLoad));
+      exportedLibraries.add(
+          _libraryMetadata(exported, cached, shouldLoad, annotationCreators)
+      );
     }
   }
 
@@ -122,12 +141,21 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
   for (var unit in library.units) {
     // Add class metadata
     for (var type in unit.types) {
-      classes.add(classMetadata(type));
+      classes.add(classMetadata(type, annotationCreators));
+    }
+
+    // Add enum metadata
+    for (var type in unit.enums) {
+      classes.add(classMetadata(type, annotationCreators));
     }
 
     // Add function metadata
     for (var function in unit.functions) {
-      functions.add(functionMetadata(function));
+      functions.add(functionMetadata(function, annotationCreators));
+    }
+
+    for (var field in unit.topLevelVariables) {
+      fields.add(fieldMetadata(field, annotationCreators));
     }
   }
 
@@ -151,7 +179,9 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
         exported: exportedLibraries,
         classes: classes,
         functions: functions,
-        fields: fields
+        fields: fields,
+        annotations: createAnnotations(library, annotationCreators),
+        comments: elementComments(library)
     );
 
     cached[uriString] = metadata;

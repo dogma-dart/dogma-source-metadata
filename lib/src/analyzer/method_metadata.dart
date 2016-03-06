@@ -25,12 +25,13 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.method_metadata');
 
 /// Creates metadata for the given method [element].
-MethodMetadata methodMetadata(MethodElement element) {
-  var annotations = createAnnotations(element, []);
+MethodMetadata methodMetadata(MethodElement element,
+                              List<AnalyzeAnnotation> annotationGenerators) {
+  var annotations = createAnnotations(element, annotationGenerators);
   var comments = elementComments(element);
 
   var name = element.name;
-  var parameters = parameterList(element);
+  var parameters = parameterList(element, annotationGenerators);
   var isPrivate = element.isPrivate;
   var returnType = typeMetadata(element.returnType);
 

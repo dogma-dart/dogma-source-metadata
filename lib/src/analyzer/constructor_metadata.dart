@@ -25,14 +25,16 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.constructor_metadata');
 
 /// Creates metadata for the given constructor [element].
-ConstructorMetadata constructorMetadata(ConstructorElement element) {
-  var annotations = createAnnotations(element, []);
+ConstructorMetadata constructorMetadata(ConstructorElement element,
+                                        List<AnalyzeAnnotation> annotationGenerators) {
+  var annotations = createAnnotations(element, annotationGenerators);
   var comments = elementComments(element);
 
   var name = element.name;
-  var parameters = parameterList(element);
+  var parameters = parameterList(element, annotationGenerators);
   var isPrivate = element.isPrivate;
   var isFactory = element.isFactory;
+  var isConst = element.isConst;
   var returnType = new TypeMetadata('Foo');
 
   if (name.isEmpty) {
@@ -43,6 +45,7 @@ ConstructorMetadata constructorMetadata(ConstructorElement element) {
         parameters: parameters,
         isPrivate: isPrivate,
         isFactory: isFactory,
+        isConst: isConst,
         annotations: annotations,
         comments: comments
     );
@@ -55,6 +58,7 @@ ConstructorMetadata constructorMetadata(ConstructorElement element) {
         parameters: parameters,
         isPrivate: isPrivate,
         isFactory: isFactory,
+        isConst: isConst,
         annotations: annotations,
         comments: comments
     );

@@ -11,6 +11,7 @@ import 'package:analyzer/src/generated/element.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import 'annotation.dart';
 import 'comments.dart';
 import 'constructor_metadata.dart';
 import 'field_metadata.dart';
@@ -25,7 +26,8 @@ import 'type_metadata.dart';
 final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.class_metadata');
 
-ClassMetadata classMetadata(ClassElement element) {
+ClassMetadata classMetadata(ClassElement element,
+                            List<AnalyzeAnnotation> annotationCreators) {
   var name = element.name;
   _logger.info('Creating metadata for class $name');
 
@@ -66,7 +68,7 @@ ClassMetadata classMetadata(ClassElement element) {
     var fieldName = field.name;
     _logger.fine('Found field $fieldName on $name');
 
-    fields.add(fieldMetadata(field));
+    fields.add(fieldMetadata(field, annotationCreators));
   }
 
   // Get the methods
@@ -76,18 +78,18 @@ ClassMetadata classMetadata(ClassElement element) {
     var methodName = method.name;
     _logger.fine('Found method $methodName on $name');
 
-    methods.add(methodMetadata(method));
+    methods.add(methodMetadata(method, annotationCreators));
   }
 
   // Get the constructors
   var constructors = <ConstructorMetadata>[];
 
   for (var constructor in element.constructors) {
-    constructors.add(constructorMetadata(constructor));
+    constructors.add(constructorMetadata(constructor, annotationCreators));
   }
 
   // Get the annotations
-  var annotations = [];
+  var annotations = createAnnotations(element, annotationCreators);
 
   return new ClassMetadata(
       name,

@@ -30,5 +30,6 @@ library dogma_source_analyzer.analyzer;
 // Exports
 //---------------------------------------------------------------------
 
+export 'src/analyzer/annotation.dart';
 export 'src/analyzer/context.dart';
 export 'src/analyzer/library_metadata.dart';
