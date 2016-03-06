@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'constant_metadata.dart';
 import 'function_metadata.dart';
 import 'parameter_metadata.dart';
 import 'type_metadata.dart';
@@ -16,11 +17,13 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a method.
-class ConstructorMetadata extends FunctionMetadata {
+class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
+  @override
+  final bool isConst;
   /// Whether the constructor is a factory constructor.
   final bool isFactory;
 
@@ -33,6 +36,7 @@ class ConstructorMetadata extends FunctionMetadata {
   ConstructorMetadata(TypeMetadata returnType,
                      {List<ParameterMetadata> parameters,
                       bool isPrivate,
+                      this.isConst: false,
                       this.isFactory: false,
                       List annotations,
                       String comments})
@@ -49,6 +53,7 @@ class ConstructorMetadata extends FunctionMetadata {
                             TypeMetadata returnType,
                            {List<ParameterMetadata> parameters,
                             bool isPrivate,
+                            this.isConst: false,
                             this.isFactory: false,
                             List annotations,
                             String comments})
