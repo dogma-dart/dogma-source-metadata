@@ -57,45 +57,37 @@ class TypeMetadata extends Metadata {
   /// If the type is generic then [arguments] should be used to fully type the
   /// metadata.
   TypeMetadata(String name, {List<TypeMetadata> arguments})
-      : arguments = arguments ?? <TypeMetadata>[]
-      , super(name);
+      : this._(name, arguments ?? <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing a boolean.
   TypeMetadata.bool()
-      : arguments = []
-      , super(_bool);
+      : this._(_bool, <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing an integer.
   TypeMetadata.int()
-      : arguments = []
-      , super(_int);
+      : this._(_int, <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing a double.
   TypeMetadata.double()
-      : arguments = []
-      , super(_double);
+      : this._(_double, <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing a number.
   TypeMetadata.num()
-      : arguments = []
-      , super(_num);
+      : this._(_num, <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing a string.
   TypeMetadata.string()
-      : arguments = []
-      , super(_string);
+      : this._(_string, <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing a dynamic type.
   TypeMetadata.dynamic()
-      : arguments = []
-      , super(_dynamic);
+      : this._(_dynamic, <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing a list.
   ///
   /// A type [argument] can be provided for additional type information.
   TypeMetadata.list([TypeMetadata argument])
-      : arguments = (argument != null) ? [argument] : []
-      , super(_list);
+      : this._(_list, argument != null ? <TypeMetadata>[argument] : <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata] representing a map.
   ///
@@ -113,16 +105,15 @@ class TypeMetadata extends Metadata {
       }
     }
 
-    return new TypeMetadata._internal(_map, arguments);
+    return new TypeMetadata._(_map, arguments);
   }
 
   /// Creates an instance of [TypeMetadata] from the runtime type of [value].
   TypeMetadata.runtimeType(dynamic value)
-      : arguments = []
-      , super(value.runtimeType.toString());
+      : this._(value.runtimeType.toString(), <TypeMetadata>[]);
 
   /// Creates an instance of [TypeMetadata].
-  TypeMetadata._internal(String name, this.arguments)
+  TypeMetadata._(String name, this.arguments)
       : super(name);
 
   //---------------------------------------------------------------------
