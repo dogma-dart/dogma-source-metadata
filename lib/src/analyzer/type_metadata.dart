@@ -8,7 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'package:analyzer/src/generated/element.dart';
-import 'package:dogma_convert/union_type.dart';
+import 'package:dogma_union_type/union_type.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
