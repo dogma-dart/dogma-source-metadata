@@ -22,11 +22,11 @@ import 'package:dogma_source_analyzer/query.dart';
 final _objectType = new TypeMetadata('Object');
 
 ClassMetadata _getClass(LibraryMetadata library, String name) {
-  var clazz = libraryMetadataQuery/*<ClassMetadata*/(
+  var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
       library,
       nameMatch(name),
       includeClasses: true
-  ) as ClassMetadata;
+  );
 
   expect(clazz, isNotNull);
   expect(clazz.name, name);
