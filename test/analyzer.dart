@@ -11,6 +11,7 @@
 
 import 'package:test/test.dart';
 
+import 'src/analyzer/annotation_test.dart' as annotation_test;
 import 'src/analyzer/class_metadata_test.dart' as class_metadata_test;
 import 'src/analyzer/constructor_metadata_test.dart' as constructor_metadata_test;
 import 'src/analyzer/field_metadata_test.dart' as field_metadata_test;
@@ -21,6 +22,7 @@ import 'src/analyzer/function_metadata_test.dart' as function_metadata_test;
 //---------------------------------------------------------------------
 
 void main() {
+  group('Annotation', annotation_test.main);
   group('ClassMetadata', class_metadata_test.main);
   group('ConstructorMetadata', constructor_metadata_test.main);
   group('FieldMetadata', field_metadata_test.main);
