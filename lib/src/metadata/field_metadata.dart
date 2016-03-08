@@ -13,6 +13,7 @@ import 'enclosing_metadata.dart';
 import 'privacy_metadata.dart';
 import 'static_metadata.dart';
 import 'type_metadata.dart';
+import 'typed_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -30,12 +31,13 @@ class FieldMetadata extends AnnotatedMetadata
                        with PrivacyMetadata,
                             EnclosedMetadata
                  implements ConstantMetadata,
-                            StaticMetadata {
+                            StaticMetadata,
+                            TypedMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
-  /// The type information for the field.
+  @override
   final TypeMetadata type;
   @override
   final bool isPrivate;
