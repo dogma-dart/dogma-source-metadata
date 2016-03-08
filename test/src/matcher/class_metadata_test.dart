@@ -17,9 +17,9 @@ import 'package:dogma_source_analyzer/metadata.dart';
 //---------------------------------------------------------------------
 
 final ClassMetadata _abstractClass =
-new ClassMetadata('Abstract', isAbstract: true);
+    new ClassMetadata('Abstract', isAbstract: true);
 final ClassMetadata _concreteClass =
-new ClassMetadata('Concrete', isAbstract: false);
+    new ClassMetadata('Concrete', isAbstract: false);
 final Metadata _notAbstractMetadata = new Metadata('NotAbstract');
 
 void main() {
