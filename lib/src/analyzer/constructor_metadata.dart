@@ -14,7 +14,6 @@ import '../../metadata.dart';
 import 'annotation.dart';
 import 'comments.dart';
 import 'parameter_metadata.dart';
-import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -26,6 +25,7 @@ final Logger _logger =
 
 /// Creates metadata for the given constructor [element].
 ConstructorMetadata constructorMetadata(ConstructorElement element,
+                                        TypeMetadata returnType,
                                         List<AnalyzeAnnotation> annotationGenerators) {
   var annotations = createAnnotations(element, annotationGenerators);
   var comments = elementComments(element);
@@ -35,7 +35,6 @@ ConstructorMetadata constructorMetadata(ConstructorElement element,
   var isPrivate = element.isPrivate;
   var isFactory = element.isFactory;
   var isConst = element.isConst;
-  var returnType = new TypeMetadata('Foo');
 
   if (name.isEmpty) {
     _logger.fine('Found default constructor');
