@@ -54,28 +54,19 @@ void main() {
   var inverseConstructorCount = 100 / constructorCount;
 
   // Get the number of default constructors
-  var defaultConstructorQuery = classQuery.map/*<ConstructorMetadata>*/(
-      (metadata) =>
-          (metadata as ClassMetadata).constructors.where(defaultConstructorMatch)
-  );
+  var defaultConstructorQuery = constructorQuery.where(defaultConstructorMatch);
 
   var defaultConstructorCount = defaultConstructorQuery.length;
   var defaultConstructorPercent = defaultConstructorCount * inverseConstructorCount;
 
   // Get the number of factory constructors
-  var factoryConstructorQuery = classQuery.expand/*<ConstructorMetadata>*/(
-      (metadata) =>
-          (metadata as ClassMetadata).constructors.where(factoryConstructorMatch)
-  );
+  var factoryConstructorQuery = constructorQuery.where(factoryConstructorMatch);
 
   var factoryConstructorCount = factoryConstructorQuery.length;
   var factoryConstructorPercent = factoryConstructorCount * inverseConstructorCount;
 
   // Get the number of named constructors
-  var namedConstructorQuery = classQuery.expand/*<ConstructorMetadata>*/(
-      (metadata) =>
-          (metadata as ClassMetadata).constructors.where(namedConstructorMatch)
-  );
+  var namedConstructorQuery = constructorQuery.where(namedConstructorMatch);
 
   var namedConstructorCount = namedConstructorQuery.length;
   var namedConstructorPercent = namedConstructorCount * inverseConstructorCount;
