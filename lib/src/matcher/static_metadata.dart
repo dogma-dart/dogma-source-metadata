@@ -18,21 +18,7 @@ import 'metadata_match_function.dart';
 bool staticMetadataMatch(Metadata metadata) => metadata is StaticMetadata;
 
 /// Matches [metadata] that is statically scoped.
-///
-/// The function assumes that [metadata] is [StaticMetadata]. For cases where
-/// the metadata being queried can return instances of [Metadata] that are not
-/// [StaticMetadata] then this function should be joined with
-/// staticMetadataMatch.
-///
-///     and(staticMetadataMatch, staticMatch);
 bool staticMatch(Metadata metadata) => (metadata as StaticMetadata).isStatic;
 
 /// Matches [metadata] that is scoped to an instance.
-///
-/// The function assumes that [metadata] is [StaticMetadata]. For cases where
-/// the metadata being queried can return instances of [Metadata] that are not
-/// [StaticMetadata] then this function should be joined with
-/// staticMetadataMatch.
-///
-///     and(abstractMetadataMatch, instanceMatch);
 final MetadataMatchFunction instanceMatch = not(staticMatch);

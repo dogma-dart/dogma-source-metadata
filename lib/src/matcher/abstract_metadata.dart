@@ -18,22 +18,8 @@ import 'metadata_match_function.dart';
 bool abstractMetadataMatch(Metadata metadata) => metadata is AbstractMetadata;
 
 /// Matches [metadata] that is abstract.
-///
-/// The function assumes that [metadata] is [AbstractMetadata]. For cases where
-/// the metadata being queried can return instances of [Metadata] that are not
-/// [AbstractMetadata] then this function should be joined with
-/// abstractMetadataMatch.
-///
-///     and(abstractMetadataMatch, abstractMatch);
 bool abstractMatch(Metadata metadata) =>
     (metadata as AbstractMetadata).isAbstract;
 
 /// Matches [metadata] that is concrete.
-///
-/// The function assumes that [metadata] is [AbstractMetadata]. For cases where
-/// the metadata being queried can return instances of [Metadata] that are not
-/// [AbstractMetadata] then this function should be joined with
-/// abstractMetadataMatch.
-///
-///     and(abstractMetadataMatch, concreteMatch);
 final MetadataMatchFunction concreteMatch = not(abstractMatch);
