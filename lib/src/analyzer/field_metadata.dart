@@ -15,6 +15,11 @@ import 'annotation.dart';
 import 'comments.dart';
 import 'type_metadata.dart';
 
+import 'deprecation_annotation.dart';
+import 'override_annotation.dart';
+import 'protected_annotation.dart';
+import 'union_type_annotation.dart';
+
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
@@ -36,15 +41,19 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
   var annotations;
   var comments = elementComments(element);
 
-  // Get the type
-  var type = typeMetadata(element.type, annotations);
-
   // Get whether the field is a property
   var isFinal = element.isFinal;
   var isConst = element.isConst;
   var isProperty;
   var getter;
   var setter;
+
+  var fieldAnnotationGenerators = <AnalyzeAnnotation>[]
+      ..add(analyzeDeprecatedAnnotation)
+      ..add(analyzeOverrideAnnotation)
+      ..add(analyzeProtectedAnnotation)
+      ..add(analyzeTypeUnionAnnotation)
+      ..addAll(annotationGenerators);
 
   if (element.isSynthetic) {
     isProperty = true;
@@ -56,11 +65,11 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
 
     // Get the annotation on the individual parts
     annotations = getter
-        ? createAnnotations(getterElement, annotationGenerators)
+        ? createAnnotations(getterElement, fieldAnnotationGenerators)
         : [];
 
     if (setter) {
-      annotations.addAll(createAnnotations(setterElement, annotationGenerators));
+      annotations.addAll(createAnnotations(setterElement, fieldAnnotationGenerators));
     }
 
     _logger.fine('Field $name is a property. Getter : $getter Setter: $setter');
@@ -69,13 +78,18 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
     getter = true;
 
     // Get the annotation on the element directly
-    annotations = createAnnotations(element, annotationGenerators);
+    annotations = createAnnotations(element, fieldAnnotationGenerators);
 
     // If the field is final or const it is not possible to set the value
     setter = !(isFinal || isConst);
 
     _logger.fine('Field $name is a field.');
   }
+
+  // Get the type
+  //
+  // This needs to go after the annotations are computed
+  var type = typeMetadata(element.type, annotations);
 
   return new FieldMetadata(
       element.name,
