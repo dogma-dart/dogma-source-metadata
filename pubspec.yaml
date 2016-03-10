@@ -14,6 +14,3 @@ dependencies:
   meta: ^0.10.0
 dev_dependencies:
   test: ^0.12.3+9
-transformers:
-- test/pub_serve:
-    $include: test/**_test{.*,}.dart
