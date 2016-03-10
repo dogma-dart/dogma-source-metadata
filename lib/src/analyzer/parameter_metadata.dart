@@ -40,7 +40,7 @@ ParameterMetadata parameterMetadata(ParameterElement element,
                                     List<AnalyzeAnnotation> annotationGenerators) {
   var annotations = createAnnotations(element, annotationGenerators);
   var name = element.name;
-  var type = typeMetadata(element.type);
+  var type = typeMetadata(element.type, annotations);
 
   _logger.fine('Found parameter $name of type ${type.name}');
 
