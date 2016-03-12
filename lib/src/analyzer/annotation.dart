@@ -4,12 +4,6 @@
 // the LICENSE file.
 
 //---------------------------------------------------------------------
-// Standard libraries
-//---------------------------------------------------------------------
-
-import 'dart:mirrors';
-
-//---------------------------------------------------------------------
 // Imports
 //---------------------------------------------------------------------
 
@@ -18,6 +12,7 @@ import 'package:analyzer/src/generated/utilities_dart.dart';
 import 'package:logging/logging.dart';
 
 import 'constant_object.dart';
+import 'mirrors.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -34,15 +29,14 @@ final Logger _logger =
 /// will return `null`.
 typedef dynamic AnalyzeAnnotation(ElementAnnotationImpl element);
 
-
-typedef dynamic CreateAnnotationInstance(ClassMirror mirror,
-                                         Symbol constructor,
-                                         List positionalArguments,
-                                         Map<Symbol, dynamic> namedArguments);
-
 /// Maps the name of the [parameter] to the computed value of the instance
 /// based on the [constructor].
 ///
+/// The analyzer provides an API that will instantiate an object representing
+/// the result of the object. It can do this since an annotation is constant.
+/// However it will not be an actual instance of the object, just a generalized
+/// object which contains the structure of the final object that would be
+/// produced.
 /// When instantiating the value of a constant object the analyzer returns the
 /// structure of the final object.
 ///
@@ -54,7 +48,7 @@ typedef dynamic CreateAnnotationInstance(ClassMirror mirror,
 ///
 /// In this case the `field` passed into the constructor directly corresponds
 /// to the value of object the analyzer computes. This is true for any values
-/// created using the `this.*` syntax.
+/// initialized using the `this.*` syntax.
 ///
 /// However the API may not have this 1-1 relationship.
 ///
@@ -63,7 +57,7 @@ typedef dynamic CreateAnnotationInstance(ClassMirror mirror,
 ///        final int otherField;
 ///
 ///         Annotation(int value, this.otherField)
-///            : field = value;
+///            : field = value * 1000;
 ///      }
 ///
 /// In this case to construct an instance of the annotation a mapping needs to
@@ -77,6 +71,8 @@ typedef dynamic CreateAnnotationInstance(ClassMirror mirror,
 /// constructed object.
 typedef String ParameterNameMapper(String constructorName, String parameter);
 
+/// Creates a list of annotations for the given [element] using the specified
+/// [annotationCreators].
 List createAnnotations(Element element,
                        List<AnalyzeAnnotation> annotationCreators) {
   var values = [];
@@ -94,10 +90,12 @@ List createAnnotations(Element element,
   return values;
 }
 
-AnalyzeAnnotation analyze(String annotation,
-                         {String library: '',
-                          ParameterNameMapper parameterNameMapper: _passThroughParameters,
-                          CreateAnnotationInstance createAnnotation: _createAnnotation}) {
+/// Creates a function that will instantiate an [annotation].
+AnalyzeAnnotation analyzeAnnotation(String annotation,
+                                   {String library: '',
+                                    ParameterNameMapper parameterNameMapper: _passThroughParameters,
+                                    CreateAnnotationInstance createAnnotation: createAnnotation,
+                                    CreateDartValue createValue}) {
   var clazz = classMirror(annotation, library);
 
   return (element) {
@@ -129,7 +127,7 @@ AnalyzeAnnotation analyze(String annotation,
         var parameterName = parameter.name;
         var mappedParameterName = parameterNameMapper(constructorName, parameterName);
         var parameterField = evaluatedFields[mappedParameterName];
-        var parameterValue = dartValue(parameterField);
+        var parameterValue = dartValue(parameterField, createValue);
 
         _logger.fine('Found $parameterName of value $parameterValue');
         _logger.finer('Parameter is mapped to $mappedParameterName');
@@ -155,61 +153,6 @@ AnalyzeAnnotation analyze(String annotation,
 
     return value;
   };
-}
-
-ClassMirror classMirror(String name, [String library = '']) =>
-    library.isNotEmpty
-        ? _classMirrorInLibrary(name, library)
-        : _findClassMirror(name);
-
-dynamic _createAnnotation(ClassMirror mirror,
-                          Symbol constructor,
-                          List positionalArguments,
-                          Map<Symbol, dynamic> namedArguments) =>
-    mirror.newInstance(
-        constructor,
-        positionalArguments,
-        namedArguments
-    ).reflectee;
-
-ClassMirror _classMirrorInLibrary(String name, String libraryName) {
-  var library = currentMirrorSystem().findLibrary(new Symbol(libraryName));
-
-  if (library == null) {
-    throw new ArgumentError.value(libraryName, 'Was not found within the mirrors system');
-  }
-
-  var mirror = library.declarations[new Symbol(name)];
-
-  if (mirror == null) {
-    throw new ArgumentError.value(name, 'Was not found within $libraryName');
-  } else if (mirror is! ClassMirror) {
-    throw new ArgumentError.value(name, 'Does not refer to a class');
-  }
-
-  return mirror;
-}
-
-ClassMirror _findClassMirror(String name) {
-  var symbol = new Symbol(name);
-  var mirror;
-
-  // Iterate over all libraries within the mirrors system
-  for (var library in currentMirrorSystem().libraries.values) {
-    mirror = library.declarations[symbol];
-
-    if (mirror != null) {
-      break;
-    }
-  }
-
-  if (mirror == null) {
-    throw new ArgumentError.value(name, 'Was not found within the mirrors system');
-  } else if (mirror is! ClassMirror) {
-    throw new ArgumentError.value(name, 'Does not refer to a class');
-  }
-
-  return mirror;
 }
 
 /// Passes through the [parameter] name.

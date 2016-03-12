@@ -31,5 +31,7 @@ library dogma_source_analyzer.analyzer;
 //---------------------------------------------------------------------
 
 export 'src/analyzer/annotation.dart';
+export 'src/analyzer/constant_object.dart';
 export 'src/analyzer/context.dart';
 export 'src/analyzer/library_metadata.dart';
+export 'src/analyzer/mirrors.dart';
