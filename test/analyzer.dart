@@ -16,6 +16,7 @@ import 'src/analyzer/class_metadata_test.dart' as class_metadata_test;
 import 'src/analyzer/constructor_metadata_test.dart' as constructor_metadata_test;
 import 'src/analyzer/field_metadata_test.dart' as field_metadata_test;
 import 'src/analyzer/function_metadata_test.dart' as function_metadata_test;
+import 'src/analyzer/mirrors_test.dart' as mirrors_test;
 
 //---------------------------------------------------------------------
 // Library contents
@@ -27,4 +28,5 @@ void main() {
   group('ConstructorMetadata', constructor_metadata_test.main);
   group('FieldMetadata', field_metadata_test.main);
   group('FunctionMetadata', function_metadata_test.main);
+  group('Mirrors', mirrors_test.main);
 }
