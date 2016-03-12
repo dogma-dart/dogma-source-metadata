@@ -27,7 +27,7 @@ void main() {
   var context = analysisContext();
 
   test('annotation', () {
-    var create = analyze('Annotation');
+    var create = analyzeAnnotation('Annotation');
     var library = libraryMetadata(
         join('test/lib/annotation.dart'),
         context,
