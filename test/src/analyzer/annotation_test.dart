@@ -35,7 +35,7 @@ void main() {
     );
 
     expect(library, isNotNull);
-    expect(library.classes, hasLength(2));
+    expect(library.classes, hasLength(4));
     expect(library.fields, hasLength(1));
     expect(library.functions, hasLength(1));
 

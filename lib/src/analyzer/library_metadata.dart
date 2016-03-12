@@ -15,6 +15,7 @@ import 'package:logging/logging.dart' as logging;
 import '../../metadata.dart';
 import 'annotation.dart';
 import 'comments.dart';
+import 'constant_object.dart';
 import 'class_metadata.dart';
 import 'field_metadata.dart';
 import 'function_metadata.dart';
@@ -38,7 +39,8 @@ typedef bool _ShouldLoadLibrary(LibraryElement element);
 /// return `null`.
 LibraryMetadata libraryMetadata(Uri path,
                                 AnalysisContext context,
-                               {List<AnalyzeAnnotation> annotationCreators}) {
+                               {List<AnalyzeAnnotation> annotationCreators,
+                                CreateDartValue }) {
   annotationCreators ??= <AnalyzeAnnotation>[];
 
   // Create the source from a URI

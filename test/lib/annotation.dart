@@ -59,8 +59,4 @@ class AnnotationTypes {
   List listValue;
   @Annotation('map', extend: const {'a': 0, 'b': 1})
   Map mapValue;
-  @Annotation('function', extend: function)
-  Function functionValue;
-  @Annotation('enum', extend: Enum.b)
-  Enum enumValue;
 }
