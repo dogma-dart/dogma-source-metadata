@@ -13,11 +13,11 @@ import 'dart:mirrors';
 // Imports
 //---------------------------------------------------------------------
 
-import 'package:analyzer/src/generated/element.dart';
 import 'package:dogma_union_type/union_type.dart';
 import 'package:logging/logging.dart';
 
 import 'annotation.dart';
+import 'mirrors.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -27,21 +27,27 @@ import 'annotation.dart';
 final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.union_type_annotation');
 
-final ClassMirror _unionTypeMirror =
-    classMirror('UnionType', 'dogma_union_type.union_type');
+/// Determines if the annotation corresponds to a [UnionType] annotation.
+final AnalyzeAnnotation analyzeTypeUnionAnnotation =
+    analyzeAnnotation(
+        'UnionType',
+        library: 'dogma_union_type.union_type',
+        createAnnotation: _createTypeUnionAnnotation
+    );
 
-/// Determines if the annotation corresponds to a @UnionType annotation.
-dynamic analyzeTypeUnionAnnotation(ElementAnnotationImpl element) {
-  print(_unionTypeMirror.declarations);
-  var representation = element.element;
+/// The symbol for the private constructor.
+Symbol _privateConstructor;
 
-  if (representation.enclosingElement.name != 'UnionType') {
-    return null;
-  }
+/// Creates an instance of [UnionType] from the given [mirror].
+dynamic _createTypeUnionAnnotation(ClassMirror mirror,
+                                   Symbol _,
+                                   List positionalArguments,
+                                   Map<Symbol, dynamic> namedArguments) {
+  _privateConstructor ??= privateConstructor(mirror, new Symbol('_'));
 
-  if (representation is ConstructorElement) {
-    var evaluatedFields = element.evaluationResult.value.fields;
-
-    print(evaluatedFields);
-  }
+  return mirror.newInstance(
+      _privateConstructor,
+      positionalArguments,
+      namedArguments
+  ).reflectee;
 }
