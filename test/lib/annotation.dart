@@ -8,8 +8,10 @@ library dogma_source_analyzer.test.lib.annotation;
 
 class Annotation {
   final String value;
+  final dynamic extend;
 
-  const Annotation(this.value);
+  const Annotation(this.value,
+                  {this.extend});
 }
 
 @Annotation('class')
@@ -33,4 +35,32 @@ final String field = 'library_field';
 @Annotation('function')
 void function(@Annotation('function_parameter') String param) {
   print('I be annotated $param');
+}
+
+@Annotation('enum')
+enum Enum {
+  a, b, c
+}
+
+class AnnotationTypes {
+  @Annotation('int', extend: 0)
+  int intValue;
+  @Annotation('bool', extend: true)
+  bool boolValue;
+  @Annotation('num', extend: 2.0)
+  num numValue;
+  @Annotation('type', extend: Type)
+  Type typeValue;
+  @Annotation('symbol', extend: #symbol)
+  Symbol symbolValue;
+  @Annotation('null', extend: null)
+  Null nullValue;
+  @Annotation('list', extend: const [0, 1, 2, 3])
+  List listValue;
+  @Annotation('map', extend: const {'a': 0, 'b': 1})
+  Map mapValue;
+  @Annotation('function', extend: function)
+  Function functionValue;
+  @Annotation('enum', extend: Enum.b)
+  Enum enumValue;
 }
