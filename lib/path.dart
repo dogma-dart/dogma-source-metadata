@@ -69,6 +69,12 @@ String dirname(dynamic value) {
   return p.posix.dirname(value);
 }
 
+String basename(dynamic value) {
+  value = _filePath(value);
+
+  return p.posix.basename(value);
+}
+
 String basenameWithoutExtension(dynamic value) {
   value = _filePath(value);
 
