@@ -19,6 +19,7 @@ import 'constant_object.dart';
 import 'class_metadata.dart';
 import 'field_metadata.dart';
 import 'function_metadata.dart';
+import 'uri_referenced_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -39,8 +40,7 @@ typedef bool _ShouldLoadLibrary(LibraryElement element);
 /// return `null`.
 LibraryMetadata libraryMetadata(Uri path,
                                 AnalysisContext context,
-                               {List<AnalyzeAnnotation> annotationCreators,
-                                CreateDartValue }) {
+                               {List<AnalyzeAnnotation> annotationCreators}) {
   annotationCreators ??= <AnalyzeAnnotation>[];
 
   // Create the source from a URI
@@ -116,25 +116,9 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
     return cached[uriString];
   }
 
-  var importedLibraries = <LibraryMetadata>[];
-  var exportedLibraries = <LibraryMetadata>[];
-
-  // Look at the dependencies for metadata
-  for (var imported in library.importedLibraries) {
-    if (shouldLoad(imported)) {
-      importedLibraries.add(
-          _libraryMetadata(imported, cached, shouldLoad, annotationCreators)
-      );
-    }
-  }
-
-  for (var exported in library.exportedLibraries) {
-    if (shouldLoad(exported)) {
-      exportedLibraries.add(
-          _libraryMetadata(exported, cached, shouldLoad, annotationCreators)
-      );
-    }
-  }
+  // Get the import and export directives
+  var imports = uriReferenceList(library.imports);
+  var exports = uriReferenceList(library.exports);
 
   var classes = <ClassMetadata>[];
   var functions = <FunctionMetadata>[];
@@ -161,35 +145,52 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
     }
   }
 
-  // Create metadata if there was anything discovered
+  // Create the metadata
+  var metadata = new LibraryMetadata(
+      uri,
+      name: library.name,
+      imports: imports,
+      exports: exports,
+      classes: classes,
+      functions: functions,
+      fields: fields,
+      annotations: createAnnotations(library, annotationCreators),
+      comments: elementComments(library)
+  );
+
+  // Add to the cache
+  cached[uriString] = metadata;
+
+  // Load the referenced libraries
   //
-  // Rather than doing an isEmpty on each of the lists the length is used and
-  // if that length is greater than 0 then an instance of LibraryMetadata
-  // should be created.
-  var metadataCount =
-      importedLibraries.length +
-      exportedLibraries.length +
-      classes.length +
-      functions.length +
-      fields.length;
+  // This is done after adding to the cache to prevent circular references
+  // from causing a stack overflow
 
-  if (metadataCount > 0) {
-    var metadata = new LibraryMetadata(
-        uri,
-        name: library.name,
-        imported: importedLibraries,
-        exported: exportedLibraries,
-        classes: classes,
-        functions: functions,
-        fields: fields,
-        annotations: createAnnotations(library, annotationCreators),
-        comments: elementComments(library)
-    );
+  // Get the imported libraries
+  var importCount = imports.length;
+  assert(importCount == library.imports.length);
 
-    cached[uriString] = metadata;
+  for (var i = 0; i < importCount; ++i) {
+    var importedLibrary = library.imports[i].importedLibrary;
+    var importedUri = importedLibrary.source.uri;
 
-    return metadata;
-  } else {
-    return null;
+    imports[i].library = shouldLoad(importedLibrary)
+        ? _libraryMetadata(importedLibrary, cached, shouldLoad, annotationCreators)
+        : new LibraryMetadata(importedUri);
   }
+
+  var exportCount = exports.length;
+  assert(exportCount == library.exports.length);
+
+  for (var i = 0; i < exportCount; ++i) {
+    var exportedLibrary = library.exports[i].exportedLibrary;
+    var exportedUri = exportedLibrary.source.uri;
+
+    exports[i].library = shouldLoad(exportedLibrary)
+        ? _libraryMetadata(exportedLibrary, cached, shouldLoad, annotationCreators)
+        : new LibraryMetadata(exportedUri);
+  }
+
+  // Return the metadata
+  return metadata;
 }
