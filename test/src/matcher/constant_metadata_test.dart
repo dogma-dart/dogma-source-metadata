@@ -34,6 +34,7 @@ final FieldMetadata _field =
     );
 final Metadata _notConstantMetadata = new Metadata('NotConstant');
 
+/// Entry point for tests.
 void main() {
   test('constantMetadataMatch', () {
     expect(constantMetadataMatch(_constField), isTrue);

@@ -22,6 +22,7 @@ const String _library = 'dogma_source_analyzer.test.lib.mirrors';
 const String _function = 'function';
 const String _notFound = 'NotFound';
 
+/// Entry point for tests.
 void main() {
   test('classMirror tests', () {
     var mirror;

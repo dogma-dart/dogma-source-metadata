@@ -27,6 +27,7 @@ final ConstructorMetadata _factoryConstructor =
     new ConstructorMetadata.named('factor', _constructorType, isFactory: true);
 final Metadata _notConstructorMetadata = new Metadata('NotConstructor');
 
+/// Entry point for tests.
 void main() {
   test('constructorMetadataMatch', () {
     expect(constructorMetadataMatch(_defaultConstructor), isTrue);

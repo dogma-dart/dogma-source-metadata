@@ -35,6 +35,7 @@ ClassMetadata _getClass(LibraryMetadata library, String name) {
   return clazz;
 }
 
+/// Entry point for tests.
 void main() {
   var context = analysisContext();
 

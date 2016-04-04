@@ -23,6 +23,7 @@ void _expectParamHasAnnotation(FunctionMetadata metadata, String value) {
   _expectHasAnnotation(metadata.parameters[0], value);
 }
 
+/// Entry point for tests.
 void main() {
   var context = analysisContext();
 

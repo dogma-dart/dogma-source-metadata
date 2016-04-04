@@ -24,6 +24,7 @@ import 'src/metadata/type_metadata_test.dart' as type_metadata_test;
 // Library contents
 //---------------------------------------------------------------------
 
+/// Entry point for tests.
 void main() {
   group('ClassMetadata', class_metadata_test.main);
   group('ConstructorMetadata', constructor_metadata_test.main);

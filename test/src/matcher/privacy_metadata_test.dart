@@ -21,6 +21,7 @@ final ClassMetadata _privateClass =
 final ClassMetadata _publicClass = new ClassMetadata('Public');
 final Metadata _notPrivateMetadata = new Metadata('NotPrivate');
 
+/// Entry point for tests.
 void main() {
   test('privacyMetadataMatch', () {
     expect(privacyMetadataMatch(_privateClass), isTrue);

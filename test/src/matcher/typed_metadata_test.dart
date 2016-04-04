@@ -25,6 +25,7 @@ final FieldMetadata _stringTyped = new FieldMetadata.field('stringType', _string
 final FieldMetadata _fooTyped = new FieldMetadata.field('fooType', _fooType);
 final Metadata _notTypedMetadata = new Metadata('NotTyped');
 
+/// Entry point for tests.
 void main() {
   test('typedMetadataMatch', () {
     expect(typedMetadataMatch(_intTyped), isTrue);

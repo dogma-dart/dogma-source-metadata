@@ -23,6 +23,7 @@ import 'src/analyzer/type_metadata_test.dart' as type_metadata_test;
 // Library contents
 //---------------------------------------------------------------------
 
+/// Entry point for tests.
 void main() {
   group('Annotation', annotation_test.main);
   group('ClassMetadata', class_metadata_test.main);

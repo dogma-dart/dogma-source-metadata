@@ -53,6 +53,7 @@ final FieldMetadata _instanceSetter =
     );
 final Metadata _notFieldMetadata = new Metadata('NotField');
 
+/// Entry point for tests.
 void main() {
   test('fieldMetadataMatch', () {
     expect(fieldMetadataMatch(_instanceField), isTrue);

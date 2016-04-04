@@ -36,6 +36,7 @@ FieldMetadata _getField(ClassMetadata clazz, String name) {
   return field;
 }
 
+/// Entry point for tests.
 void main() {
   var context = analysisContext();
 

@@ -17,6 +17,7 @@ import 'src/search/class_metadata_test.dart' as class_metadata;
 // Library contents
 //---------------------------------------------------------------------
 
+/// Entry point for tests.
 void main() {
   group('ClassMetadata', class_metadata.main);
 }

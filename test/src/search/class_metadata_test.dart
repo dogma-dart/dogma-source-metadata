@@ -19,6 +19,7 @@ import 'package:dogma_source_analyzer/query.dart';
 // Library contents
 //---------------------------------------------------------------------
 
+/// Entry point for tests.
 void main() {
   var context = analysisContext();
   var fieldLibrary = libraryMetadata(join('test/lib/fields.dart'), context);

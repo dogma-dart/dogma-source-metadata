@@ -28,6 +28,7 @@ import 'src/matcher/typed_metadata_test.dart' as typed_metadata_test;
 // Library contents
 //---------------------------------------------------------------------
 
+/// Entry point for tests.
 void main() {
   group('AbstractMetadata', abstract_metadata_test.main);
   group('ClassMetadata', class_metadata_test.main);

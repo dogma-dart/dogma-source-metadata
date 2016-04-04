@@ -38,6 +38,7 @@ final FunctionMetadata _twoParameters =
     );
 final Metadata _notFunctionMetadata = new Metadata('NotFunction');
 
+/// Entry point for tests.
 void main() {
   test('functionMetadataMatch', () {
     expect(functionMetadataMatch(_emptyParameters), isTrue);

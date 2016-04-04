@@ -21,6 +21,7 @@ import 'search.dart' as search;
 // Library contents
 //---------------------------------------------------------------------
 
+/// Entry point for tests.
 void main() {
   // Start logging
   Logger.root.level = Level.ALL;

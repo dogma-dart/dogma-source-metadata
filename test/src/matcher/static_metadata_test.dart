@@ -23,6 +23,7 @@ final FieldMetadata _instanceField =
     new FieldMetadata.field('instanceField', _fieldType, isStatic: false);
 final Metadata _notStaticMetadata = new Metadata('NotStatic');
 
+/// Entry point for tests.
 void main() {
   test('staticMetadataMatch', () {
     expect(staticMetadataMatch(_staticField), isTrue);

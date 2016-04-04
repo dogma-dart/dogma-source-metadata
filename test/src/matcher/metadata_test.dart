@@ -22,6 +22,7 @@ final _bName = 'B';
 final Metadata _a = new Metadata(_aName);
 final Metadata _b = new Metadata(_bName);
 
+/// Entry point for tests.
 void main() {
   test('nameMatch', () {
     expect(nameMatch(_aName)(_a), isTrue);

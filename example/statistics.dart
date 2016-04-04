@@ -18,6 +18,7 @@ import 'package:dogma_source_analyzer/query.dart';
 // Library contents
 //---------------------------------------------------------------------
 
+/// Entry point for the example.
 void main() {
   // Start logging
   Logger.root.level = Level.OFF;

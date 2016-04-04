@@ -22,6 +22,7 @@ final ClassMetadata _concreteClass =
     new ClassMetadata('Concrete', isAbstract: false);
 final Metadata _notAbstractMetadata = new Metadata('NotAbstract');
 
+/// Entry point for tests.
 void main() {
   test('abstractMetadataMatch', () {
     expect(abstractMetadataMatch(_abstractClass), isTrue);

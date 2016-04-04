@@ -37,6 +37,7 @@ final ParameterMetadata _named =
     );
 final Metadata _notParameterMetadata = new Metadata('NotParameter');
 
+/// Entry point for tests.
 void main() {
   test('parameterMetadataMatch', () {
     expect(parameterMetadataMatch(_required), isTrue);
