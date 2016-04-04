@@ -12,6 +12,7 @@ import 'enclosing_metadata.dart';
 import 'class_metadata.dart';
 import 'field_metadata.dart';
 import 'function_metadata.dart';
+import 'uri_referenced_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -25,10 +26,10 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
 
   /// The location of the library.
   final Uri uri;
-  /// The libraries imported by the library.
-  final List<LibraryMetadata> imported;
-  /// The libraries exported by the library.
-  final List<LibraryMetadata> exported;
+  /// The import references for the library.
+  final List<UriReferencedMetadata> imports;
+  /// The export references for the library.
+  final List<UriReferencedMetadata> exports;
   /// The classes contained within the library.
   final List<ClassMetadata> classes;
   /// The functions contained within the library.
@@ -42,16 +43,16 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
 
   LibraryMetadata(Uri uri,
                  {String name: '',
-                  List<LibraryMetadata> imported,
-                  List<LibraryMetadata> exported,
+                  List<UriReferencedMetadata> imports,
+                  List<UriReferencedMetadata> exports,
                   List<ClassMetadata> classes,
                   List<FunctionMetadata> functions,
                   List<FieldMetadata> fields,
                   List annotations,
                   String comments})
       : uri = uri
-      , imported = imported ?? <LibraryMetadata>[]
-      , exported = exported ?? <LibraryMetadata>[]
+      , imports = imports ?? <UriReferencedMetadata>[]
+      , exports = exports ?? <UriReferencedMetadata>[]
       , classes = classes ?? <ClassMetadata>[]
       , functions = functions ?? <FunctionMetadata>[]
       , fields = fields ?? <FieldMetadata>[]
@@ -62,4 +63,16 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
     encloseList(this.functions);
     encloseList(this.fields);
   }
+
+  //---------------------------------------------------------------------
+  // Properties
+  //---------------------------------------------------------------------
+
+  /// The libraries imported into this library.
+  Iterable<LibraryMetadata> get imported =>
+      imports.map/*<LibraryMetadata>*/((value) => value.library);
+
+  /// The libraries exported by this library.
+  Iterable<LibraryMetadata> get exported =>
+      exports.map/*<LibraryMetadata>*/((value) => value.library);
 }
