@@ -24,6 +24,7 @@ import 'type_metadata.dart';
 final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.parameter_metadata');
 
+/// Creates a list of parameter metadata for the given executable [element].
 List<ParameterMetadata> parameterList(ExecutableElement element,
                                       List<AnalyzeAnnotation> annotationGenerators) {
   var values = <ParameterMetadata>[];
