@@ -56,6 +56,8 @@ dynamic dartValue(DartObject value,
   }
 }
 
+/// When [value] is an enumeration the value of its index is returned otherwise
+/// `null` is returned.
 dynamic dartEnumIndex(DartObject value) {
   var element = value.type.element;
 
@@ -64,15 +66,29 @@ dynamic dartEnumIndex(DartObject value) {
       : null;
 }
 
+/// When [value] is a function the name of the function is returned otherwise
+/// `null` is returned.
 dynamic dartFunctionName(DartObject value) {
   var element = value.type.element;
 
   return element is FunctionElement ? element.name : null;
 }
 
+/// Joins the functions [a] and [b] into a larger statement.
+///
+/// The function will call [a] first and if the result is not `null` return
+/// the value. If it is `null` then the result of [b] will be returned.
+///
+/// Multiple functions can be joined together by calling [joinDartValue]
+/// with the previous result.
+///
+///     joinDartValue(a, joinDartValue(b, c));
 CreateDartValue joinDartValue(CreateDartValue a, CreateDartValue b) =>
     (DartObject value) => a(value) ?? b(value);
 
+/// Default function which will just return `null` for any object.
+///
+/// This function should not be called for a successful query.
 dynamic _unknownDartValue(DartObject _) {
   assert(false);
   return null;
