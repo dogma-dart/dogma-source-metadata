@@ -176,4 +176,12 @@ class TypeMetadata extends Metadata {
       return false;
     }
   }
+
+  @override
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + name.hashCode;
+    result = 37 * result + arguments.hashCode;
+    return result;
+  }
 }
