@@ -140,7 +140,7 @@ bool canImportAsPackage(dynamic path) {
 /// To verify that this function can be used [canImportAsPackage] should be
 /// called first.
 Uri asPackageImport(dynamic path, String name) {
-  var pathScheme = _uriPath(path);
+  var pathScheme = _uriScheme(path);
 
   // See if its already a package path
   if (pathScheme == 'package') {
@@ -162,7 +162,7 @@ Uri asPackageImport(dynamic path, String name) {
 
   var relativePath = p.posix.relative(childPath, from: parentPath);
 
-  return new Uri(scheme: 'package', path: p.join(name, relativePath));
+  return new Uri(scheme: 'package', path: p.posix.join(name, relativePath));
 }
 
 /// Gets the path of a package library from the current path.

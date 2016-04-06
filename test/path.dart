@@ -121,10 +121,32 @@ void main() {
     expect(canImportAsPackage(new Uri(scheme: 'package', path: 'foo/a.dart')), isTrue);
 
     // File path not in lib
-    expect(canImportAsPackage(join('test/a.dart')), false);
+    expect(canImportAsPackage(join('test/a.dart')), isFalse);
 
     // File path in lib
-    expect(canImportAsPackage(join('lib/a.dart')), true);
-    expect(canImportAsPackage(join('lib/src/a.dart')), true);
+    expect(canImportAsPackage(join('lib/a.dart')), isTrue);
+    expect(canImportAsPackage(join('lib/src/a.dart')), isTrue);
+  });
+  test('asPackageImport', () {
+    var value;
+
+    // Already a package uri
+    value = new Uri(scheme: 'package', path: 'foo/a.dart');
+    expect(asPackageImport(value, 'foo'), value);
+
+    // Different package
+    value = new Uri(scheme: 'package', path: 'bar/a.dart');
+    expect(() => asPackageImport(value, 'foo'), throwsArgumentError);
+
+    // Paths
+    value = join('lib/a.dart');
+    expect(asPackageImport(value, 'foo'), new Uri(scheme: 'package', path: 'foo/a.dart'));
+
+    value = join('lib/src/a.dart');
+    expect(asPackageImport(value, 'foo'), new Uri(scheme: 'package', path: 'foo/src/a.dart'));
+
+    // Not in lib
+    value = join('test/a.dart');
+    expect(() => asPackageImport(value, 'foo'), throwsArgumentError);
   });
 }
