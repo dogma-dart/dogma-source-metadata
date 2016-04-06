@@ -7,4 +7,7 @@
 // Library contents
 //---------------------------------------------------------------------
 
+/// The default for optional boolean values within the queries.
+///
+/// This is currently set to `false` so the queries will be opt-in.
 const bool defaultInclude = false;
