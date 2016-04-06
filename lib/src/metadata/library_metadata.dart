@@ -41,6 +41,20 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
   // Construction
   //---------------------------------------------------------------------
 
+  /// Creates an instance of [LibraryMetadata] with the given [uri].
+  ///
+  /// The library can be given a [name]. This would correspond to a `library`
+  /// directive within the library. The library directive has been optional
+  /// so it is not required.
+  ///
+  ///     library foo;
+  ///
+  /// For referenced dart files the [imports] and [exports] can be specified.
+  ///
+  /// A list of [classes], [functions], and [fields] can be specified.
+  ///
+  /// Metadata such as [comments] and [annotations] can also be added to the
+  /// library. If specified then a library directive will need to be present.
   LibraryMetadata(Uri uri,
                  {String name: '',
                   List<UriReferencedMetadata> imports,
@@ -59,6 +73,8 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
       , super(name, annotations, comments)
   {
     // Use `this` to properly scope the value
+    encloseList(this.imports);
+    encloseList(this.exports);
     encloseList(this.classes);
     encloseList(this.functions);
     encloseList(this.fields);
