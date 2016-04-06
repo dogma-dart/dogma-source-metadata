@@ -7,7 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'package:analyzer/src/generated/element.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/src/generated/utilities_dart.dart';
 import 'package:logging/logging.dart';
 
@@ -27,7 +27,7 @@ final Logger _logger =
 ///
 /// If the [element] is not a supported type of annotation then the function
 /// will return `null`.
-typedef dynamic AnalyzeAnnotation(ElementAnnotationImpl element);
+typedef dynamic AnalyzeAnnotation(ElementAnnotation element);
 
 /// Maps the name of the [parameter] to the computed value of the instance
 /// based on the [constructor].
@@ -116,7 +116,7 @@ AnalyzeAnnotation analyzeAnnotation(String annotation,
       //
       // This ends up creating a generic object containing the resulting
       // fields of the instance.
-      var evaluatedFields = element.evaluationResult.value.fields;
+      var evaluatedFields = element.constantValue;
 
       // Get the invocation
       var positionalArguments = [];
@@ -126,7 +126,7 @@ AnalyzeAnnotation analyzeAnnotation(String annotation,
       for (var parameter in representation.parameters) {
         var parameterName = parameter.name;
         var mappedParameterName = parameterNameMapper(constructorName, parameterName);
-        var parameterField = evaluatedFields[mappedParameterName];
+        var parameterField = evaluatedFields.getField(mappedParameterName);
         var parameterValue = dartValue(parameterField, createValue);
 
         _logger.fine('Found $parameterName of value $parameterValue');

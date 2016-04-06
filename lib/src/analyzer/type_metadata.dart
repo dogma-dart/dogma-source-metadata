@@ -7,7 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'package:analyzer/src/generated/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:dogma_union_type/union_type.dart';
 import 'package:logging/logging.dart';
 

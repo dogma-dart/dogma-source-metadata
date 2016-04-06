@@ -7,7 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'package:analyzer/src/generated/element.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
 //---------------------------------------------------------------------
@@ -19,7 +19,7 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.deprectated_annotation');
 
 /// Determines if the annotation corresponds to a @deprecated annotation.
-dynamic analyzeDeprecatedAnnotation(ElementAnnotationImpl element) {
+dynamic analyzeDeprecatedAnnotation(ElementAnnotation element) {
   if (element.isDeprecated) {
     _logger.fine('Found deprecated annotation');
 

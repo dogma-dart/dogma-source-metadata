@@ -7,7 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'package:analyzer/src/generated/element.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 
@@ -20,7 +20,7 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.protected_annotation');
 
 /// Determines if the annotation corresponds to a @protected annotation.
-dynamic analyzeProtectedAnnotation(ElementAnnotationImpl element) {
+dynamic analyzeProtectedAnnotation(ElementAnnotation element) {
   if (element.isProtected) {
     _logger.fine('Found protected annotation');
 

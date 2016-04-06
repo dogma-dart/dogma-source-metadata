@@ -7,7 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'package:analyzer/src/generated/element.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/src/generated/utilities_dart.dart' as utilities;
 import 'package:logging/logging.dart';
 
