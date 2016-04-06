@@ -43,6 +43,9 @@ void main() {
     var from;
     var to;
 
+    // Default path test
+    expect(relative(join('foo/a.dart')), 'foo/a.dart');
+
     // Join file path
     from = 'foo/a.dart';
     to = 'foo/b.dart';
@@ -68,6 +71,11 @@ void main() {
     from = new Uri(scheme: 'package', path: 'foo/a.dart');
     to = new Uri(scheme: 'package', path: 'foo/src/b.dart');
     expect(relative(to, from: from), 'src/b.dart');
+
+    // Error state
+    from = join('foo/a.dart');
+    to = new Uri(scheme: 'package', path: 'foo/a.dart');
+    expect(() => relative(to, from: from), throwsArgumentError);
   });
   test('dirname', () {
     // Strings
@@ -107,5 +115,16 @@ void main() {
     expect(basenameWithoutExtension(Uri.parse('package:foo/to')), 'to');
     expect(basenameWithoutExtension(Uri.parse('package:foo/to/')), 'to');
     expect(basenameWithoutExtension(Uri.parse('package:foo/to/../to/foo.dart')), 'foo');
+  });
+  test('canImportAsPackage', () {
+    // Package should return true
+    expect(canImportAsPackage(new Uri(scheme: 'package', path: 'foo/a.dart')), isTrue);
+
+    // File path not in lib
+    expect(canImportAsPackage(join('test/a.dart')), false);
+
+    // File path in lib
+    expect(canImportAsPackage(join('lib/a.dart')), true);
+    expect(canImportAsPackage(join('lib/src/a.dart')), true);
   });
 }
