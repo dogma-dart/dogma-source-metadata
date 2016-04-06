@@ -15,6 +15,7 @@ import 'package:logging/logging.dart';
 import 'analyzer.dart' as analyzer;
 import 'matcher.dart' as matcher;
 import 'metadata.dart' as metadata;
+import 'path.dart' as path;
 import 'search.dart' as search;
 
 //---------------------------------------------------------------------
@@ -33,5 +34,6 @@ void main() {
   group('Analyzer tests', analyzer.main);
   group('Matcher tests', matcher.main);
   group('Metadata tests', metadata.main);
+  group('Path tests', path.main);
   group('Search tests', search.main);
 }
