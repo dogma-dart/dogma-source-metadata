@@ -63,12 +63,20 @@ Iterable<Metadata /*=T*/>
 
 /// Queries the [clazz] for a single instance of metadata which passes the
 /// checks within the [matcher].
+///
+/// Classes contain fields, constructors and methods. When querying for
+/// metadata the extent of the search can be specified by setting the
+/// [includeFields], [includeConstructors], and [includeMethods] values. These
+/// will default to the [defaultInclude] which is currently `false`.
+///
+/// When specifying a generic method only one of these values should be set
+/// to true.
 Metadata/*=T*/
     classMetadataQuery/*<T extends Metadata>*/(ClassMetadata clazz,
                                                MetadataMatchFunction matcher,
-                                              {includeFields: defaultInclude,
-                                               includeConstructors: defaultInclude,
-                                               includeMethods: defaultInclude}) =>
+                                              {bool includeFields: defaultInclude,
+                                               bool includeConstructors: defaultInclude,
+                                               bool includeMethods: defaultInclude}) =>
         _expandClassMetadata/*<T>*/(
             clazz,
             includeFields,
@@ -78,12 +86,20 @@ Metadata/*=T*/
 
 /// Queries the [clazz] for a single instance of metadata which passes the
 /// checks within the [matcher].
+///
+/// Classes contain fields, constructors and methods. When querying for
+/// metadata the extent of the search can be specified by setting the
+/// [includeFields], [includeConstructors], and [includeMethods] values. These
+/// will default to the [defaultInclude] which is currently `false`.
+///
+/// When specifying a generic method only one of these values should be set
+/// to true.
 Iterable<Metadata/*=T*/>
    classMetadataQueryAll/*<T extends Metadata>*/(ClassMetadata clazz,
                                                  MetadataMatchFunction matcher,
-                                                {includeFields: defaultInclude,
-                                                 includeConstructors: defaultInclude,
-                                                 includeMethods: defaultInclude}) =>
+                                                {bool includeFields: defaultInclude,
+                                                 bool includeConstructors: defaultInclude,
+                                                 bool includeMethods: defaultInclude}) =>
         _expandClassMetadata/*<T>*/(
             clazz,
             includeFields,
