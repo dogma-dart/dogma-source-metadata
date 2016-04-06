@@ -21,6 +21,10 @@ import '../../metadata.dart';
 final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.type_metadata');
 
+/// Creates type metadata from the given [type].
+///
+/// A list of [annotations] can be provided which will be searched for union
+/// type annotations.
 TypeMetadata typeMetadata(DartType type,
                          [List annotations]) {
   var unionType = _unionType(annotations);
