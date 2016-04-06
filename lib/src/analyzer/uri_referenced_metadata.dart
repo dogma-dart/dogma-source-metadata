@@ -8,13 +8,9 @@
 //---------------------------------------------------------------------
 
 import 'package:analyzer/src/generated/element.dart';
-import 'package:analyzer/src/generated/utilities_dart.dart' as utilities;
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
-import 'annotation.dart';
-import 'constant_object.dart';
-import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
