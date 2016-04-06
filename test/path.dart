@@ -40,7 +40,34 @@ void main() {
     expect(result, Uri.parse('package:foo/src/a/b.dart'));
   });
   test('relative', () {
-    expect(true, true);
+    var from;
+    var to;
+
+    // Join file path
+    from = 'foo/a.dart';
+    to = 'foo/b.dart';
+    expect(relative(to, from: from), 'b.dart');
+
+    from = 'foo/src/a.dart';
+    to = 'foo/b.dart';
+    expect(relative(to, from: from), '../b.dart');
+
+    from = 'foo/a.dart';
+    to = 'foo/src/b.dart';
+    expect(relative(to, from: from), 'src/b.dart');
+
+    // Join package path
+    from = new Uri(scheme: 'package', path: 'foo/a.dart');
+    to = new Uri(scheme: 'package', path: 'foo/b.dart');
+    expect(relative(to, from: from), 'b.dart');
+
+    from = new Uri(scheme: 'package', path: 'foo/src/a.dart');
+    to = new Uri(scheme: 'package', path: 'foo/b.dart');
+    expect(relative(to, from: from), '../b.dart');
+
+    from = new Uri(scheme: 'package', path: 'foo/a.dart');
+    to = new Uri(scheme: 'package', path: 'foo/src/b.dart');
+    expect(relative(to, from: from), 'src/b.dart');
   });
   test('dirname', () {
     // Strings
