@@ -1,3 +1,11 @@
+// Copyright (c) 2015-2016, the Dogma Project Authors.
+// Please see the AUTHORS file for details. All rights reserved.
+// Use of this source code is governed by a zlib license that can be found in
+// the LICENSE file.
+
+//---------------------------------------------------------------------
+// Imports
+//---------------------------------------------------------------------
 
 import 'package:test/test.dart';
 
@@ -8,6 +16,10 @@ import 'package:dogma_source_analyzer/path.dart';
 import 'package:dogma_source_analyzer/query.dart';
 
 import '../../lib/annotation.dart';
+
+//---------------------------------------------------------------------
+// Library contents
+//---------------------------------------------------------------------
 
 void _expectHasAnnotation(AnnotatedMetadata metadata, String value) {
   expect(metadata.annotations, hasLength(1));
