@@ -97,15 +97,24 @@ ClassMetadata classMetadata(ClassElement element,
   // Get the annotations
   var annotations = createAnnotations(element, annotationCreators);
 
-  return new ClassMetadata(
-      name,
-      supertype: supertype,
-      interfaces: interfaces,
-      mixins: mixins,
-      fields: fields,
-      methods: methods,
-      constructors: constructors,
-      annotations: annotations,
-      comments: elementComments(element)
-  );
+  if (element.isEnum) {
+    return new EnumMetadata(
+        name,
+        fields,
+        annotations: annotations,
+        comments: elementComments(element)
+    );
+  } else {
+    return new ClassMetadata(
+        name,
+        supertype: supertype,
+        interfaces: interfaces,
+        mixins: mixins,
+        fields: fields,
+        methods: methods,
+        constructors: constructors,
+        annotations: annotations,
+        comments: elementComments(element)
+    );
+  }
 }
