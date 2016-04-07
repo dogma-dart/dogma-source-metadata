@@ -15,10 +15,7 @@ import 'annotation.dart';
 import 'comments.dart';
 import 'type_metadata.dart';
 
-import 'deprecation_annotation.dart';
-import 'override_annotation.dart';
-import 'protected_annotation.dart';
-import 'union_type_annotation.dart';
+import 'constant_object.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -47,13 +44,7 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
   var isProperty;
   var getter;
   var setter;
-
-  var fieldAnnotationGenerators = <AnalyzeAnnotation>[]
-      ..add(analyzeDeprecatedAnnotation)
-      ..add(analyzeOverrideAnnotation)
-      ..add(analyzeProtectedAnnotation)
-      ..add(analyzeTypeUnionAnnotation)
-      ..addAll(annotationGenerators);
+  var defaultValue;
 
   if (element.isSynthetic) {
     isProperty = true;
@@ -65,25 +56,34 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
 
     // Get the annotation on the individual parts
     annotations = getter
-        ? createAnnotations(getterElement, fieldAnnotationGenerators)
+        ? createAnnotations(getterElement, annotationGenerators)
         : [];
 
     if (setter) {
-      annotations.addAll(createAnnotations(setterElement, fieldAnnotationGenerators));
+      annotations.addAll(createAnnotations(setterElement, annotationGenerators));
     }
 
     _logger.fine('Field $name is a property. Getter : $getter Setter: $setter');
   } else {
+    _logger.fine('Field $name is a field.');
+
     isProperty = false;
     getter = true;
 
     // Get the annotation on the element directly
-    annotations = createAnnotations(element, fieldAnnotationGenerators);
+    annotations = createAnnotations(element, annotationGenerators);
 
     // If the field is final or const it is not possible to set the value
     setter = !(isFinal || isConst);
 
-    _logger.fine('Field $name is a field.');
+    // See if there is a default value
+    var constantValue = element.constantValue;
+
+    if (constantValue != null) {
+      defaultValue = dartValue(constantValue, dartEnumIndex);
+
+      _logger.fine('Field value defaults to $defaultValue');
+    }
   }
 
   // Get the type
@@ -101,6 +101,7 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
       isConst: isConst,
       isFinal: isFinal,
       isStatic: element.isStatic,
+      defaultValue: defaultValue,
       annotations: annotations,
       comments: comments
   );
