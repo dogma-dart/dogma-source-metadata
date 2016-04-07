@@ -17,8 +17,12 @@ import 'annotation.dart';
 import 'comments.dart';
 import 'constant_object.dart';
 import 'class_metadata.dart';
+import 'deprecation_annotation.dart';
 import 'field_metadata.dart';
 import 'function_metadata.dart';
+import 'override_annotation.dart';
+import 'protected_annotation.dart';
+import 'union_type_annotation.dart';
 import 'uri_referenced_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -42,6 +46,7 @@ LibraryMetadata libraryMetadata(Uri path,
                                 AnalysisContext context,
                                {List<AnalyzeAnnotation> annotationCreators}) {
   annotationCreators ??= <AnalyzeAnnotation>[];
+  _addDefaultAnnotationGenerators(annotationCreators);
 
   // Create the source from a URI
   //
@@ -74,6 +79,7 @@ LibraryMetadata libraryMetadata(Uri path,
 LibraryMetadata libraryMetadataFromElement(LibraryElement element,
                                           {List<AnalyzeAnnotation> annotationCreators}) {
   annotationCreators ??= <AnalyzeAnnotation>[];
+  _addDefaultAnnotationGenerators(annotationCreators);
 
   var cached = <String, LibraryMetadata>{};
   var shouldLoad = (LibraryElement value) => false;
@@ -193,4 +199,21 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
 
   // Return the metadata
   return metadata;
+}
+
+/// Add default annotation generators.
+///
+/// The following will be added to the [annotationGenerators] list.
+/// * analyzeDeprecatedAnnotation
+/// * analyzeOverrideAnnotation
+/// * analyzeProtectedAnnotation
+/// * analyzeTypeUnionAnnotation
+///
+/// These are added as the values are not exposed to the client.
+void _addDefaultAnnotationGenerators(List<AnalyzeAnnotation> annotationGenerators) {
+  annotationGenerators
+      ..add(analyzeDeprecatedAnnotation)
+      ..add(analyzeOverrideAnnotation)
+      ..add(analyzeProtectedAnnotation)
+      ..add(analyzeTypeUnionAnnotation);
 }
