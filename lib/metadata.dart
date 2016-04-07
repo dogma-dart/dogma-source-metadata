@@ -17,6 +17,7 @@ export 'src/metadata/class_metadata.dart';
 export 'src/metadata/commented.dart';
 export 'src/metadata/constant_metadata.dart';
 export 'src/metadata/constructor_metadata.dart';
+export 'src/metadata/enum_metadata.dart';
 export 'src/metadata/field_metadata.dart';
 export 'src/metadata/function_metadata.dart';
 export 'src/metadata/library_metadata.dart';
