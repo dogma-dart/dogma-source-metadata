@@ -11,6 +11,6 @@ dependencies:
   dogma_union_type:
     path: ../dogma-union-type
   logging: ^0.11.2
-  meta: ^0.10.0
+  meta: ^0.11.0
 dev_dependencies:
   test: ^0.12.13

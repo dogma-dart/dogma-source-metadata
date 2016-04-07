@@ -35,7 +35,7 @@ final logging.Logger _logger =
 
 /// A function that determines if the library [element] should be loaded by the
 /// analyzer and searched for metadata.
-typedef bool _ShouldLoadLibrary(LibraryElement element);
+typedef bool ShouldLoadLibrary(LibraryElement element);
 
 /// Loads the library at the given [path] into the analysis [context] and
 /// begins processing it for metadata.
@@ -44,20 +44,14 @@ typedef bool _ShouldLoadLibrary(LibraryElement element);
 /// return `null`.
 LibraryMetadata libraryMetadata(Uri path,
                                 AnalysisContext context,
-                               {List<AnalyzeAnnotation> annotationCreators}) {
-  annotationCreators ??= <AnalyzeAnnotation>[];
-  _addDefaultAnnotationGenerators(annotationCreators);
-
+                               {List<AnalyzeAnnotation> annotationCreators,
+                                ShouldLoadLibrary shouldLoad}) {
   // Create the source from a URI
   //
   // This handles source based and package based URIs.
   var source = context.sourceFactory.forUri2(path);
 
-  // Get the function used to determine which libraries should be loaded
-  var shouldLoad = path.scheme == 'file'
-      ? _checkFilePath
-      : _checkPackagePath(path.pathSegments[0]);
-
+  // Get the kind of source being analyzed
   var kindOf = context.computeKindOf(source);
 
   if (kindOf == SourceKind.HTML) {
@@ -68,28 +62,41 @@ LibraryMetadata libraryMetadata(Uri path,
     _logger.warning('Source kind is unknown. Assuming optional library directive not present');
   }
 
-  return _libraryMetadata(
+  return libraryMetadataFromElement(
       context.computeLibraryElement(source),
-      {},
-      shouldLoad,
-      annotationCreators
+      annotationCreators: annotationCreators,
+      shouldLoad: shouldLoad
   );
 }
 
+/// Creates metadata from the library [element].
+///
+/// Annotations can be instantiated by specifying the [annotationCreators].
+///
+/// The [shouldLoad] function can be used to limit which libraries have
+/// metadata generated for them.
 LibraryMetadata libraryMetadataFromElement(LibraryElement element,
-                                          {List<AnalyzeAnnotation> annotationCreators}) {
+                                          {List<AnalyzeAnnotation> annotationCreators,
+                                           ShouldLoadLibrary shouldLoad}) {
   annotationCreators ??= <AnalyzeAnnotation>[];
   _addDefaultAnnotationGenerators(annotationCreators);
 
   var cached = <String, LibraryMetadata>{};
-  var shouldLoad = (LibraryElement value) => false;
+
+  if (shouldLoad == null) {
+    var uri = element.definingCompilationUnit.source.uri;
+
+    shouldLoad = uri.scheme == 'file'
+        ? _checkFilePath
+        : _checkPackagePath(uri.pathSegments[0]);
+  }
 
   return _libraryMetadata(element, cached, shouldLoad, annotationCreators);
 }
 
 /// Creates a function that checks the [libraryName] to determine if the
 /// referenced library should be loaded.
-_ShouldLoadLibrary _checkPackagePath(String libraryName) =>
+ShouldLoadLibrary _checkPackagePath(String libraryName) =>
     (element) {
       var uri = element.definingCompilationUnit.source.uri;
 
@@ -111,7 +118,7 @@ bool _checkFilePath(LibraryElement element) =>
 /// function will return `null`.
 LibraryMetadata _libraryMetadata(LibraryElement library,
                                  Map<String, LibraryMetadata> cached,
-                                 _ShouldLoadLibrary shouldLoad,
+                                 ShouldLoadLibrary shouldLoad,
                                  List<AnalyzeAnnotation> annotationCreators) {
   // Use the URI
   var uri = library.definingCompilationUnit.source.uri;
