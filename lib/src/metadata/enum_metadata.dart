@@ -34,9 +34,9 @@ class EnumMetadata extends ClassMetadata {
     var fieldValues = fields.where((value) => value.type.name == name).toList();
     fieldValues.sort((a, b) => a.defaultValue - b.defaultValue);
 
-    return new EnumMetadata._(name, fieldValues);
+    return new EnumMetadata._(name, fieldValues, annotations, comments);
   }
 
-  EnumMetadata._(String name, this.values)
-      : super(name);
+  EnumMetadata._(String name, this.values, List annotations, String comments)
+      : super(name, annotations: annotations, comments: comments);
 }
