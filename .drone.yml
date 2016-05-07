@@ -1,4 +1,4 @@
-script:
+pipeline:
   build:
     image: google/dart:${DART_VERSION}
     pull: true
