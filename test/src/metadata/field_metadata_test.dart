@@ -19,6 +19,7 @@ import 'base_metadata.dart';
 
 void _expectFieldDefaults(FieldMetadata metadata) {
   expect(metadata.isConst, isFalse);
+  expect(metadata.isAbstract, isFalse);
   expect(metadata.isFinal, isFalse);
   expect(metadata.defaultValue, isNull);
 }

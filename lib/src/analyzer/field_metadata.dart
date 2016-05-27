@@ -41,6 +41,7 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
   // Get whether the field is a property
   var isFinal = element.isFinal;
   var isConst = element.isConst;
+  var isAbstract = false;
   var isProperty;
   var getter;
   var setter;
@@ -55,12 +56,16 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
     setter = setterElement != null;
 
     // Get the annotation on the individual parts
-    annotations = getter
-        ? createAnnotations(getterElement, annotationGenerators)
-        : [];
+    if (getter) {
+      annotations = createAnnotations(getterElement, annotationGenerators);
+      isAbstract = getterElement.isAbstract;
+    } else {
+      annotations = [];
+    }
 
     if (setter) {
       annotations.addAll(createAnnotations(setterElement, annotationGenerators));
+      isAbstract = setterElement.isAbstract || isAbstract;
     }
 
     _logger.fine('Field $name is a property. Getter : $getter Setter: $setter');
@@ -98,6 +103,7 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
       getter,
       setter,
       isPrivate: element.isPrivate,
+      isAbstract: isAbstract,
       isConst: isConst,
       isFinal: isFinal,
       isStatic: element.isStatic,

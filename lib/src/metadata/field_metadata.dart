@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'abstract_metadata.dart';
 import 'annotated_metadata.dart';
 import 'constant_metadata.dart';
 import 'enclosing_metadata.dart';
@@ -30,7 +31,8 @@ import 'typed_metadata.dart';
 class FieldMetadata extends AnnotatedMetadata
                        with PrivacyMetadata,
                             EnclosedMetadata
-                 implements ConstantMetadata,
+                 implements AbstractMetadata,
+                            ConstantMetadata,
                             StaticMetadata,
                             TypedMetadata {
   //---------------------------------------------------------------------
@@ -41,6 +43,8 @@ class FieldMetadata extends AnnotatedMetadata
   final TypeMetadata type;
   @override
   final bool isPrivate;
+  @override
+  final bool isAbstract;
   @override
   final bool isStatic;
   @override
@@ -70,6 +74,7 @@ class FieldMetadata extends AnnotatedMetadata
                 this.getter,
                 this.setter,
                {this.isPrivate: false,
+                this.isAbstract: false,
                 this.isConst: false,
                 this.isFinal: false,
                 this.isStatic: false,
@@ -90,6 +95,7 @@ class FieldMetadata extends AnnotatedMetadata
   FieldMetadata.field(String name,
                       this.type,
                      {this.isPrivate: false,
+                      this.isAbstract: false,
                       bool isConst: false,
                       bool isFinal: false,
                       this.isStatic: false,
