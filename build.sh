@@ -4,6 +4,9 @@ set -ex
 # Clone dogma convert
 git clone https://github.com/dogma-dart/dogma-union-type.git ../dogma-union-type
 
+# Clone coverage till repo is fixed
+git clone -b migration https://github.com/dart-lang/coverage.git ../coverage
+
 # Get version
 dart --version
 
@@ -14,7 +17,7 @@ pub install
 dartanalyzer ${DARTANALYZER_FLAGS} $(ls -rt lib/*.dart)
 
 # Run the tests
-pub global activate coverage
+pub global activate --source path ../coverage
 OBSERVATORY_PORT=8000
 COVERAGE_OUTPUT=coverage.json
 
