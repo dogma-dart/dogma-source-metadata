@@ -55,7 +55,7 @@ Uri join(String path, {dynamic base}) {
   return new Uri(scheme: baseScheme, path: joined);
 }
 
-/// Gets the relative path [from] the [value].
+/// Gets the relative path [from] the [path].
 ///
 /// If [from] is not specified then [currentPathUri] is used.
 String relative(dynamic path, {dynamic from}) {
