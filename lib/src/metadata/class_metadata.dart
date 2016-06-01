@@ -59,8 +59,8 @@ class ClassMetadata extends AnnotatedMetadata
 
   /// Creates an instance of [ClassMetadata] with the given [name].
   ///
-  /// The class hierarchy can be specified with the [superclass]. Additionally
-  /// interfaces that the class conforms to can be specified in [implements].
+  /// The class hierarchy can be specified with the [supertype]. Additionally
+  /// interfaces that the class conforms to can be specified in [interfaces].
   ///
   /// Currently this implementation is ignoring mixins so this information
   /// is not available to query.
