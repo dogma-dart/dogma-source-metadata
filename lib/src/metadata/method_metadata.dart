@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'abstract_metadata.dart';
 import 'function_metadata.dart';
 import 'parameter_metadata.dart';
 import 'static_metadata.dart';
@@ -17,11 +18,15 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a method.
-class MethodMetadata extends FunctionMetadata implements StaticMetadata {
+class MethodMetadata extends FunctionMetadata
+                  implements AbstractMetadata,
+                             StaticMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
+  @override
+  final bool isAbstract;
   @override
   final bool isStatic;
 
@@ -35,6 +40,7 @@ class MethodMetadata extends FunctionMetadata implements StaticMetadata {
                  TypeMetadata returnType,
                 {List<ParameterMetadata> parameters,
                  bool isPrivate,
+                 this.isAbstract: false,
                  this.isStatic: false,
                  List annotations,
                  String comments})

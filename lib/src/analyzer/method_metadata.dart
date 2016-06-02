@@ -33,6 +33,7 @@ MethodMetadata methodMetadata(MethodElement element,
   var name = element.name;
   var parameters = parameterList(element, annotationGenerators);
   var isPrivate = element.isPrivate;
+  var isAbstract = element.isAbstract;
   var returnType = typeMetadata(element.returnType);
 
   _logger.fine('Found method $name');
@@ -41,6 +42,7 @@ MethodMetadata methodMetadata(MethodElement element,
       name,
       returnType,
       parameters: parameters,
+      isAbstract: isAbstract,
       isPrivate: isPrivate,
       isStatic: element.isStatic,
       annotations: annotations,
