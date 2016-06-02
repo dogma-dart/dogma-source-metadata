@@ -26,6 +26,6 @@ bool defaultConstructorMatch(Metadata metadata) =>
 bool factoryConstructorMatch(Metadata metadata) =>
     (metadata as ConstructorMetadata).isFactory;
 
-/// Matches constructor [metadata] that is a named constructor.
+/// Matches constructor metadata that is a named constructor.
 final MetadataMatchFunction namedConstructorMatch =
     not(defaultConstructorMatch);

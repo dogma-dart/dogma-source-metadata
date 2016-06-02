@@ -30,5 +30,5 @@ bool getterFieldMatch(Metadata metadata) => (metadata as FieldMetadata).getter;
 /// Matches field [metadata] that contains a setter.
 bool setterFieldMatch(Metadata metadata) => (metadata as FieldMetadata).setter;
 
-/// Matches field [metadata] that is a field.
+/// Matches field metadata that is a field.
 final MetadataMatchFunction fieldMatch = not(propertyFieldMatch);

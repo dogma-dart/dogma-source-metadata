@@ -71,8 +71,8 @@ ParameterMetadata parameterMetadata(ParameterElement element,
 /// The analyzer uses string values to denote the different kind of parameters.
 /// These match to the following strings.
 ///
-/// * [ParameterKind.name] == 'NAMED'
-/// * [ParameterKind.optional] == 'POSITIONAL'
+/// * [ParameterKind.named] == 'NAMED'
+/// * [ParameterKind.positional] == 'POSITIONAL'
 /// * [ParameterKind.required] == 'REQUIRED'
 ParameterKind parameterKind(utilities.ParameterKind value) {
   if (value == utilities.ParameterKind.NAMED) {

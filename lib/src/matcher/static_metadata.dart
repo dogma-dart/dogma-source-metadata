@@ -20,5 +20,5 @@ bool staticMetadataMatch(Metadata metadata) => metadata is StaticMetadata;
 /// Matches [metadata] that is statically scoped.
 bool staticMatch(Metadata metadata) => (metadata as StaticMetadata).isStatic;
 
-/// Matches [metadata] that is scoped to an instance.
+/// Matches metadata that is scoped to an instance.
 final MetadataMatchFunction instanceMatch = not(staticMatch);

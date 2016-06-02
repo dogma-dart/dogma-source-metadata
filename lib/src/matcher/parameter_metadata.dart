@@ -21,7 +21,7 @@ bool parameterMetadataMatch(Metadata metadata) => metadata is ParameterMetadata;
 bool requiredParameterMatch(Metadata metadata) =>
     (metadata as ParameterMetadata).isRequired;
 
-/// Matches parameter [metadata] which is optional.
+/// Matches parameter metadata which is optional.
 ///
 /// This matches both positional and named parameters.
 final MetadataMatchFunction optionalParameterMatch =

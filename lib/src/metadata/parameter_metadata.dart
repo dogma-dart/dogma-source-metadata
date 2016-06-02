@@ -40,7 +40,7 @@ class ParameterMetadata extends AnnotatedMetadata
   /// accepting the given [type].
   ///
   /// By default the [parameterKind] is set to required. If the parameter is
-  /// optional then [defaultsTo] should be set unless null is desired for the
+  /// optional then [defaultValue] should be set unless null is desired for the
   /// default value.
   ParameterMetadata(String name,
                     this.type,

@@ -20,5 +20,5 @@ bool privacyMetadataMatch(Metadata metadata) => metadata is PrivacyMetadata;
 /// Matches [metadata] that is private.
 bool privateMatch(Metadata metadata) => (metadata as PrivacyMetadata).isPrivate;
 
-/// Matches [metadata] that is scoped to an instance.
+/// Matches metadata that is scoped to an instance.
 final MetadataMatchFunction publicMatch = not(privateMatch);

@@ -30,7 +30,7 @@ final Logger _logger =
 typedef dynamic AnalyzeAnnotation(ElementAnnotation element);
 
 /// Maps the name of the [parameter] to the computed value of the instance
-/// based on the [constructor].
+/// based on the [constructorName].
 ///
 /// The analyzer provides an API that will instantiate an object representing
 /// the result of the object. It can do this since an annotation is constant.

@@ -17,19 +17,19 @@ import 'metadata_match_function.dart';
 /// Matches [metadata] that is an instance of [ClassMetadata].
 bool classMetadataMatch(Metadata metadata) => metadata is ClassMetadata;
 
-/// Matches class [metadata] whose supertype is the given [type].
+/// Matches class metadata whose supertype is the given [type].
 MetadataMatchFunction supertypeMatch(TypeMetadata type) =>
     (metadata) => (metadata as ClassMetadata).supertype == type;
 
-/// Matches class [metadata] that mixes in the given [type].
+/// Matches class metadata that mixes in the given [type].
 MetadataMatchFunction mixinMatch(TypeMetadata type) =>
     (metadata) => (metadata as ClassMetadata).mixins.contains(type);
 
-/// Matches class [metadata] that implements the given [type].
+/// Matches class metadata that implements the given [type].
 MetadataMatchFunction interfaceMatch(TypeMetadata type) =>
     (metadata) => (metadata as ClassMetadata).interfaces.contains(type);
 
-/// Matches class [metadata] that either descends or mixes in the given [type].
+/// Matches class metadata that either descends or mixes in the given [type].
 MetadataMatchFunction supertypeOrMixinMatch(TypeMetadata type) =>
     or(supertypeMatch(type), mixinMatch(type));
 

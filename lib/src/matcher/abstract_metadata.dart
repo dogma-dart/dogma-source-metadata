@@ -21,5 +21,5 @@ bool abstractMetadataMatch(Metadata metadata) => metadata is AbstractMetadata;
 bool abstractMatch(Metadata metadata) =>
     (metadata as AbstractMetadata).isAbstract;
 
-/// Matches [metadata] that is concrete.
+/// Matches metadata that is concrete.
 final MetadataMatchFunction concreteMatch = not(abstractMatch);
