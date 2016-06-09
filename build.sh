@@ -14,7 +14,7 @@ pub install
 dartanalyzer ${DARTANALYZER_FLAGS} $(ls -rt lib/*.dart)
 
 # Run the tests
-pub global activate --source path ../coverage
+pub global activate coverage
 OBSERVATORY_PORT=8000
 COVERAGE_OUTPUT=coverage.json
 
