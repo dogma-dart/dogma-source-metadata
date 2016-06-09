@@ -78,6 +78,12 @@ LibraryMetadata libraryMetadata(Uri path,
 LibraryMetadata libraryMetadataFromElement(LibraryElement element,
                                           {List<AnalyzeAnnotation> annotationCreators,
                                            ShouldLoadLibrary shouldLoad}) {
+  // Sanity check that the library element is present
+  if (element == null) {
+    _logger.severe('Metadata cannot be created from null library element', element);
+    throw new ArgumentError.notNull('element');
+  }
+
   annotationCreators ??= <AnalyzeAnnotation>[];
   _addDefaultAnnotationGenerators(annotationCreators);
 
@@ -112,16 +118,16 @@ ShouldLoadLibrary _checkPackagePath(String libraryName) =>
 bool _checkFilePath(LibraryElement element) =>
     element.definingCompilationUnit.source.uri.scheme == 'file';
 
-/// Searches the [library] element for metadata.
+/// Searches the library [element] for metadata.
 ///
 /// If no metadata is found within the library that is applicable then the
 /// function will return `null`.
-LibraryMetadata _libraryMetadata(LibraryElement library,
+LibraryMetadata _libraryMetadata(LibraryElement element,
                                  Map<String, LibraryMetadata> cached,
                                  ShouldLoadLibrary shouldLoad,
                                  List<AnalyzeAnnotation> annotationCreators) {
   // Use the URI
-  var uri = library.definingCompilationUnit.source.uri;
+  var uri = element.definingCompilationUnit.source.uri;
   var uriString = uri.toString();
 
   // See if the library is in the cache
@@ -130,14 +136,14 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
   }
 
   // Get the import and export directives
-  var imports = uriReferenceList(library.imports);
-  var exports = uriReferenceList(library.exports);
+  var imports = uriReferenceList(element.imports);
+  var exports = uriReferenceList(element.exports);
 
   var classes = <ClassMetadata>[];
   var functions = <FunctionMetadata>[];
   var fields = <FieldMetadata>[];
 
-  for (var unit in library.units) {
+  for (var unit in element.units) {
     // Add class metadata
     for (var type in unit.types) {
       classes.add(classMetadata(type, annotationCreators));
@@ -161,14 +167,14 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
   // Create the metadata
   var metadata = new LibraryMetadata(
       uri,
-      name: library.name,
+      name: element.name,
       imports: imports,
       exports: exports,
       classes: classes,
       functions: functions,
       fields: fields,
-      annotations: createAnnotations(library, annotationCreators),
-      comments: elementComments(library)
+      annotations: createAnnotations(element, annotationCreators),
+      comments: elementComments(element)
   );
 
   // Add to the cache
@@ -181,10 +187,10 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
 
   // Get the imported libraries
   var importCount = imports.length;
-  assert(importCount == library.imports.length);
+  assert(importCount == element.imports.length);
 
   for (var i = 0; i < importCount; ++i) {
-    var importedLibrary = library.imports[i].importedLibrary;
+    var importedLibrary = element.imports[i].importedLibrary;
     var importedUri = importedLibrary.source.uri;
 
     imports[i].library = shouldLoad(importedLibrary)
@@ -193,10 +199,10 @@ LibraryMetadata _libraryMetadata(LibraryElement library,
   }
 
   var exportCount = exports.length;
-  assert(exportCount == library.exports.length);
+  assert(exportCount == element.exports.length);
 
   for (var i = 0; i < exportCount; ++i) {
-    var exportedLibrary = library.exports[i].exportedLibrary;
+    var exportedLibrary = element.exports[i].exportedLibrary;
     var exportedUri = exportedLibrary.source.uri;
 
     exports[i].library = shouldLoad(exportedLibrary)
