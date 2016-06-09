@@ -37,6 +37,12 @@ final logging.Logger _logger =
 /// analyzer and searched for metadata.
 typedef bool ShouldLoadLibrary(LibraryElement element);
 
+/// A function that transforms [input] [Uri] values.
+///
+/// The function can be used to convert different [Uri] schemes when analyzing
+/// library elements.
+typedef Uri UriTransform(Uri input);
+
 /// Loads the library at the given [path] into the analysis [context] and
 /// begins processing it for metadata.
 ///
@@ -77,9 +83,11 @@ LibraryMetadata libraryMetadata(Uri path,
 /// metadata generated for them.
 LibraryMetadata libraryMetadataFromElement(LibraryElement element,
                                           {List<AnalyzeAnnotation> annotationCreators,
-                                           ShouldLoadLibrary shouldLoad}) {
+                                           ShouldLoadLibrary shouldLoad,
+                                           UriTransform uriTransform}) {
   // Sanity check that the library element is present
   if (element == null) {
+    _logger.severe('Metadata cannot be created from null library element', element);
     _logger.severe('Metadata cannot be created from null library element', element);
     throw new ArgumentError.notNull('element');
   }
@@ -87,24 +95,32 @@ LibraryMetadata libraryMetadataFromElement(LibraryElement element,
   annotationCreators ??= <AnalyzeAnnotation>[];
   _addDefaultAnnotationGenerators(annotationCreators);
 
+  uriTransform ??= _uriNotChanged;
+
   var cached = <String, LibraryMetadata>{};
 
   if (shouldLoad == null) {
-    var uri = element.definingCompilationUnit.source.uri;
+    var uri = element.source.uri;
 
     shouldLoad = uri.scheme == 'file'
         ? _checkFilePath
         : _checkPackagePath(uri.pathSegments[0]);
   }
 
-  return _libraryMetadata(element, cached, shouldLoad, annotationCreators);
+  return _libraryMetadata(
+      element,
+      cached,
+      shouldLoad,
+      annotationCreators,
+      uriTransform
+  );
 }
 
 /// Creates a function that checks the [libraryName] to determine if the
 /// referenced library should be loaded.
 ShouldLoadLibrary _checkPackagePath(String libraryName) =>
     (element) {
-      var uri = element.definingCompilationUnit.source.uri;
+      var uri = element.source.uri;
 
       if (uri.scheme == 'package') {
         return uri.pathSegments[0] == libraryName;
@@ -116,7 +132,7 @@ ShouldLoadLibrary _checkPackagePath(String libraryName) =>
 /// A function that just verifies that a file URI is being used by the
 /// [element].
 bool _checkFilePath(LibraryElement element) =>
-    element.definingCompilationUnit.source.uri.scheme == 'file';
+    element.source.uri.scheme == 'file';
 
 /// Searches the library [element] for metadata.
 ///
@@ -125,9 +141,10 @@ bool _checkFilePath(LibraryElement element) =>
 LibraryMetadata _libraryMetadata(LibraryElement element,
                                  Map<String, LibraryMetadata> cached,
                                  ShouldLoadLibrary shouldLoad,
-                                 List<AnalyzeAnnotation> annotationCreators) {
+                                 List<AnalyzeAnnotation> annotationCreators,
+                                 UriTransform uriTransform) {
   // Use the URI
-  var uri = element.definingCompilationUnit.source.uri;
+  var uri = element.source.uri;
   var uriString = uri.toString();
 
   // See if the library is in the cache
@@ -191,11 +208,10 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
 
   for (var i = 0; i < importCount; ++i) {
     var importedLibrary = element.imports[i].importedLibrary;
-    var importedUri = importedLibrary.source.uri;
 
     imports[i].library = shouldLoad(importedLibrary)
-        ? _libraryMetadata(importedLibrary, cached, shouldLoad, annotationCreators)
-        : new LibraryMetadata(importedUri);
+        ? _libraryMetadata(importedLibrary, cached, shouldLoad, annotationCreators, uriTransform)
+        : new LibraryMetadata(uriTransform(importedLibrary.source.uri));
   }
 
   var exportCount = exports.length;
@@ -203,11 +219,10 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
 
   for (var i = 0; i < exportCount; ++i) {
     var exportedLibrary = element.exports[i].exportedLibrary;
-    var exportedUri = exportedLibrary.source.uri;
 
     exports[i].library = shouldLoad(exportedLibrary)
-        ? _libraryMetadata(exportedLibrary, cached, shouldLoad, annotationCreators)
-        : new LibraryMetadata(exportedUri);
+        ? _libraryMetadata(exportedLibrary, cached, shouldLoad, annotationCreators, uriTransform)
+        : new LibraryMetadata(uriTransform(exportedLibrary.source.uri));
   }
 
   // Return the metadata
@@ -230,3 +245,8 @@ void _addDefaultAnnotationGenerators(List<AnalyzeAnnotation> annotationGenerator
       ..add(analyzeProtectedAnnotation)
       ..add(analyzeTypeUnionAnnotation);
 }
+
+/// A function that does not transform the uri [input].
+///
+/// This will be used by default when creating library metadata.
+Uri _uriNotChanged(Uri input) => input;
