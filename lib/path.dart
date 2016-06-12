@@ -34,6 +34,11 @@ final Uri currentPathUri = p.toUri(p.current);
 /// implementation held in path.
 final String currentPath = currentPathUri.toFilePath(windows: false);
 
+/// Splits the [path] into segments.
+List<String> split(dynamic path) {
+  return path is Uri ? value.pathSegments : p.posix.split(value);
+}
+
 /// Joins the [path] into the [base].
 ///
 /// If [base] is not specified then the [currentPathUri] is used instead.
