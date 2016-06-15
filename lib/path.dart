@@ -35,9 +35,8 @@ final Uri currentPathUri = p.toUri(p.current);
 final String currentPath = currentPathUri.toFilePath(windows: false);
 
 /// Splits the [path] into segments.
-List<String> split(dynamic path) {
-  return path is Uri ? value.pathSegments : p.posix.split(value);
-}
+List<String> split(dynamic path) =>
+  path is Uri ? path.pathSegments : p.posix.split(path);
 
 /// Joins the [path] into the [base].
 ///
@@ -119,7 +118,7 @@ String dirname(dynamic path) => p.posix.dirname(_uriPath(path));
 /// Trailing separators are ignored.
 ///
 ///     basename('path/to/'); // -> 'to'
-String basename(dynamic value) => p.posix.basename(_uriPath(value));
+String basename(dynamic path) => p.posix.basename(_uriPath(path));
 
 /// Gets
 String basenameWithoutExtension(dynamic value) =>

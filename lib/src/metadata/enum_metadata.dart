@@ -7,26 +7,27 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'constructor_metadata.dart';
 import 'class_metadata.dart';
 import 'field_metadata.dart';
-import 'method_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
+/// Metadata for an enumeration.
 class EnumMetadata extends ClassMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
+  /// The enumeration values.
   final List<FieldMetadata> values;
 
   //---------------------------------------------------------------------
   // Constructors
   //---------------------------------------------------------------------
 
+  /// Creates an instance of [EnumMetadata] with the given [name] and [fields].
   factory EnumMetadata(String name,
                        List<FieldMetadata> fields,
                       {List annotations,
