@@ -8,7 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/src/generated/utilities_dart.dart' as utilities;
+import 'package:analyzer/analyzer.dart' as analyzer;
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
@@ -74,10 +74,10 @@ ParameterMetadata parameterMetadata(ParameterElement element,
 /// * [ParameterKind.named] == 'NAMED'
 /// * [ParameterKind.positional] == 'POSITIONAL'
 /// * [ParameterKind.required] == 'REQUIRED'
-ParameterKind parameterKind(utilities.ParameterKind value) {
-  if (value == utilities.ParameterKind.NAMED) {
+ParameterKind parameterKind(analyzer.ParameterKind value) {
+  if (value == analyzer.ParameterKind.NAMED) {
     return ParameterKind.named;
-  } else if (value == utilities.ParameterKind.POSITIONAL) {
+  } else if (value == analyzer.ParameterKind.POSITIONAL) {
     return ParameterKind.positional;
   } else {
     return ParameterKind.required;

@@ -8,7 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/src/generated/utilities_dart.dart';
+import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 
 import 'constant_object.dart';
