@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/src/dart/element/element.dart';
 import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 
@@ -100,6 +101,14 @@ AnalyzeAnnotation analyzeAnnotation(String annotation,
 
   return (element) {
     var representation = element.element;
+
+    // Check to see if the representation is present
+    if (representation == null) {
+      // Get the AST to determine what annotation is failing
+      var annotationAst = (element as ElementAnnotationImpl).annotationAst;
+      _logger.severe('The annotation, $annotationAst, could not be instantiated. Make sure it is imported and accessible');
+      return null;
+    }
 
     // Check to see if the enclosing element is of the given type
     if (representation.enclosingElement.name != annotation) {
