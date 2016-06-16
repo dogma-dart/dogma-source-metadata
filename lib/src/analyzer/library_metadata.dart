@@ -144,7 +144,7 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
                                  List<AnalyzeAnnotation> annotationCreators,
                                  UriTransform uriTransform) {
   // Use the URI
-  var uri = element.source.uri;
+  var uri = uriTransform(element.source.uri);
   var uriString = uri.toString();
 
   // See if the library is in the cache
