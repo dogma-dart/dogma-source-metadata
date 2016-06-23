@@ -13,6 +13,7 @@ export 'src/matcher/abstract_metadata.dart';
 export 'src/matcher/class_metadata.dart';
 export 'src/matcher/constant_metadata.dart';
 export 'src/matcher/constructor_metadata.dart';
+export 'src/matcher/enum_metadata.dart';
 export 'src/matcher/field_metadata.dart';
 export 'src/matcher/function_metadata.dart';
 export 'src/matcher/metadata.dart';
