@@ -38,6 +38,10 @@ class EnumMetadata extends ClassMetadata {
     return new EnumMetadata._(name, fieldValues, annotations, comments);
   }
 
-  EnumMetadata._(String name, this.values, List annotations, String comments)
-      : super(name, annotations: annotations, comments: comments);
+  EnumMetadata._(String name,
+                 List<FieldMetadata> values,
+                 List annotations,
+                 String comments)
+      : values = values
+      , super(name, fields: values, annotations: annotations, comments: comments);
 }
