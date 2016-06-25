@@ -74,6 +74,7 @@ void main() {
     parameter = parameters[0];
     expect(parameter.type, new TypeMetadata.int());
     expect(parameter.name, 'value');
+    expect(parameter.isInitializer, isTrue);
 
     // Get the class with a named constructor
     clazz = _getClass(library, 'NamedConstructor');
@@ -93,6 +94,7 @@ void main() {
     parameter = parameters[0];
     expect(parameter.type, new TypeMetadata.int());
     expect(parameter.name, 'value');
+    expect(parameter.isInitializer, isTrue);
 
     // Get the class with a factory constructor and private constructor
     clazz = _getClass(library, 'FactoryConstructor');

@@ -28,6 +28,7 @@ void main() {
     expect(metadata.name, name);
     expect(metadata.type, type);
     expect(metadata.parameterKind, ParameterKind.required);
+    expect(metadata.isInitializer, isFalse);
     expect(metadata.isOptional, isFalse);
     expect(metadata.isRequired, isTrue);
   });
@@ -45,6 +46,7 @@ void main() {
     expect(required.name, requiredName);
     expect(required.type, requiredType);
     expect(required.parameterKind, ParameterKind.required);
+    expect(required.isInitializer, isFalse);
     expect(required.isOptional, isFalse);
     expect(required.isRequired, isTrue);
 
@@ -60,6 +62,7 @@ void main() {
     expect(positional.name, positionalName);
     expect(positional.type, positionalType);
     expect(positional.parameterKind, ParameterKind.positional);
+    expect(positional.isInitializer, isFalse);
     expect(positional.isOptional, isTrue);
     expect(positional.isRequired, isFalse);
 
@@ -75,6 +78,7 @@ void main() {
     expect(named.name, namedName);
     expect(named.type, namedType);
     expect(named.parameterKind, ParameterKind.named);
+    expect(named.isInitializer, isFalse);
     expect(named.isOptional, isTrue);
     expect(named.isRequired, isFalse);
   });
