@@ -29,6 +29,11 @@ class ParameterMetadata extends AnnotatedMetadata
   final TypeMetadata type;
   /// The kind of parameter.
   final ParameterKind parameterKind;
+  /// Whether the parameter is an initializer.
+  ///
+  /// This should only be in constructors and signifies when `this.value` is
+  /// used.
+  final bool isInitializer;
   /// The default value of the parameter.
   final dynamic defaultValue;
 
@@ -45,6 +50,7 @@ class ParameterMetadata extends AnnotatedMetadata
   ParameterMetadata(String name,
                     this.type,
                    {this.parameterKind: ParameterKind.required,
+                    this.isInitializer: false,
                     this.defaultValue,
                     List annotations})
       : super(name, annotations, '');

@@ -62,6 +62,7 @@ ParameterMetadata parameterMetadata(ParameterElement element,
       type,
       parameterKind: parameterKind(element.parameterKind),
       annotations: annotations,
+      isInitializer: element.isInitializingFormal,
       defaultValue: defaultValue
   );
 }
