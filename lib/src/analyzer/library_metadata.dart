@@ -88,7 +88,6 @@ LibraryMetadata libraryMetadataFromElement(LibraryElement element,
   // Sanity check that the library element is present
   if (element == null) {
     _logger.severe('Metadata cannot be created from null library element', element);
-    _logger.severe('Metadata cannot be created from null library element', element);
     throw new ArgumentError.notNull('element');
   }
 
