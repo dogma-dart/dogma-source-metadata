@@ -120,9 +120,39 @@ String dirname(dynamic path) => p.posix.dirname(_uriPath(path));
 ///     basename('path/to/'); // -> 'to'
 String basename(dynamic path) => p.posix.basename(_uriPath(path));
 
-/// Gets
-String basenameWithoutExtension(dynamic value) =>
-    p.posix.basenameWithoutExtension(_uriPath(value));
+/// Gets the part of [path] after the last separator on the context's
+/// platform, and without any trailing file extension.
+///
+///     basenameWithoutExtension('path/to/foo.dart');                   // -> 'foo'
+///     basenameWithoutExtension(Uri.parse('package:path/to/foo.dart)); // -> 'foo'
+///
+/// Trailing separators are ignored.
+///
+///     basenameWithoutExtension('path/to/foo.dart/');                    // -> 'foo'
+///     basenameWithoutExtension(Uri.parse('package:path/to/foo.dart/')); // -> 'foo'
+String basenameWithoutExtension(dynamic path) =>
+    p.posix.basenameWithoutExtension(_uriPath(path));
+
+/// Gets the file extension of [path]: the portion of [basename] from the last
+/// `.` to the end (including the `.` itself).
+///
+///     extension('path/to/foo.dart');                       // -> '.dart'
+///     extension('path/to/foo');                            // -> ''
+///     extension('path.to/foo');                            // -> ''
+///     extension('path/to/foo.dart.js');                    // -> '.js'
+///     extension(Uri.parse('package:path/to/foo.dart'));    // -> '.dart'
+///     extension(Uri.parse('package:path/to/foo'));         // -> ''
+///     extension(Uri.parse('package:path.to/foo'));         // -> ''
+///     extension(Uri.parse('package:path/to/foo.dart.js')); // -> '.js'
+///
+/// If the file name starts with a `.`, then it is not considered an
+/// extension:
+///
+///     extension('~/.bashrc');                          // -> ''
+///     extension('~/.notes.txt');                       // -> '.txt'
+///     extension(Uri.parse('package:path/.bashrc'));    // -> ''
+///     extension(Uri.parse('package:path/.notes.txt')); // -> '.txt'
+String extension(dynamic value) => p.posix.extension(_uriPath(value));
 
 /// Checks whether the [path] can be imported through package notation.
 bool canImportAsPackage(dynamic path) {
