@@ -62,7 +62,7 @@ void main() {
         library,
         nameMatch('Annotated'),
         includeClasses: true
-    ) as ClassMetadata;
+    );
 
     expect(clazz, isNotNull);
     expect(clazz.constructors, hasLength(1));

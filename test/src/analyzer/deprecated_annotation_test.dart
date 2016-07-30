@@ -47,7 +47,7 @@ void main() {
         library,
         nameMatch('DoNotUse'),
         includeClasses: true
-    ) as ClassMetadata;
+    );
 
     expect(clazz, isNotNull);
     expect(clazz.methods, hasLength(1));
