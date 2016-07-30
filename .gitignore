@@ -26,5 +26,10 @@ doc/api/
 # (Library packages only! Remove pattern if developing an application package)
 pubspec.lock
 
-# WebStorm files
+# Files created by developer environment
 .idea/
+*.iml
+*.ipr
+*.iws
+.idea/
+.DS_Store
