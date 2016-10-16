@@ -9,9 +9,11 @@
 
 import 'package:analyzer/file_system/file_system.dart' hide File;
 import 'package:analyzer/file_system/physical_file_system.dart';
+import 'package:analyzer/source/package_map_resolver.dart';
+import 'package:analyzer/source/pub_package_map_provider.dart';
+import 'package:analyzer/src/dart/sdk/sdk.dart';
 import 'package:analyzer/src/generated/engine.dart';
 import 'package:analyzer/src/generated/java_io.dart';
-import 'package:analyzer/src/generated/sdk_io.dart' show DirectoryBasedDartSdk;
 import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer/src/generated/source_io.dart';
 import 'package:cli_util/cli_util.dart';
@@ -30,23 +32,37 @@ AnalysisContext analysisContext({Uri projectPath, Uri sdkPath}) {
   projectPath ??= currentPathUri;
   sdkPath ??= getSdkDir().uri;
 
-  // Setup the core dart libraries
-  JavaSystemIO.setProperty('com.google.dart.sdk', sdkPath.toFilePath());
-  var sdk = DirectoryBasedDartSdk.defaultSdk;
+  final sdkFilePath = sdkPath.toFilePath();
 
-  // Get the packages directory
-  var packages = new JavaFile.fromUri(join('packages', base: projectPath));
+  // Setup the core dart libraries
+  JavaSystemIO.setProperty('com.google.dart.sdk', sdkFilePath);
+  final resourceProvider = PhysicalResourceProvider.INSTANCE;
+  final sdk = new FolderBasedDartSdk(
+      resourceProvider,
+      resourceProvider.getFolder(sdkFilePath)
+  );
+
+  // Using the .packages file
+  final pubPackageMapProvider = new PubPackageMapProvider(
+      PhysicalResourceProvider.INSTANCE,
+      sdk
+  );
+
+  final packageMapInfo = pubPackageMapProvider
+      .computePackageMap(PhysicalResourceProvider.INSTANCE.getResource('.'));
 
   // Create the resolvers
-  var resolvers = <UriResolver>[
+  final resolvers = <UriResolver>[
       new DartUriResolver(sdk),
       new ResourceUriResolver(PhysicalResourceProvider.INSTANCE),
-      new PackageUriResolver([packages])
+      new PackageMapUriResolver(
+          PhysicalResourceProvider.INSTANCE,
+          packageMapInfo.packageMap
+      )
   ];
 
   // Set the analysis options
-  var options = new AnalysisOptionsImpl()
-      ..cacheSize = 256
+  final options = new AnalysisOptionsImpl()
       ..preserveComments = true
       ..strongMode = true
       ..analyzeFunctionBodies = false;
