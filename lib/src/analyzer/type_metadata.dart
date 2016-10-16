@@ -27,8 +27,8 @@ final Logger _logger =
 /// type annotations.
 TypeMetadata typeMetadata(DartType type,
                          [List annotations]) {
-  var unionType = _unionType(annotations);
-  var name = type.name;
+  final unionType = _unionType(annotations);
+  final name = type.name;
   var value;
 
   if (unionType != null) {
@@ -40,7 +40,7 @@ TypeMetadata typeMetadata(DartType type,
 
     value = new TypeMetadata(name);
   } else {
-    var arguments = <TypeMetadata>[];
+    final arguments = <TypeMetadata>[];
 
     if (type is InterfaceType) {
       for (var argument in type.typeArguments) {

@@ -21,10 +21,10 @@ import 'package:dogma_source_analyzer/query.dart';
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('function tests', () {
-    var library = libraryMetadata(join('test/lib/functions.dart'), context);
+    final library = libraryMetadata(join('test/lib/functions.dart'), context);
 
     var function;
 

@@ -20,9 +20,9 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    var name = 'default';
-    var type = new TypeMetadata.bool();
-    var metadata = new ParameterMetadata(name, type);
+    final name = 'default';
+    final type = new TypeMetadata.bool();
+    final metadata = new ParameterMetadata(name, type);
 
     expectAnnotatedMetadataDefaults(metadata);
     expect(metadata.name, name);
@@ -34,9 +34,9 @@ void main() {
   });
 
   test('property test', () {
-    var requiredName = 'required';
-    var requiredType = new TypeMetadata.bool();
-    var required = new ParameterMetadata(
+    final requiredName = 'required';
+    final requiredType = new TypeMetadata.bool();
+    final required = new ParameterMetadata(
         requiredName,
         requiredType,
         parameterKind: ParameterKind.required
@@ -50,9 +50,9 @@ void main() {
     expect(required.isOptional, isFalse);
     expect(required.isRequired, isTrue);
 
-    var positionalName = 'positional';
-    var positionalType = new TypeMetadata.bool();
-    var positional = new ParameterMetadata(
+    final positionalName = 'positional';
+    final positionalType = new TypeMetadata.bool();
+    final positional = new ParameterMetadata(
         positionalName,
         positionalType,
         parameterKind: ParameterKind.positional
@@ -66,9 +66,9 @@ void main() {
     expect(positional.isOptional, isTrue);
     expect(positional.isRequired, isFalse);
 
-    var namedName = 'named';
-    var namedType = new TypeMetadata.bool();
-    var named = new ParameterMetadata(
+    final namedName = 'named';
+    final namedType = new TypeMetadata.bool();
+    final named = new ParameterMetadata(
         namedName,
         namedType,
         parameterKind: ParameterKind.named

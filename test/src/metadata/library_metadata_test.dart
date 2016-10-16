@@ -20,8 +20,8 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    var uri = Uri.parse('package:dogma_source_analyzer/metadata.dart');
-    var metadata = new LibraryMetadata(uri);
+    final uri = Uri.parse('package:dogma_source_analyzer/metadata.dart');
+    final metadata = new LibraryMetadata(uri);
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);

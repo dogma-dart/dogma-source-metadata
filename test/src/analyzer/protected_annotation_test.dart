@@ -24,16 +24,16 @@ void _expectHasProtected(AnnotatedMetadata metadata) {
   print(metadata.annotations);
   expect(metadata.annotations, hasLength(1));
 
-  var annotation = metadata.annotations[0];
+  final annotation = metadata.annotations[0];
   expect(annotation, protected);
 }
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('@protected', () {
-    var library = libraryMetadata(
+    final library = libraryMetadata(
         join('test/lib/protected.dart'),
         context
     );
@@ -43,7 +43,7 @@ void main() {
     expect(library.fields, isEmpty);
     expect(library.functions, isEmpty);
 
-    var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         library,
         nameMatch('Base'),
         includeClasses: true
@@ -52,7 +52,7 @@ void main() {
     expect(clazz, isNotNull);
     expect(clazz.methods, hasLength(1));
 
-    var method = classMetadataQuery/*<MethodMetadata>*/(
+    final method = classMetadataQuery/*<MethodMetadata>*/(
         clazz,
         nameMatch('onlySubClasses'),
         includeMethods: true

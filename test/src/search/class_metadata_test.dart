@@ -11,7 +11,6 @@ import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/analyzer.dart';
 import 'package:dogma_source_analyzer/matcher.dart';
-import 'package:dogma_source_analyzer/metadata.dart';
 import 'package:dogma_source_analyzer/path.dart';
 import 'package:dogma_source_analyzer/query.dart';
 
@@ -21,21 +20,21 @@ import 'package:dogma_source_analyzer/query.dart';
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
-  var fieldLibrary = libraryMetadata(join('test/lib/fields.dart'), context);
+  final context = analysisContext();
+  final fieldLibrary = libraryMetadata(join('test/lib/fields.dart'), context);
 
   test('field by name tests', () {
 
   });
   test('static field tests', () {
-    var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         fieldLibrary,
         nameMatch('ClassFields'),
         includeClasses: true
     );
     expect(clazz, isNotNull);
 
-    var staticFields = classMetadataQueryAll/*<FieldMetadata>*/(
+    final staticFields = classMetadataQueryAll/*<FieldMetadata>*/(
         clazz,
         staticMatch,
         includeFields: true
@@ -45,13 +44,13 @@ void main() {
     }
     expect(staticFields, hasLength(6));
 
-    var staticConstFields = classMetadataQueryAll/*<FieldMetadata>*/(
+    final staticConstFields = classMetadataQueryAll/*<FieldMetadata>*/(
         clazz,
         and(staticMatch, constMatch),
         includeFields: true
     );
     expect(staticConstFields, hasLength(1));
-    var staticConstField = staticConstFields.first;
+    final staticConstField = staticConstFields.first;
     expect(staticConstField.name, 'classConstField');
     expect(staticConstField.isConst, isTrue);
     expect(staticConstField.isStatic, isTrue);

@@ -24,7 +24,7 @@ import 'package:dogma_source_analyzer/query.dart';
 //---------------------------------------------------------------------
 
 FieldMetadata _getField(ClassMetadata clazz, String name) {
-  var field = classMetadataQuery/*<FieldMetadata>*/(
+  final field = classMetadataQuery/*<FieldMetadata>*/(
       clazz,
       nameMatch(name),
       includeFields: true
@@ -38,13 +38,13 @@ FieldMetadata _getField(ClassMetadata clazz, String name) {
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('Field tests', () {
-    var library = libraryMetadata(join('test/lib/fields.dart'), context);
+    final library = libraryMetadata(join('test/lib/fields.dart'), context);
 
     // Get the class
-    var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         library,
         nameMatch('ClassFields'),
         includeClasses: true

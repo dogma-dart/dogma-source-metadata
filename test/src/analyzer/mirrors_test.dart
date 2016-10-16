@@ -41,23 +41,23 @@ void main() {
     expect(() => classMirror(_notFound, _library), throwsArgumentError);
   });
   test('createAnnotation', () {
-    var mirror = classMirror(_class);
+    final mirror = classMirror(_class);
     expect(mirror, isNotNull);
 
-    var number = 5;
+    final number = 5;
 
-    var instance = createAnnotation(mirror, new Symbol(''), [number], {});
+    final instance = createAnnotation(mirror, new Symbol(''), [number], {});
     expect(instance is A, isTrue);
     expect(instance.value, equals(number));
   });
   test('privateConstructor', () {
-    var mirror = classMirror(_class);
+    final mirror = classMirror(_class);
     expect(mirror, isNotNull);
 
-    var symbol = privateConstructor(mirror, new Symbol('_'));
+    final symbol = privateConstructor(mirror, new Symbol('_'));
     expect(symbol, isNotNull);
 
-    var instance = createAnnotation(mirror, symbol, [], {});
+    final instance = createAnnotation(mirror, symbol, [], {});
     expect(instance, isNotNull);
     expect(instance is A, isTrue);
     expect(instance.value, equals(A.defaultValue));

@@ -26,24 +26,24 @@ void main() {
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
 
-  var context = analysisContext();
-  var library = libraryMetadata(
+  final context = analysisContext();
+  final library = libraryMetadata(
       Uri.parse('package:dogma_source_analyzer/metadata.dart'),
       context
   );
 
-  var classQuery = libraryMetadataQueryAll/*<ClassMetadata>*/(
+  final classQuery = libraryMetadataQueryAll/*<ClassMetadata>*/(
       library,
       (value) => value is ClassMetadata,
       includeClasses: true,
       includeExports: true
   );
 
-  var classCount = classQuery.length;
+  final classCount = classQuery.length;
   print('Contains $classCount classes');
 
   // Get the number of constructors
-  var constructorQuery = classQuery.expand/*<ConstructorMetadata>*/(
+  final constructorQuery = classQuery.expand/*<ConstructorMetadata>*/(
       (metadata) => classMetadataQueryAll/*<ConstructorMetadata>*/(
           metadata,
           (value) => value is ConstructorMetadata,
@@ -51,26 +51,31 @@ void main() {
       )
   );
 
-  var constructorCount = constructorQuery.length;
-  var inverseConstructorCount = 100 / constructorCount;
+  final constructorCount = constructorQuery.length;
+  final inverseConstructorCount = 100 / constructorCount;
 
   // Get the number of default constructors
-  var defaultConstructorQuery = constructorQuery.where(defaultConstructorMatch);
+  final defaultConstructorQuery =
+      constructorQuery.where(defaultConstructorMatch);
 
-  var defaultConstructorCount = defaultConstructorQuery.length;
-  var defaultConstructorPercent = defaultConstructorCount * inverseConstructorCount;
+  final defaultConstructorCount = defaultConstructorQuery.length;
+  final defaultConstructorPercent =
+      defaultConstructorCount * inverseConstructorCount;
 
   // Get the number of factory constructors
-  var factoryConstructorQuery = constructorQuery.where(factoryConstructorMatch);
+  final factoryConstructorQuery =
+      constructorQuery.where(factoryConstructorMatch);
 
-  var factoryConstructorCount = factoryConstructorQuery.length;
-  var factoryConstructorPercent = factoryConstructorCount * inverseConstructorCount;
+  final factoryConstructorCount = factoryConstructorQuery.length;
+  final factoryConstructorPercent =
+      factoryConstructorCount * inverseConstructorCount;
 
   // Get the number of named constructors
-  var namedConstructorQuery = constructorQuery.where(namedConstructorMatch);
+  final namedConstructorQuery = constructorQuery.where(namedConstructorMatch);
 
-  var namedConstructorCount = namedConstructorQuery.length;
-  var namedConstructorPercent = namedConstructorCount * inverseConstructorCount;
+  final namedConstructorCount = namedConstructorQuery.length;
+  final namedConstructorPercent =
+      namedConstructorCount * inverseConstructorCount;
 
   print('Contains $constructorCount constructors');
   print('Contains $defaultConstructorCount default constructors ($defaultConstructorPercent%)');

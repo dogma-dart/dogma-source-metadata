@@ -71,17 +71,17 @@ Iterable<Metadata /*=T*/>
                                                    bool includeFunctions,
                                                    bool includeFields) {
   // Get the libraries to search through
-  var searchLibraries = _libraries(library, includeImports, includeExports);
+  final searchLibraries = _libraries(library, includeImports, includeExports);
 
   // Expand the metadata within the library
-  return searchLibraries.expand(
+  return searchLibraries.expand/*<T>*/(
       (value) =>
           _libraryMetadata(
               value,
               includeClasses,
               includeFunctions,
               includeFields
-          ) as Iterable<dynamic/*=T*/>
+          )
   );
 }
 

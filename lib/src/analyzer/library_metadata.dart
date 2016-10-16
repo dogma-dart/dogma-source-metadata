@@ -55,10 +55,10 @@ LibraryMetadata libraryMetadata(Uri path,
   // Create the source from a URI
   //
   // This handles source based and package based URIs.
-  var source = context.sourceFactory.forUri2(path);
+  final source = context.sourceFactory.forUri2(path);
 
   // Get the kind of source being analyzed
-  var kindOf = context.computeKindOf(source);
+  final kindOf = context.computeKindOf(source);
 
   if (kindOf == SourceKind.HTML) {
     throw new ArgumentError.value(path, 'path', 'Points to a HTML file and cannot be processed');
@@ -96,10 +96,10 @@ LibraryMetadata libraryMetadataFromElement(LibraryElement element,
 
   uriTransform ??= _uriNotChanged;
 
-  var cached = <String, LibraryMetadata>{};
+  final cached = <String, LibraryMetadata>{};
 
   if (shouldLoad == null) {
-    var uri = element.source.uri;
+    final uri = element.source.uri;
 
     shouldLoad = uri.scheme == 'file'
         ? _checkFilePath
@@ -119,7 +119,7 @@ LibraryMetadata libraryMetadataFromElement(LibraryElement element,
 /// referenced library should be loaded.
 ShouldLoadLibrary _checkPackagePath(String libraryName) =>
     (element) {
-      var uri = element.source.uri;
+      final uri = element.source.uri;
 
       if (uri.scheme == 'package') {
         return uri.pathSegments[0] == libraryName;
@@ -143,8 +143,8 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
                                  List<AnalyzeAnnotation> annotationCreators,
                                  UriTransform uriTransform) {
   // Use the URI
-  var uri = uriTransform(element.source.uri);
-  var uriString = uri.toString();
+  final uri = uriTransform(element.source.uri);
+  final uriString = uri.toString();
 
   // See if the library is in the cache
   if (cached.containsKey(uriString)) {
@@ -152,12 +152,12 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
   }
 
   // Get the import and export directives
-  var imports = uriReferenceList(element.imports);
-  var exports = uriReferenceList(element.exports);
+  final imports = uriReferenceList(element.imports);
+  final exports = uriReferenceList(element.exports);
 
-  var classes = <ClassMetadata>[];
-  var functions = <FunctionMetadata>[];
-  var fields = <FieldMetadata>[];
+  final classes = <ClassMetadata>[];
+  final functions = <FunctionMetadata>[];
+  final fields = <FieldMetadata>[];
 
   for (var unit in element.units) {
     // Add class metadata
@@ -181,7 +181,7 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
   }
 
   // Create the metadata
-  var metadata = new LibraryMetadata(
+  final metadata = new LibraryMetadata(
       uri,
       name: element.name,
       imports: imports,
@@ -202,22 +202,22 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
   // from causing a stack overflow
 
   // Get the imported libraries
-  var importCount = imports.length;
+  final importCount = imports.length;
   assert(importCount == element.imports.length);
 
   for (var i = 0; i < importCount; ++i) {
-    var importedLibrary = element.imports[i].importedLibrary;
+    final importedLibrary = element.imports[i].importedLibrary;
 
     imports[i].library = shouldLoad(importedLibrary)
         ? _libraryMetadata(importedLibrary, cached, shouldLoad, annotationCreators, uriTransform)
         : new LibraryMetadata(uriTransform(importedLibrary.source.uri));
   }
 
-  var exportCount = exports.length;
+  final exportCount = exports.length;
   assert(exportCount == element.exports.length);
 
   for (var i = 0; i < exportCount; ++i) {
-    var exportedLibrary = element.exports[i].exportedLibrary;
+    final exportedLibrary = element.exports[i].exportedLibrary;
 
     exports[i].library = shouldLoad(exportedLibrary)
         ? _libraryMetadata(exportedLibrary, cached, shouldLoad, annotationCreators, uriTransform)

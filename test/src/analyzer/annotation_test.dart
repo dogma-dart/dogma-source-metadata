@@ -24,7 +24,7 @@ import '../../lib/annotation.dart';
 void _expectHasAnnotation(AnnotatedMetadata metadata, String value) {
   expect(metadata.annotations, hasLength(1));
 
-  var annotation = metadata.annotations[0];
+  final annotation = metadata.annotations[0];
   expect(annotation is Annotation, isTrue);
   expect(annotation.value, value);
 }
@@ -37,11 +37,11 @@ void _expectParamHasAnnotation(FunctionMetadata metadata, String value) {
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('annotation', () {
-    var create = analyzeAnnotation('Annotation');
-    var library = libraryMetadata(
+    final create = analyzeAnnotation('Annotation');
+    final library = libraryMetadata(
         join('test/lib/annotation.dart'),
         context,
         annotationCreators: [create]
@@ -58,7 +58,7 @@ void main() {
     _expectHasAnnotation(library.functions[0], 'function');
     _expectParamHasAnnotation(library.functions[0], 'function_parameter');
 
-    var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         library,
         nameMatch('Annotated'),
         includeClasses: true
@@ -79,7 +79,7 @@ void main() {
     //
     // There's on property and one field
     for (var field in clazz.fields) {
-      var value = field.isProperty ? 'property' : 'field';
+      final value = field.isProperty ? 'property' : 'field';
 
       _expectHasAnnotation(field, value);
     }

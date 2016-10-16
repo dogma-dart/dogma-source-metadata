@@ -20,8 +20,8 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    var className = 'Foo';
-    var metadata = new ClassMetadata(className);
+    final className = 'Foo';
+    final metadata = new ClassMetadata(className);
 
     // Base classes
     expectAbstractMetadataDefaults(metadata);

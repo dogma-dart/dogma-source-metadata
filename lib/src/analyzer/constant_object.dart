@@ -29,7 +29,7 @@ dynamic dartValue(DartObject value,
   // No creator was supplied so use the _unknownDartValue function
   valueCreator ??= _unknownDartValue;
 
-  var typeName = value.type.displayName;
+  final typeName = value.type.displayName;
 
   switch (typeName) {
     case 'String':
@@ -59,7 +59,7 @@ dynamic dartValue(DartObject value,
 /// When [value] is an enumeration the value of its index is returned otherwise
 /// `null` is returned.
 dynamic dartEnumIndex(DartObject value) {
-  var element = value.type.element;
+  final element = value.type.element;
 
   return ((element is ClassElement) && (element.isEnum))
       ? value.getField('index').toIntValue()
@@ -69,7 +69,7 @@ dynamic dartEnumIndex(DartObject value) {
 /// When [value] is a function the name of the function is returned otherwise
 /// `null` is returned.
 dynamic dartFunctionName(DartObject value) {
-  var element = value.type.element;
+  final element = value.type.element;
 
   return element is FunctionElement ? element.name : null;
 }
@@ -102,7 +102,7 @@ List _toListValue(DartObjectImpl value, CreateDartValue valueCreator) =>
 
 /// Converts the [value] into a Dart Map instance.
 Map _toMapValue(DartObjectImpl value, CreateDartValue valueCreator) {
-  var map = {};
+  final map = {};
 
   value.toMapValue().forEach((key, value) {
     map[dartValue(key)] = dartValue(value, valueCreator);

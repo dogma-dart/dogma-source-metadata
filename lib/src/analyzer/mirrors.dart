@@ -49,11 +49,11 @@ ClassMirror classMirror(String name, [String library = '']) =>
 /// will be the same.
 Symbol privateConstructor(ClassMirror mirror, Symbol value) {
   // Convert the value to a string
-  var valueString = value.toString();
+  final valueString = value.toString();
 
   for (var declaration in mirror.declarations.values) {
     if ((declaration is MethodMirror) && (declaration.isConstructor)) {
-      var constructorSymbol = declaration.constructorName;
+      final constructorSymbol = declaration.constructorName;
 
       // If the toString values match then the value is equivalent.
       if (constructorSymbol.toString() == valueString) {
@@ -82,13 +82,13 @@ dynamic createAnnotation(ClassMirror mirror,
 
 /// Finds the class mirror using its [name] within the [library].
 ClassMirror _classMirrorInLibrary(String name, String library) {
-  var libraryMirror = currentMirrorSystem().findLibrary(new Symbol(library));
+  final libraryMirror = currentMirrorSystem().findLibrary(new Symbol(library));
 
   if (libraryMirror == null) {
     throw new ArgumentError.value(library, 'Was not found within the mirrors system');
   }
 
-  var mirror = libraryMirror.declarations[new Symbol(name)];
+  final mirror = libraryMirror.declarations[new Symbol(name)];
 
   if (mirror == null) {
     throw new ArgumentError.value(name, 'Was not found within $library');
@@ -101,7 +101,7 @@ ClassMirror _classMirrorInLibrary(String name, String library) {
 
 /// Searches the currently loaded libraries for a class with the given [name].
 ClassMirror _findClassMirror(String name) {
-  var symbol = new Symbol(name);
+  final symbol = new Symbol(name);
   var mirror;
 
   // Iterate over all libraries within the mirrors system

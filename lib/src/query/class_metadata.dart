@@ -47,17 +47,17 @@ Iterable<Metadata /*=T*/>
                                                  bool includeConstructors,
                                                  bool includeMethods) {
   // Get the classes to search through
-  var searchClasses = _classes(clazz, false, false, false);
+  final searchClasses = _classes(clazz, false, false, false);
 
   // Expand the metadata within the library
-  return searchClasses.expand(
+  return searchClasses.expand/*<T>*/(
       (value) =>
           _classMetadata(
               value,
               includeFields,
               includeConstructors,
               includeMethods
-          ) as Iterable<dynamic/*=T*/>
+          )
   );
 }
 

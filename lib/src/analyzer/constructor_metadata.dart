@@ -27,14 +27,14 @@ final Logger _logger =
 ConstructorMetadata constructorMetadata(ConstructorElement element,
                                         TypeMetadata returnType,
                                         List<AnalyzeAnnotation> annotationGenerators) {
-  var annotations = createAnnotations(element, annotationGenerators);
-  var comments = elementComments(element);
+  final annotations = createAnnotations(element, annotationGenerators);
+  final comments = elementComments(element);
 
-  var name = element.name;
-  var parameters = parameterList(element, annotationGenerators);
-  var isPrivate = element.isPrivate;
-  var isFactory = element.isFactory;
-  var isConst = element.isConst;
+  final name = element.name;
+  final parameters = parameterList(element, annotationGenerators);
+  final isPrivate = element.isPrivate;
+  final isFactory = element.isFactory;
+  final isConst = element.isConst;
 
   if (name.isEmpty) {
     _logger.fine('Found default constructor');

@@ -22,7 +22,7 @@ import 'package:dogma_source_analyzer/query.dart';
 final _objectType = new TypeMetadata('Object');
 
 EnumMetadata _getEnum(LibraryMetadata library, String name) {
-  var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+  final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
       library,
       nameMatch(name),
       includeClasses: true
@@ -38,13 +38,13 @@ EnumMetadata _getEnum(LibraryMetadata library, String name) {
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('enum tests', () {
-    var library = libraryMetadata(join('test/lib/enum.dart'), context);
+    final library = libraryMetadata(join('test/lib/enum.dart'), context);
 
-    var enumeration = _getEnum(library, 'Color');
-    var values = enumeration.values;
+    final enumeration = _getEnum(library, 'Color');
+    final values = enumeration.values;
 
     expect(values[0].name, 'red');
     expect(values[1].name, 'green');

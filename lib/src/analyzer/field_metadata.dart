@@ -32,16 +32,16 @@ final Logger _logger =
 /// library.
 FieldMetadata fieldMetadata(PropertyInducingElement element,
                             List<AnalyzeAnnotation> annotationGenerators) {
-  var name = element.name;
+  final name = element.name;
 
-  // Get the annotations
-  var annotations;
-  var comments = elementComments(element);
+  // Get the comments
+  final comments = elementComments(element);
 
   // Get whether the field is a property
-  var isFinal = element.isFinal;
-  var isConst = element.isConst;
+  final isFinal = element.isFinal;
+  final isConst = element.isConst;
   var isAbstract = false;
+  var annotations;
   var isProperty;
   var getter;
   var setter;
@@ -49,8 +49,8 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
 
   if (element.isSynthetic) {
     isProperty = true;
-    var getterElement = element.getter;
-    var setterElement = element.setter;
+    final getterElement = element.getter;
+    final setterElement = element.setter;
 
     getter = getterElement != null;
     setter = setterElement != null;
@@ -82,7 +82,7 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
     setter = !(isFinal || isConst);
 
     // See if there is a default value
-    var constantValue = element.constantValue;
+    final constantValue = element.constantValue;
 
     if (constantValue != null) {
       defaultValue = dartValue(constantValue, dartEnumIndex);
@@ -94,7 +94,7 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
   // Get the type
   //
   // This needs to go after the annotations are computed
-  var type = typeMetadata(element.type, annotations);
+  final type = typeMetadata(element.type, annotations);
 
   return new FieldMetadata(
       element.name,

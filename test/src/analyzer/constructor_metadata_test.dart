@@ -20,7 +20,7 @@ import 'package:dogma_source_analyzer/query.dart';
 //---------------------------------------------------------------------
 
 ClassMetadata _getClass(LibraryMetadata library, String name) {
-  var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+  final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
       library,
       nameMatch(name),
       includeClasses: true
@@ -35,10 +35,10 @@ ClassMetadata _getClass(LibraryMetadata library, String name) {
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('constructor tests', () {
-    var library = libraryMetadata(join('test/lib/constructors.dart'), context);
+    final library = libraryMetadata(join('test/lib/constructors.dart'), context);
     var clazz;
     var constructors;
     var constructor;

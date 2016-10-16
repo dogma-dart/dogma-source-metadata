@@ -27,13 +27,13 @@ void _expectFieldDefaults(FieldMetadata metadata) {
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    var fieldName = 'field';
-    var fieldType = new TypeMetadata.bool();
-    var fieldIsProperty = true;
-    var fieldGetter = true;
-    var fieldSetter = true;
+    final fieldName = 'field';
+    final fieldType = new TypeMetadata.bool();
+    final fieldIsProperty = true;
+    final fieldGetter = true;
+    final fieldSetter = true;
 
-    var field = new FieldMetadata(
+    final field = new FieldMetadata(
         fieldName,
         fieldType,
         fieldIsProperty,
@@ -58,9 +58,9 @@ void main() {
 
   test('field constructor', () {
     // Default field
-    var fieldName = 'field';
-    var fieldType = new TypeMetadata.bool();
-    var field = new FieldMetadata.field(fieldName, fieldType);
+    final fieldName = 'field';
+    final fieldType = new TypeMetadata.bool();
+    final field = new FieldMetadata.field(fieldName, fieldType);
 
     // Base classes
     expectAnnotatedMetadataDefaults(field);
@@ -77,9 +77,9 @@ void main() {
     expect(field.setter, isTrue);
 
     // Const field
-    var constFieldName = 'constField';
-    var constFieldType = new TypeMetadata.bool();
-    var constField = new FieldMetadata.field(
+    final constFieldName = 'constField';
+    final constFieldType = new TypeMetadata.bool();
+    final constField = new FieldMetadata.field(
         constFieldName,
         constFieldType,
         isConst: true
@@ -101,9 +101,9 @@ void main() {
     expect(constField.defaultValue, isNull);
 
     // Final field
-    var finalFieldName = 'finalField';
-    var finalFieldType = new TypeMetadata.bool();
-    var finalField = new FieldMetadata.field(
+    final finalFieldName = 'finalField';
+    final finalFieldType = new TypeMetadata.bool();
+    final finalField = new FieldMetadata.field(
         finalFieldName,
         finalFieldType,
         isFinal: true

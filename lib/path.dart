@@ -46,14 +46,14 @@ Uri join(String path, {dynamic base}) {
   base ??= currentPath;
 
   // Get the base path and scheme
-  var basePath = _uriPath(base);
-  var baseScheme = _uriScheme(base);
+  final basePath = _uriPath(base);
+  final baseScheme = _uriScheme(base);
 
   // Get the normalized value path
-  var toPath = _uriPath(path);
+  final toPath = _uriPath(path);
 
   // Join the path
-  var joined = p.posix.normalize(p.posix.join(basePath, toPath));
+  final joined = p.posix.normalize(p.posix.join(basePath, toPath));
 
   // Create the URI
   return new Uri(scheme: baseScheme, path: joined);
@@ -66,8 +66,8 @@ String relative(dynamic path, {dynamic from}) {
   from ??= currentPath;
 
   // Get the schemes
-  var pathScheme = _uriScheme(path);
-  var fromScheme = _uriScheme(from);
+  final pathScheme = _uriScheme(path);
+  final fromScheme = _uriScheme(from);
 
   if (pathScheme != fromScheme) {
     throw new ArgumentError('The schemes of the values do not match');
@@ -75,7 +75,7 @@ String relative(dynamic path, {dynamic from}) {
 
   // Turn into a path
   var fromPath = _uriPath(from);
-  var toPath = _uriPath(path);
+  final toPath = _uriPath(path);
 
   // Convert from into the dirname
   fromPath = _isDirectory(fromPath) ? fromPath : p.posix.dirname(fromPath);
@@ -92,8 +92,8 @@ String relative(dynamic path, {dynamic from}) {
 ///     isWithin('/root/path', '/root/path'); // -> false
 bool isWithin(dynamic parent, dynamic child) {
   // Turn into a path
-  var parentPath = _uriPath(parent);
-  var childPath = _uriPath(child);
+  final parentPath = _uriPath(parent);
+  final childPath = _uriPath(child);
 
   return p.posix.isWithin(parentPath, childPath);
 }
@@ -156,15 +156,15 @@ String extension(dynamic value) => p.posix.extension(_uriPath(value));
 
 /// Checks whether the [path] can be imported through package notation.
 bool canImportAsPackage(dynamic path) {
-  var pathScheme = _uriScheme(path);
+  final pathScheme = _uriScheme(path);
 
   // See if its already a package path
   if (pathScheme == 'package') {
     return true;
   }
 
-  var parentPath = _libPath();
-  var childPath = _uriPath(path);
+  final parentPath = _libPath();
+  final childPath = _uriPath(path);
 
   return p.posix.isWithin(parentPath, childPath);
 }
@@ -174,11 +174,11 @@ bool canImportAsPackage(dynamic path) {
 /// To verify that this function can be used [canImportAsPackage] should be
 /// called first.
 Uri asPackageImport(dynamic path, String name) {
-  var pathScheme = _uriScheme(path);
+  final pathScheme = _uriScheme(path);
 
   // See if its already a package path
   if (pathScheme == 'package') {
-    var uri = path as Uri;
+    final uri = path as Uri;
 
     if (uri.pathSegments[0] == name) {
       return uri;
@@ -187,14 +187,14 @@ Uri asPackageImport(dynamic path, String name) {
     }
   }
 
-  var parentPath = _libPath();
-  var childPath = _uriPath(path);
+  final parentPath = _libPath();
+  final childPath = _uriPath(path);
 
   if (!p.posix.isWithin(parentPath, childPath)) {
     throw new ArgumentError.value(path, 'The path is not within the lib directory');
   }
 
-  var relativePath = p.posix.relative(childPath, from: parentPath);
+  final relativePath = p.posix.relative(childPath, from: parentPath);
 
   return new Uri(scheme: 'package', path: p.posix.join(name, relativePath));
 }

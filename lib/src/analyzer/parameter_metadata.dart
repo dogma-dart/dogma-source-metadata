@@ -27,7 +27,7 @@ final Logger _logger =
 /// Creates a list of parameter metadata for the given executable [element].
 List<ParameterMetadata> parameterList(ExecutableElement element,
                                       List<AnalyzeAnnotation> annotationGenerators) {
-  var values = <ParameterMetadata>[];
+  final values = <ParameterMetadata>[];
 
   for (var parameter in element.parameters) {
     values.add(parameterMetadata(parameter, annotationGenerators));
@@ -39,13 +39,13 @@ List<ParameterMetadata> parameterList(ExecutableElement element,
 /// Creates metadata for the given parameter [element].
 ParameterMetadata parameterMetadata(ParameterElement element,
                                     List<AnalyzeAnnotation> annotationGenerators) {
-  var annotations = createAnnotations(element, annotationGenerators);
-  var name = element.name;
-  var type = typeMetadata(element.type, annotations);
+  final annotations = createAnnotations(element, annotationGenerators);
+  final name = element.name;
+  final type = typeMetadata(element.type, annotations);
 
   _logger.fine('Found parameter $name of type ${type.name}');
 
-  var kind = parameterKind(element.parameterKind);
+  final kind = parameterKind(element.parameterKind);
 
   _logger.finer('Parameter is ${kind.toString().split('.')[1]}');
 

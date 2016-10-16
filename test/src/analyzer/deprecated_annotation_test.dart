@@ -22,16 +22,16 @@ import 'package:dogma_source_analyzer/query.dart';
 void _expectHasDeprecated(AnnotatedMetadata metadata) {
   expect(metadata.annotations, hasLength(1));
 
-  var annotation = metadata.annotations[0];
+  final annotation = metadata.annotations[0];
   expect(annotation, deprecated);
 }
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('@deprecated', () {
-    var library = libraryMetadata(
+    final library = libraryMetadata(
         join('test/lib/deprecated.dart'),
         context
     );
@@ -43,7 +43,7 @@ void main() {
 
     _expectHasDeprecated(library);
 
-    var clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         library,
         nameMatch('DoNotUse'),
         includeClasses: true
@@ -52,7 +52,7 @@ void main() {
     expect(clazz, isNotNull);
     expect(clazz.methods, hasLength(1));
 
-    var method = classMetadataQuery/*<MethodMetadata>*/(
+    final method = classMetadataQuery/*<MethodMetadata>*/(
         clazz,
         nameMatch('old'),
         includeMethods: true

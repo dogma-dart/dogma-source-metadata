@@ -29,22 +29,21 @@ final Logger _logger =
 /// Creates class metadata from the given [element].
 ClassMetadata classMetadata(ClassElement element,
                             List<AnalyzeAnnotation> annotationCreators) {
-  var name = element.name;
+  final name = element.name;
   _logger.info('Creating metadata for class $name');
 
   // Get the supertype
-  var supertypeElement = element.supertype;
-  var supertypeName = supertypeElement.name;
-  var supertype;
+  final supertypeElement = element.supertype;
+  final supertypeName = supertypeElement.name;
 
   _logger.fine('Found that $name extends $supertypeName');
-  supertype = typeMetadata(supertypeElement);
+  final supertype = typeMetadata(supertypeElement);
 
   // Get the classes that are mixed in
-  var mixins = <TypeMetadata>[];
+  final mixins = <TypeMetadata>[];
 
   for (var mixin in element.mixins) {
-    var mixinType = typeMetadata(mixin);
+    final mixinType = typeMetadata(mixin);
 
     _logger.fine('Found that $name mixes in ${mixinType.name}');
 
@@ -52,10 +51,10 @@ ClassMetadata classMetadata(ClassElement element,
   }
 
   // Get the interfaces the class implements
-  var interfaces = <TypeMetadata>[];
+  final interfaces = <TypeMetadata>[];
 
   for (var interface in element.interfaces) {
-    var interfaceType = typeMetadata(interface);
+    final interfaceType = typeMetadata(interface);
 
     _logger.fine('Found that $name implements ${interfaceType.name}');
 
@@ -63,28 +62,28 @@ ClassMetadata classMetadata(ClassElement element,
   }
 
   // Get the fields
-  var fields = <FieldMetadata>[];
+  final fields = <FieldMetadata>[];
 
   for (var field in element.fields) {
-    var fieldName = field.name;
+    final fieldName = field.name;
     _logger.fine('Found field $fieldName on $name');
 
     fields.add(fieldMetadata(field, annotationCreators));
   }
 
   // Get the methods
-  var methods = <MethodMetadata>[];
+  final methods = <MethodMetadata>[];
 
   for (var method in element.methods) {
-    var methodName = method.name;
+    final methodName = method.name;
     _logger.fine('Found method $methodName on $name');
 
     methods.add(methodMetadata(method, annotationCreators));
   }
 
   // Get the constructors
-  var constructors = <ConstructorMetadata>[];
-  var constructorReturnType = new TypeMetadata(name);
+  final constructors = <ConstructorMetadata>[];
+  final constructorReturnType = new TypeMetadata(name);
 
   for (var constructor in element.constructors) {
     constructors.add(constructorMetadata(
@@ -95,7 +94,7 @@ ClassMetadata classMetadata(ClassElement element,
   }
 
   // Get the annotations
-  var annotations = createAnnotations(element, annotationCreators);
+  final annotations = createAnnotations(element, annotationCreators);
 
   if (element.isEnum) {
     return new EnumMetadata(

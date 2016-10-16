@@ -20,9 +20,9 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    var functionName = 'foo';
-    var returnType = new TypeMetadata.bool();
-    var metadata = new FunctionMetadata(functionName, returnType);
+    final functionName = 'foo';
+    final returnType = new TypeMetadata.bool();
+    final metadata = new FunctionMetadata(functionName, returnType);
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);

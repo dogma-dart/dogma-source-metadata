@@ -20,8 +20,8 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    var returnType = new TypeMetadata('Foo');
-    var metadata = new ConstructorMetadata(returnType);
+    final returnType = new TypeMetadata('Foo');
+    final metadata = new ConstructorMetadata(returnType);
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);
@@ -34,9 +34,9 @@ void main() {
     expect(metadata.isDefault, isTrue);
   });
   test('named constructor', () {
-    var constructorName = 'bar';
-    var returnType = new TypeMetadata('Foo');
-    var metadata = new ConstructorMetadata.named(constructorName, returnType);
+    final constructorName = 'bar';
+    final returnType = new TypeMetadata('Foo');
+    final metadata = new ConstructorMetadata.named(constructorName, returnType);
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);

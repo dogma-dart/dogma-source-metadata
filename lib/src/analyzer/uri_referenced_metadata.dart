@@ -22,7 +22,7 @@ final Logger _logger =
 
 /// Creates a list of uri reference metadata from the given [elements].
 List<UriReferencedMetadata> uriReferenceList(Iterable<UriReferencedElement> elements) {
-  var references = <UriReferencedMetadata>[];
+  final references = <UriReferencedMetadata>[];
 
   for (var element in elements) {
     references.add(uriReferenceMetadata(element));
@@ -38,7 +38,7 @@ UriReferencedMetadata uriReferenceMetadata(UriReferencedElement element) {
 
   if (element is ImportElement) {
     _logger.fine('Found import of ${element.uri}');
-    var prefixElement = element.prefix;
+    final prefixElement = element.prefix;
 
     if (prefixElement != null) {
       prefix = prefixElement.name;

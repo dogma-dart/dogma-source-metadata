@@ -47,8 +47,8 @@ void main() {
     expect(functionMetadataMatch(_notFunctionMetadata), isFalse);
   });
   test('parameterCountMatch', () {
-    var oneParameter = parameterCountMatch(1);
-    var twoParameters = parameterCountMatch(2);
+    final oneParameter = parameterCountMatch(1);
+    final twoParameters = parameterCountMatch(2);
 
     expect(oneParameter(_emptyParameters), isFalse);
     expect(twoParameters(_emptyParameters), isFalse);
@@ -71,8 +71,8 @@ void main() {
     expect(and(functionMetadataMatch, emptyParametersMatch)(_notFunctionMetadata), isFalse);
   });
   test('returnTypeMatch', () {
-    var returnsInt = returnTypeMatch(_intType);
-    var returnsString = returnTypeMatch(_stringType);
+    final returnsInt = returnTypeMatch(_intType);
+    final returnsString = returnTypeMatch(_stringType);
 
     expect(returnsInt(_emptyParameters), isTrue);
     expect(returnsString(_emptyParameters), isFalse);

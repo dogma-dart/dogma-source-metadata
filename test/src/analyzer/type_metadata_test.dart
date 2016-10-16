@@ -21,14 +21,11 @@ import 'package:dogma_source_analyzer/query.dart';
 
 /// Entry point for tests.
 void main() {
-  var context = analysisContext();
+  final context = analysisContext();
 
   test('function tests', () {
-    var library = libraryMetadata(join('test/lib/union_type.dart'), context);
-
-    var function;
-
-    function = libraryMetadataQuery/*<FunctionMetadata*/(
+    final library = libraryMetadata(join('test/lib/union_type.dart'), context);
+    final function = libraryMetadataQuery/*<FunctionMetadata*/(
         library,
         nameMatch('function'),
         includeFunctions: true

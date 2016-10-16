@@ -31,7 +31,7 @@ class _CallCount {
   }
 
   static List<MetadataMatchFunction> repeat(_CallCount functor, int count) {
-    var functions = <MetadataMatchFunction>[];
+    final functions = <MetadataMatchFunction>[];
 
     for (var i = 0; i < count; ++i) {
       functions.add(functor);
@@ -65,15 +65,15 @@ void main() {
     expect(not(not(_false))(_metadata), isFalse);
   });
   test('andList', () {
-    var trueFunctor = new _CallCount();
-    var trueList = _CallCount.repeat(trueFunctor, _count);
+    final trueFunctor = new _CallCount();
+    final trueList = _CallCount.repeat(trueFunctor, _count);
 
     expect(andList(trueList)(_metadata), isTrue);
     expect(trueFunctor.count, equals(_count));
 
-    var falseFunctor = new _CallCount();
+    final falseFunctor = new _CallCount();
     falseFunctor.returnValue = false;
-    var falseList = _CallCount.repeat(falseFunctor, _count);
+    final falseList = _CallCount.repeat(falseFunctor, _count);
 
     expect(andList(falseList)(_metadata), isFalse);
     expect(falseFunctor.count, equals(1));
@@ -81,7 +81,7 @@ void main() {
     // List of true then false
     trueFunctor.resetCount();
     falseFunctor.resetCount();
-    var trueFalseList = <MetadataMatchFunction>[]
+    final trueFalseList = <MetadataMatchFunction>[]
         ..addAll(trueList)
         ..addAll(falseList);
 
@@ -92,7 +92,7 @@ void main() {
     // List of false then true
     trueFunctor.resetCount();
     falseFunctor.resetCount();
-    var falseTrueList = <MetadataMatchFunction>[]
+    final falseTrueList = <MetadataMatchFunction>[]
         ..addAll(falseList)
         ..addAll(trueList);
 
@@ -101,15 +101,15 @@ void main() {
     expect(falseFunctor.count, equals(1));
   });
   test('orList', () {
-    var trueFunctor = new _CallCount();
-    var trueList = _CallCount.repeat(trueFunctor, _count);
+    final trueFunctor = new _CallCount();
+    final trueList = _CallCount.repeat(trueFunctor, _count);
 
     expect(orList(trueList)(_metadata), isTrue);
     expect(trueFunctor.count, equals(1));
 
-    var falseFunctor = new _CallCount();
+    final falseFunctor = new _CallCount();
     falseFunctor.returnValue = false;
-    var falseList = _CallCount.repeat(falseFunctor, _count);
+    final falseList = _CallCount.repeat(falseFunctor, _count);
 
     expect(orList(falseList)(_metadata), isFalse);
     expect(falseFunctor.count, equals(_count));
@@ -117,7 +117,7 @@ void main() {
     // List of true then false
     trueFunctor.resetCount();
     falseFunctor.resetCount();
-    var trueFalseList = <MetadataMatchFunction>[]
+    final trueFalseList = <MetadataMatchFunction>[]
         ..addAll(trueList)
         ..addAll(falseList);
 
@@ -128,7 +128,7 @@ void main() {
     // List of false then true
     trueFunctor.resetCount();
     falseFunctor.resetCount();
-    var falseTrueList = <MetadataMatchFunction>[]
+    final falseTrueList = <MetadataMatchFunction>[]
         ..addAll(falseList)
         ..addAll(trueList);
 

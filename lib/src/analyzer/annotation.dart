@@ -76,11 +76,11 @@ typedef String ParameterNameMapper(String constructorName, String parameter);
 /// [annotationCreators].
 List createAnnotations(Element element,
                        List<AnalyzeAnnotation> annotationCreators) {
-  var values = [];
+  final values = [];
 
   for (var metadata in element.metadata) {
     for (var creator in annotationCreators) {
-      var value = creator(metadata);
+      final value = creator(metadata);
 
       if (value != null) {
         values.add(value);
@@ -97,15 +97,15 @@ AnalyzeAnnotation analyzeAnnotation(String annotation,
                                     ParameterNameMapper parameterNameMapper: _passThroughParameters,
                                     CreateAnnotationInstance createAnnotation: createAnnotation,
                                     CreateDartValue createValue}) {
-  var clazz = classMirror(annotation, library);
+  final clazz = classMirror(annotation, library);
 
   return (element) {
-    var representation = element.element;
+    final representation = element.element;
 
     // Check to see if the representation is present
     if (representation == null) {
       // Get the AST to determine what annotation is failing
-      var annotationAst = (element as ElementAnnotationImpl).annotationAst;
+      final annotationAst = (element as ElementAnnotationImpl).annotationAst;
       _logger.severe('The annotation, $annotationAst, could not be instantiated. Make sure it is imported and accessible');
       return null;
     }
@@ -118,25 +118,26 @@ AnalyzeAnnotation analyzeAnnotation(String annotation,
     var value;
 
     if (representation is ConstructorElement) {
-      var constructorName = representation.name;
+      final constructorName = representation.name;
       _logger.fine('Annotation is being constructed through "$constructorName"');
 
       // Annotations are constant so get the result of the evaluation
       //
       // This ends up creating a generic object containing the resulting
       // fields of the instance.
-      var evaluatedFields = element.constantValue;
+      final evaluatedFields = element.constantValue;
 
       // Get the invocation
-      var positionalArguments = [];
-      var namedArguments = <Symbol, dynamic>{};
+      final positionalArguments = [];
+      final namedArguments = <Symbol, dynamic>{};
 
       // Iterate over the parameters to get the mirrors call
       for (var parameter in representation.parameters) {
-        var parameterName = parameter.name;
-        var mappedParameterName = parameterNameMapper(constructorName, parameterName);
-        var parameterField = evaluatedFields.getField(mappedParameterName);
-        var parameterValue = dartValue(parameterField, createValue);
+        final parameterName = parameter.name;
+        final mappedParameterName =
+            parameterNameMapper(constructorName, parameterName);
+        final parameterField = evaluatedFields.getField(mappedParameterName);
+        final parameterValue = dartValue(parameterField, createValue);
 
         _logger.fine('Found $parameterName of value $parameterValue');
         _logger.finer('Parameter is mapped to $mappedParameterName');

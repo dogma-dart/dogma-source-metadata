@@ -34,9 +34,9 @@ void main() {
     expect(typedMetadataMatch(_notTypedMetadata), isFalse);
   });
   test('typeMatch', () {
-    var intMatcher = typeMatch(_intType);
-    var stringMatcher = typeMatch(_stringType);
-    var fooMatcher = typeMatch(_fooType);
+    final intMatcher = typeMatch(_intType);
+    final stringMatcher = typeMatch(_stringType);
+    final fooMatcher = typeMatch(_fooType);
 
     expect(intMatcher(_intTyped), isTrue);
     expect(stringMatcher(_intTyped), isFalse);

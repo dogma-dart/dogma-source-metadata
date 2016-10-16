@@ -27,14 +27,14 @@ final Logger _logger =
 /// Creates metadata for the given method [element].
 MethodMetadata methodMetadata(MethodElement element,
                               List<AnalyzeAnnotation> annotationGenerators) {
-  var annotations = createAnnotations(element, annotationGenerators);
-  var comments = elementComments(element);
+  final annotations = createAnnotations(element, annotationGenerators);
+  final comments = elementComments(element);
 
-  var name = element.name;
-  var parameters = parameterList(element, annotationGenerators);
-  var isPrivate = element.isPrivate;
-  var isAbstract = element.isAbstract;
-  var returnType = typeMetadata(element.returnType);
+  final name = element.name;
+  final parameters = parameterList(element, annotationGenerators);
+  final isPrivate = element.isPrivate;
+  final isAbstract = element.isAbstract;
+  final returnType = typeMetadata(element.returnType);
 
   _logger.fine('Found method $name');
 

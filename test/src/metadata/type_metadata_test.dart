@@ -54,7 +54,7 @@ TypeMetadata _mapType(TypeMetadata key, TypeMetadata value, [int depth = 1]) {
 /// Test entry point.
 void main() {
   test('bool type', () {
-    var type = _boolType();
+    final type = _boolType();
 
     expect(type.isInt, isFalse);
     expect(type.isDouble, isFalse);
@@ -67,7 +67,7 @@ void main() {
   });
 
   test('int type', () {
-    var type = _intType();
+    final type = _intType();
 
     expect(type.isInt, isTrue);
     expect(type.isDouble, isFalse);
@@ -80,7 +80,7 @@ void main() {
   });
 
   test('double type', () {
-    var type = _doubleType();
+    final type = _doubleType();
 
     expect(type.isInt, isFalse);
     expect(type.isDouble, isTrue);
@@ -93,7 +93,7 @@ void main() {
   });
 
   test('num type', () {
-    var type = _numType();
+    final type = _numType();
 
     expect(type.isInt, isFalse);
     expect(type.isDouble, isFalse);
@@ -106,7 +106,7 @@ void main() {
   });
 
   test('String type', () {
-    var type = _stringType();
+    final type = _stringType();
 
     expect(type.isInt, isFalse);
     expect(type.isDouble, isFalse);
@@ -119,7 +119,7 @@ void main() {
   });
 
   test('User defined type', () {
-    var type = _userType();
+    final type = _userType();
 
     expect(type.isInt, isFalse);
     expect(type.isDouble, isFalse);
@@ -132,7 +132,7 @@ void main() {
   });
 
   test('List type', () {
-    var expectListType = (type, builtin) {
+    final expectListType = (type, builtin) {
       expect(type.isInt, isFalse);
       expect(type.isDouble, isFalse);
       expect(type.isNum, isFalse);
@@ -143,7 +143,7 @@ void main() {
       expect(type.isBuiltin, builtin);
     };
 
-    var checkListWithType = (type, maxDepth, builtin) {
+    final checkListWithType = (type, maxDepth, builtin) {
       for (var i = 1; i < maxDepth; ++i) {
         expectListType(_listType(type, i), builtin);
       }
@@ -158,7 +158,7 @@ void main() {
   });
 
   test('Map type', () {
-    var expectMapType = (type, builtin) {
+    final expectMapType = (type, builtin) {
       expect(type.isInt, isFalse);
       expect(type.isDouble, isFalse);
       expect(type.isNum, isFalse);
@@ -169,7 +169,7 @@ void main() {
       expect(type.isBuiltin, builtin);
     };
 
-    var checkMapWithType = (type, maxDepth, builtin) {
+    final checkMapWithType = (type, maxDepth, builtin) {
       for (var i = 1; i < maxDepth; ++i) {
         expectMapType(_mapType(_stringType(), type, i), builtin);
       }
