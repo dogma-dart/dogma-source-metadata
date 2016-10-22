@@ -20,34 +20,34 @@ final TypeMetadata _fieldType = new TypeMetadata.int();
 final FieldMetadata _instanceField =
     new FieldMetadata.field(
         'instanceField',
-        _fieldType,
+        type: _fieldType,
         isConst: false,
         isFinal: false
     );
 final FieldMetadata _instanceFinalField =
     new FieldMetadata.field(
         'instanceField',
-        _fieldType,
+        type: _fieldType,
         isConst: false,
         isFinal: true
     );
 final FieldMetadata _instanceGetter =
     new FieldMetadata(
         'instanceGetter',
-        _fieldType,
         true,
         true,
         false,
+        type: _fieldType,
         isConst: false,
         isFinal: false
     );
 final FieldMetadata _instanceSetter =
     new FieldMetadata(
         'instanceSetter',
-        _fieldType,
         true,
         false,
         true,
+        type: _fieldType,
         isConst: false,
         isFinal: false
     );

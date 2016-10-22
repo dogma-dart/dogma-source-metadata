@@ -20,9 +20,9 @@ final TypeMetadata _intType = new TypeMetadata.int();
 final TypeMetadata _stringType = new TypeMetadata.string();
 final TypeMetadata _fooType = new TypeMetadata('Foo');
 
-final FieldMetadata _intTyped = new FieldMetadata.field('intType', _intType);
-final FieldMetadata _stringTyped = new FieldMetadata.field('stringType', _stringType);
-final FieldMetadata _fooTyped = new FieldMetadata.field('fooType', _fooType);
+final FieldMetadata _intTyped = new FieldMetadata.field('intType', type: _intType);
+final FieldMetadata _stringTyped = new FieldMetadata.field('stringType', type: _stringType);
+final FieldMetadata _fooTyped = new FieldMetadata.field('fooType', type: _fooType);
 final Metadata _notTypedMetadata = new Metadata('NotTyped');
 
 /// Entry point for tests.

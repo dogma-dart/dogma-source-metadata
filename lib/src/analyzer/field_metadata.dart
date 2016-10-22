@@ -98,10 +98,10 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
 
   return new FieldMetadata(
       element.name,
-      type,
       isProperty,
       getter,
       setter,
+      type: type,
       isPrivate: element.isPrivate,
       isAbstract: isAbstract,
       isConst: isConst,

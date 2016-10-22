@@ -69,11 +69,11 @@ class FieldMetadata extends AnnotatedMetadata
   /// Creates an instance of the [FieldMetadata] class with the given [name] of
   /// [type].
   FieldMetadata(String name,
-                this.type,
                 this.isProperty,
                 this.getter,
                 this.setter,
-               {this.isPrivate: false,
+               {TypeMetadata type,
+                this.isPrivate: false,
                 this.isAbstract: false,
                 this.isConst: false,
                 this.isFinal: false,
@@ -81,7 +81,8 @@ class FieldMetadata extends AnnotatedMetadata
                 this.defaultValue,
                 List annotations,
                 String comments})
-      : super(name, annotations, comments);
+      : type = type ?? dynamicType
+      , super(name, annotations, comments);
 
   /// Creates an instance of the [FieldMetadata] class with the given [name] of
   /// [type] representing a field.
@@ -93,8 +94,8 @@ class FieldMetadata extends AnnotatedMetadata
   ///       static int baz;
   ///     }
   FieldMetadata.field(String name,
-                      this.type,
-                     {this.isPrivate: false,
+                     {TypeMetadata type,
+                      this.isPrivate: false,
                       this.isAbstract: false,
                       bool isConst: false,
                       bool isFinal: false,
@@ -102,7 +103,8 @@ class FieldMetadata extends AnnotatedMetadata
                       this.defaultValue,
                       List annotations,
                       String comments})
-      : isProperty = false
+      : type = type ?? dynamicType
+      , isProperty = false
       , getter = true
       , setter = !(isConst || isFinal)
       , isConst = isConst

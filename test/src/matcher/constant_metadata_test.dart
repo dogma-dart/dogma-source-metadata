@@ -20,7 +20,7 @@ final TypeMetadata _fieldType = new TypeMetadata.int();
 final FieldMetadata _constField =
     new FieldMetadata.field(
         'constField',
-        _fieldType,
+        type: _fieldType,
         isConst: true,
         isStatic: true,
         isFinal: false
@@ -28,7 +28,7 @@ final FieldMetadata _constField =
 final FieldMetadata _field =
     new FieldMetadata.field(
         'field',
-        _fieldType,
+        type: _fieldType,
         isConst: false,
         isFinal: true
     );

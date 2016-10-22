@@ -18,6 +18,7 @@ import 'base_metadata.dart';
 //---------------------------------------------------------------------
 
 void _expectFieldDefaults(FieldMetadata metadata) {
+  expect(metadata.type, dynamicType);
   expect(metadata.isConst, isFalse);
   expect(metadata.isAbstract, isFalse);
   expect(metadata.isFinal, isFalse);
@@ -28,14 +29,12 @@ void _expectFieldDefaults(FieldMetadata metadata) {
 void main() {
   test('default constructor', () {
     final fieldName = 'field';
-    final fieldType = new TypeMetadata.bool();
     final fieldIsProperty = true;
     final fieldGetter = true;
     final fieldSetter = true;
 
     final field = new FieldMetadata(
         fieldName,
-        fieldType,
         fieldIsProperty,
         fieldGetter,
         fieldSetter
@@ -50,7 +49,6 @@ void main() {
     _expectFieldDefaults(field);
 
     expect(field.name, fieldName);
-    expect(field.type, fieldType);
     expect(field.isProperty, fieldIsProperty);
     expect(field.getter, fieldGetter);
     expect(field.setter, fieldSetter);
@@ -59,8 +57,7 @@ void main() {
   test('field constructor', () {
     // Default field
     final fieldName = 'field';
-    final fieldType = new TypeMetadata.bool();
-    final field = new FieldMetadata.field(fieldName, fieldType);
+    final field = new FieldMetadata.field(fieldName);
 
     // Base classes
     expectAnnotatedMetadataDefaults(field);
@@ -71,17 +68,14 @@ void main() {
     _expectFieldDefaults(field);
 
     expect(field.name, fieldName);
-    expect(field.type, fieldType);
     expect(field.isProperty, isFalse);
     expect(field.getter, isTrue);
     expect(field.setter, isTrue);
 
     // Const field
     final constFieldName = 'constField';
-    final constFieldType = new TypeMetadata.bool();
     final constField = new FieldMetadata.field(
         constFieldName,
-        constFieldType,
         isConst: true
     );
 
@@ -92,7 +86,6 @@ void main() {
 
     // FieldMetadata
     expect(constField.name, constFieldName);
-    expect(constField.type, constFieldType);
     expect(constField.isProperty, isFalse);
     expect(constField.getter, isTrue);
     expect(constField.setter, isFalse);
@@ -102,10 +95,8 @@ void main() {
 
     // Final field
     final finalFieldName = 'finalField';
-    final finalFieldType = new TypeMetadata.bool();
     final finalField = new FieldMetadata.field(
         finalFieldName,
-        finalFieldType,
         isFinal: true
     );
 
@@ -116,7 +107,6 @@ void main() {
 
     // FieldMetadata
     expect(finalField.name, finalFieldName);
-    expect(finalField.type, finalFieldType);
     expect(finalField.isProperty, isFalse);
     expect(finalField.getter, isTrue);
     expect(finalField.setter, isFalse);
