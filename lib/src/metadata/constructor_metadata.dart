@@ -43,7 +43,6 @@ class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
       : super('',
               returnType: returnType,
               parameters: parameters,
-              isPrivate: isPrivate,
               annotations: annotations,
               comments: comments);
 
@@ -52,7 +51,6 @@ class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
   ConstructorMetadata.named(String name,
                             TypeMetadata returnType,
                            {List<ParameterMetadata> parameters,
-                            bool isPrivate,
                             this.isConst: false,
                             this.isFactory: false,
                             List annotations,
@@ -60,7 +58,6 @@ class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
       : super(name,
               returnType: returnType,
               parameters: parameters,
-              isPrivate: isPrivate,
               annotations: annotations,
               comments: comments);
 

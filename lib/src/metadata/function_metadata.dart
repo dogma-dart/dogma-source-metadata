@@ -30,8 +30,6 @@ class FunctionMetadata extends AnnotatedMetadata
   final TypeMetadata returnType;
   /// The list of parameters for the function.
   final List<ParameterMetadata> parameters;
-  @override
-  final bool isPrivate;
 
   //---------------------------------------------------------------------
   // Constructor
@@ -42,12 +40,10 @@ class FunctionMetadata extends AnnotatedMetadata
   FunctionMetadata(String name,
                   {TypeMetadata returnType,
                    List<ParameterMetadata> parameters,
-                   bool isPrivate,
                    List annotations,
                    String comments})
       : returnType = returnType ?? dynamicType
       , parameters = parameters ?? <ParameterMetadata>[]
-      , isPrivate = isPrivate ?? false
       , super(name, annotations, comments)
   {
     // Use `this` to properly scope the value

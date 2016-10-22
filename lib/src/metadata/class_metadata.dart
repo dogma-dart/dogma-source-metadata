@@ -36,8 +36,6 @@ class ClassMetadata extends AnnotatedMetadata
   final TypeMetadata type;
   @override
   final bool isAbstract;
-  @override
-  final bool isPrivate;
   /// The parent class type.
   final TypeMetadata supertype;
   /// The types this class implements.
@@ -67,7 +65,6 @@ class ClassMetadata extends AnnotatedMetadata
   ClassMetadata(String name,
                {this.supertype,
                 this.isAbstract: false,
-                bool isPrivate,
                 List<TypeMetadata> interfaces,
                 List<TypeMetadata> mixins,
                 List<TypeMetadata> typeParameters,
@@ -77,7 +74,6 @@ class ClassMetadata extends AnnotatedMetadata
                 List annotations,
                 String comments})
       : type = new TypeMetadata(name)
-      , isPrivate = isPrivate ?? false
       , interfaces = interfaces ?? <TypeMetadata>[]
       , mixins = mixins ?? <TypeMetadata>[]
       , typeParameters = typeParameters ?? <TypeMetadata>[]

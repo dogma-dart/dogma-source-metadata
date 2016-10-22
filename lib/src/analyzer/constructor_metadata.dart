@@ -32,7 +32,6 @@ ConstructorMetadata constructorMetadata(ConstructorElement element,
 
   final name = element.name;
   final parameters = parameterList(element, annotationGenerators);
-  final isPrivate = element.isPrivate;
   final isFactory = element.isFactory;
   final isConst = element.isConst;
 
@@ -42,7 +41,6 @@ ConstructorMetadata constructorMetadata(ConstructorElement element,
     return new ConstructorMetadata(
         returnType,
         parameters: parameters,
-        isPrivate: isPrivate,
         isFactory: isFactory,
         isConst: isConst,
         annotations: annotations,
@@ -55,7 +53,6 @@ ConstructorMetadata constructorMetadata(ConstructorElement element,
         name,
         returnType,
         parameters: parameters,
-        isPrivate: isPrivate,
         isFactory: isFactory,
         isConst: isConst,
         annotations: annotations,

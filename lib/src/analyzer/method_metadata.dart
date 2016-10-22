@@ -32,7 +32,6 @@ MethodMetadata methodMetadata(MethodElement element,
 
   final name = element.name;
   final parameters = parameterList(element, annotationGenerators);
-  final isPrivate = element.isPrivate;
   final isAbstract = element.isAbstract;
   final returnType = typeMetadata(element.returnType);
 
@@ -43,7 +42,6 @@ MethodMetadata methodMetadata(MethodElement element,
       returnType: returnType,
       parameters: parameters,
       isAbstract: isAbstract,
-      isPrivate: isPrivate,
       isStatic: element.isStatic,
       annotations: annotations,
       comments: comments

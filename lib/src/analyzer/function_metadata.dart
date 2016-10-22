@@ -32,7 +32,6 @@ FunctionMetadata functionMetadata(FunctionElement element,
 
   final name = element.name;
   final parameters = parameterList(element, annotationGenerators);
-  final isPrivate = element.isPrivate;
   final returnType = typeMetadata(element.returnType);
 
   _logger.fine('Found function $name');
@@ -41,7 +40,6 @@ FunctionMetadata functionMetadata(FunctionElement element,
       name,
       returnType: returnType,
       parameters: parameters,
-      isPrivate: isPrivate,
       annotations: annotations,
       comments: comments
   );

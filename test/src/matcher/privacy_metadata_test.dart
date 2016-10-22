@@ -17,7 +17,7 @@ import 'package:dogma_source_analyzer/metadata.dart';
 //---------------------------------------------------------------------
 
 final ClassMetadata _privateClass =
-    new ClassMetadata('_Private', isPrivate: true);
+    new ClassMetadata('_Private');
 final ClassMetadata _publicClass = new ClassMetadata('Public');
 final Metadata _notPrivateMetadata = new Metadata('NotPrivate');
 

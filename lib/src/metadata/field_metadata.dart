@@ -42,8 +42,6 @@ class FieldMetadata extends AnnotatedMetadata
   @override
   final TypeMetadata type;
   @override
-  final bool isPrivate;
-  @override
   final bool isAbstract;
   @override
   final bool isStatic;
@@ -73,7 +71,6 @@ class FieldMetadata extends AnnotatedMetadata
                 this.getter,
                 this.setter,
                {TypeMetadata type,
-                this.isPrivate: false,
                 this.isAbstract: false,
                 this.isConst: false,
                 this.isFinal: false,
@@ -95,7 +92,6 @@ class FieldMetadata extends AnnotatedMetadata
   ///     }
   FieldMetadata.field(String name,
                      {TypeMetadata type,
-                      this.isPrivate: false,
                       this.isAbstract: false,
                       bool isConst: false,
                       bool isFinal: false,
