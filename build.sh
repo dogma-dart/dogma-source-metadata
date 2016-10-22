@@ -27,7 +27,7 @@ pub global run coverage:collect_coverage \
 wait
 
 pub global run coverage:format_coverage \
-    --package-root=packages \
+    --packages=.packages \
     --report-on lib \
     --in ${COVERAGE_OUTPUT} \
     --out lcov.info \
