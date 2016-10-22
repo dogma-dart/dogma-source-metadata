@@ -20,17 +20,17 @@ final _intType = new TypeMetadata.int();
 final _stringType = new TypeMetadata.string();
 
 final FunctionMetadata _emptyParameters =
-    new FunctionMetadata('emptyParameters', _intType);
+    new FunctionMetadata('emptyParameters', returnType: _intType);
 final FunctionMetadata _singleParameter =
     new FunctionMetadata(
         'singleParameter',
-        _intType,
+        returnType: _intType,
         parameters: [new ParameterMetadata('_0', type: _stringType)]
     );
 final FunctionMetadata _twoParameters =
     new FunctionMetadata(
         'twoParameters',
-        _intType,
+        returnType: _intType,
         parameters: [
           new ParameterMetadata('_0', type: _stringType),
           new ParameterMetadata('_1', type: _stringType)

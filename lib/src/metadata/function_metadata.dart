@@ -40,12 +40,13 @@ class FunctionMetadata extends AnnotatedMetadata
   /// Creates an instance of [FunctionMetadata] with the given [name] and
   /// [returnType].
   FunctionMetadata(String name,
-                   this.returnType,
-                  {List<ParameterMetadata> parameters,
+                  {TypeMetadata returnType,
+                   List<ParameterMetadata> parameters,
                    bool isPrivate,
                    List annotations,
                    String comments})
-      : parameters = parameters ?? <ParameterMetadata>[]
+      : returnType = returnType ?? dynamicType
+      , parameters = parameters ?? <ParameterMetadata>[]
       , isPrivate = isPrivate ?? false
       , super(name, annotations, comments)
   {

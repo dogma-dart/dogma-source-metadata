@@ -40,7 +40,7 @@ MethodMetadata methodMetadata(MethodElement element,
 
   return new MethodMetadata(
       name,
-      returnType,
+      returnType: returnType,
       parameters: parameters,
       isAbstract: isAbstract,
       isPrivate: isPrivate,

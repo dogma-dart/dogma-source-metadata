@@ -41,7 +41,7 @@ class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
                       List annotations,
                       String comments})
       : super('',
-              returnType,
+              returnType: returnType,
               parameters: parameters,
               isPrivate: isPrivate,
               annotations: annotations,
@@ -58,7 +58,7 @@ class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
                             List annotations,
                             String comments})
       : super(name,
-              returnType,
+              returnType: returnType,
               parameters: parameters,
               isPrivate: isPrivate,
               annotations: annotations,

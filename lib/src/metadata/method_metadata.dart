@@ -37,15 +37,15 @@ class MethodMetadata extends FunctionMetadata
   /// Creates an instance of [MethodMetadata] with the given [name] and
   /// [returnType].
   MethodMetadata(String name,
-                 TypeMetadata returnType,
-                {List<ParameterMetadata> parameters,
+                {TypeMetadata returnType,
+                 List<ParameterMetadata> parameters,
                  bool isPrivate,
                  this.isAbstract: false,
                  this.isStatic: false,
                  List annotations,
                  String comments})
       : super(name,
-              returnType,
+              returnType: returnType,
               parameters: parameters,
               isPrivate: isPrivate,
               annotations: annotations,

@@ -21,8 +21,7 @@ import 'base_metadata.dart';
 void main() {
   test('default constructor', () {
     final functionName = 'foo';
-    final returnType = new TypeMetadata.bool();
-    final metadata = new MethodMetadata(functionName, returnType);
+    final metadata = new MethodMetadata(functionName);
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);
@@ -31,6 +30,6 @@ void main() {
 
     // FunctionMetadata
     expect(metadata.name, functionName);
-    expect(metadata.returnType, returnType);
+    expect(metadata.returnType, dynamicType);
   });
 }

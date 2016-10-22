@@ -39,7 +39,7 @@ FunctionMetadata functionMetadata(FunctionElement element,
 
   return new FunctionMetadata(
       name,
-      returnType,
+      returnType: returnType,
       parameters: parameters,
       isPrivate: isPrivate,
       annotations: annotations,
