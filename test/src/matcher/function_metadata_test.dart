@@ -25,15 +25,15 @@ final FunctionMetadata _singleParameter =
     new FunctionMetadata(
         'singleParameter',
         _intType,
-        parameters: [new ParameterMetadata('_0', _stringType)]
+        parameters: [new ParameterMetadata('_0', type: _stringType)]
     );
 final FunctionMetadata _twoParameters =
     new FunctionMetadata(
         'twoParameters',
         _intType,
         parameters: [
-          new ParameterMetadata('_0', _stringType),
-          new ParameterMetadata('_1', _stringType)
+          new ParameterMetadata('_0', type: _stringType),
+          new ParameterMetadata('_1', type: _stringType)
         ]
     );
 final Metadata _notFunctionMetadata = new Metadata('NotFunction');

@@ -21,12 +21,11 @@ import 'base_metadata.dart';
 void main() {
   test('default constructor', () {
     final name = 'default';
-    final type = new TypeMetadata.bool();
-    final metadata = new ParameterMetadata(name, type);
+    final metadata = new ParameterMetadata(name);
 
     expectAnnotatedMetadataDefaults(metadata);
     expect(metadata.name, name);
-    expect(metadata.type, type);
+    expect(metadata.type, dynamicType);
     expect(metadata.parameterKind, ParameterKind.required);
     expect(metadata.isInitializer, isFalse);
     expect(metadata.isOptional, isFalse);
@@ -38,7 +37,7 @@ void main() {
     final requiredType = new TypeMetadata.bool();
     final required = new ParameterMetadata(
         requiredName,
-        requiredType,
+        type: requiredType,
         parameterKind: ParameterKind.required
     );
 
@@ -54,7 +53,7 @@ void main() {
     final positionalType = new TypeMetadata.bool();
     final positional = new ParameterMetadata(
         positionalName,
-        positionalType,
+        type: positionalType,
         parameterKind: ParameterKind.positional
     );
 
@@ -70,7 +69,7 @@ void main() {
     final namedType = new TypeMetadata.bool();
     final named = new ParameterMetadata(
         namedName,
-        namedType,
+        type: namedType,
         parameterKind: ParameterKind.named
     );
 

@@ -59,7 +59,7 @@ ParameterMetadata parameterMetadata(ParameterElement element,
 
   return new ParameterMetadata(
       name,
-      type,
+      type: type,
       parameterKind: parameterKind(element.parameterKind),
       annotations: annotations,
       isInitializer: element.isInitializingFormal,

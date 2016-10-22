@@ -20,19 +20,19 @@ final TypeMetadata _intType = new TypeMetadata.int();
 final ParameterMetadata _required =
     new ParameterMetadata(
         'required',
-        _intType,
+        type: _intType,
         parameterKind: ParameterKind.required
     );
 final ParameterMetadata _positional =
     new ParameterMetadata(
         'positional',
-        _intType,
+        type: _intType,
         parameterKind: ParameterKind.positional
     );
 final ParameterMetadata _named =
     new ParameterMetadata(
         'named',
-        _intType,
+        type: _intType,
         parameterKind: ParameterKind.named
     );
 final Metadata _notParameterMetadata = new Metadata('NotParameter');

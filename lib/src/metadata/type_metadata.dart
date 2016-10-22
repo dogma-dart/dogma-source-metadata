@@ -94,7 +94,7 @@ class TypeMetadata extends Metadata {
   /// The [key] type and [value] type can be provided for additional type
   /// information.
   factory TypeMetadata.map([TypeMetadata key, TypeMetadata value]) {
-    var arguments = <TypeMetadata>[];
+    final arguments = <TypeMetadata>[];
 
     // Add type arguments only if key is not null
     if (key != null) {
@@ -185,3 +185,6 @@ class TypeMetadata extends Metadata {
     return result;
   }
 }
+
+/// An instance of [TypeMetadata] representing a dynamic type.
+final TypeMetadata dynamicType = new TypeMetadata.dynamic();

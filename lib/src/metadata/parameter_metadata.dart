@@ -48,12 +48,13 @@ class ParameterMetadata extends AnnotatedMetadata
   /// optional then [defaultValue] should be set unless null is desired for the
   /// default value.
   ParameterMetadata(String name,
-                    this.type,
-                   {this.parameterKind: ParameterKind.required,
+                   {TypeMetadata type,
+                    this.parameterKind: ParameterKind.required,
                     this.isInitializer: false,
                     this.defaultValue,
                     List annotations})
-      : super(name, annotations, '');
+      : type = type ?? dynamicType
+      , super(name, annotations, '');
 
   //---------------------------------------------------------------------
   // Properties
