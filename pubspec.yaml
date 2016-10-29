@@ -13,4 +13,6 @@ dependencies:
   logging: ^0.11.2
   meta: ^1.0.0
 dev_dependencies:
-  test: ^0.12.13
+  dogma_source_metadata_test:
+    path: ../dogma-source-metadata-test
+  test: ^0.12.15
