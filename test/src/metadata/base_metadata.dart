@@ -18,7 +18,7 @@ import 'package:dogma_source_analyzer/metadata.dart';
 
 /// Checks the [metadata] for default values of [AbstractMetadata].
 void expectAbstractMetadataDefaults(AbstractMetadata metadata) {
-  expect(metadata, isAbstract);
+  expect(metadata, isConcrete);
 }
 
 /// Checks the [metadata] for default values of [AnnotatedMetadata].
@@ -29,7 +29,7 @@ void expectAnnotatedMetadataDefaults(AnnotatedMetadata metadata) {
 
 /// Checks the [metadata] for default values of [StaticMetadata].
 void expectStaticMetadataDefaults(StaticMetadata metadata) {
-  expect(metadata, isStatic);
+  expect(metadata, isNotStatic);
 }
 
 /// Checks the [metadata] for default values of [FunctionMetadata].
