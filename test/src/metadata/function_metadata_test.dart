@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_source_metadata_test/test.dart';
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/metadata.dart';
@@ -27,8 +28,9 @@ void main() {
     expectAnnotatedMetadataDefaults(metadata);
 
     // FunctionMetadata
-    expect(metadata.name, functionName);
-    expect(metadata.returnType, dynamicType);
+    expect(metadata, isPublic);
+    expect(metadata, isNamed(functionName));
+    expect(metadata, returnsType(dynamicType));
     expectFunctionMetadataDefaults(metadata);
   });
 }
