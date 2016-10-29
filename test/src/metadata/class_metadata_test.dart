@@ -26,7 +26,6 @@ void main() {
     // Base classes
     expectAbstractMetadataDefaults(metadata);
     expectAnnotatedMetadataDefaults(metadata);
-    expectPrivacyMetadataDefaults(metadata);
 
     // ClassMetadata
     expect(metadata.name, className);

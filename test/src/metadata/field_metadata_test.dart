@@ -42,7 +42,6 @@ void main() {
 
     // Base classes
     expectAnnotatedMetadataDefaults(field);
-    expectPrivacyMetadataDefaults(field);
     expectStaticMetadataDefaults(field);
 
     // FieldMetadata
@@ -61,7 +60,6 @@ void main() {
 
     // Base classes
     expectAnnotatedMetadataDefaults(field);
-    expectPrivacyMetadataDefaults(field);
     expectStaticMetadataDefaults(field);
 
     // FieldMetadata
@@ -81,7 +79,6 @@ void main() {
 
     // Base classes
     expectAnnotatedMetadataDefaults(constField);
-    expectPrivacyMetadataDefaults(constField);
     expectStaticMetadataDefaults(constField);
 
     // FieldMetadata
@@ -102,7 +99,6 @@ void main() {
 
     // Base classes
     expectAnnotatedMetadataDefaults(finalField);
-    expectPrivacyMetadataDefaults(finalField);
     expectStaticMetadataDefaults(finalField);
 
     // FieldMetadata

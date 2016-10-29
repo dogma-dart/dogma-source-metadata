@@ -25,7 +25,6 @@ void main() {
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);
-    expectPrivacyMetadataDefaults(metadata);
 
     // FunctionMetadata
     expect(metadata.name, functionName);

@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_source_metadata_test/test.dart';
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/metadata.dart';
@@ -17,27 +18,21 @@ import 'package:dogma_source_analyzer/metadata.dart';
 
 /// Checks the [metadata] for default values of [AbstractMetadata].
 void expectAbstractMetadataDefaults(AbstractMetadata metadata) {
-  expect(metadata.isAbstract, isFalse);
+  expect(metadata, isAbstract);
 }
 
 /// Checks the [metadata] for default values of [AnnotatedMetadata].
 void expectAnnotatedMetadataDefaults(AnnotatedMetadata metadata) {
-  expect(metadata.annotations, isEmpty);
-  expect(metadata.comments, isEmpty);
-}
-
-/// Checks the [metadata] for default values of [PrivacyMetadata].
-void expectPrivacyMetadataDefaults(PrivacyMetadata metadata) {
-  expect(metadata.isPrivate, isFalse);
-  expect(metadata.isPublic, isTrue);
+  expect(metadata, notAnnotated);
+  expect(metadata, uncommented);
 }
 
 /// Checks the [metadata] for default values of [StaticMetadata].
 void expectStaticMetadataDefaults(StaticMetadata metadata) {
-  expect(metadata.isStatic, isFalse);
+  expect(metadata, isStatic);
 }
 
 /// Checks the [metadata] for default values of [FunctionMetadata].
 void expectFunctionMetadataDefaults(FunctionMetadata metadata) {
-  expect(metadata.parameters, isEmpty);
+  expect(metadata, noParameters);
 }
