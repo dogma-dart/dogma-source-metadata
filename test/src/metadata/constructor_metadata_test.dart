@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_source_metadata_test/test.dart';
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/metadata.dart';
@@ -28,22 +29,24 @@ void main() {
     expectFunctionMetadataDefaults(metadata);
 
     // FunctionMetadata
-    expect(metadata.returnType, returnType);
-    expect(metadata.name, '');
-    expect(metadata.isDefault, isTrue);
+    expect(metadata, isPublic);
+    expect(metadata, isNamed(''));
+    expect(metadata, returnsType(returnType));
+    expect(metadata, isDefaultConstructor);
   });
   test('named constructor', () {
     final constructorName = 'bar';
     final returnType = new TypeMetadata('Foo');
-    final metadata = new ConstructorMetadata.named(constructorName, returnType);
+    final metadata = new ConstructorMetadata(returnType, name: constructorName);
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);
     expectFunctionMetadataDefaults(metadata);
 
     // FunctionMetadata
-    expect(metadata.returnType, returnType);
-    expect(metadata.name, constructorName);
-    expect(metadata.isDefault, isFalse);
+    expect(metadata, isPublic);
+    expect(metadata, isNamed(constructorName));
+    expect(metadata, returnsType(returnType));
+    expect(metadata, isNamedConstructor);
   });
 }
