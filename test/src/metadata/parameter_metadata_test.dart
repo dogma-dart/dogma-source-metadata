@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_source_metadata_test/test.dart';
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/metadata.dart';
@@ -24,9 +25,11 @@ void main() {
     final metadata = new ParameterMetadata(name);
 
     expectAnnotatedMetadataDefaults(metadata);
-    expect(metadata.name, name);
-    expect(metadata.type, dynamicType);
-    expect(metadata.parameterKind, ParameterKind.required);
+    expect(metadata, isPublic);
+    expect(metadata, isNamed(name));
+    expect(metadata, isDynamicType);
+    expect(metadata, isRequiredParameter);
+    expect(metadata, isNotInitializer);
     expect(metadata.isInitializer, isFalse);
     expect(metadata.isOptional, isFalse);
     expect(metadata.isRequired, isTrue);
@@ -34,50 +37,47 @@ void main() {
 
   test('property test', () {
     final requiredName = 'required';
-    final requiredType = new TypeMetadata.bool();
     final required = new ParameterMetadata(
         requiredName,
-        type: requiredType,
         parameterKind: ParameterKind.required
     );
 
     expectAnnotatedMetadataDefaults(required);
-    expect(required.name, requiredName);
-    expect(required.type, requiredType);
-    expect(required.parameterKind, ParameterKind.required);
-    expect(required.isInitializer, isFalse);
+    expect(required, isPublic);
+    expect(required, isNamed(requiredName));
+    expect(required, isDynamicType);
+    expect(required, isRequiredParameter);
+    expect(required, isNotInitializer);
     expect(required.isOptional, isFalse);
     expect(required.isRequired, isTrue);
 
     final positionalName = 'positional';
-    final positionalType = new TypeMetadata.bool();
     final positional = new ParameterMetadata(
         positionalName,
-        type: positionalType,
         parameterKind: ParameterKind.positional
     );
 
     expectAnnotatedMetadataDefaults(positional);
-    expect(positional.name, positionalName);
-    expect(positional.type, positionalType);
-    expect(positional.parameterKind, ParameterKind.positional);
-    expect(positional.isInitializer, isFalse);
+    expect(positional, isPublic);
+    expect(positional, isNamed(positionalName));
+    expect(positional, isDynamicType);
+    expect(positional, isPositionalParameter);
+    expect(positional, isNotInitializer);
     expect(positional.isOptional, isTrue);
     expect(positional.isRequired, isFalse);
 
     final namedName = 'named';
-    final namedType = new TypeMetadata.bool();
     final named = new ParameterMetadata(
         namedName,
-        type: namedType,
         parameterKind: ParameterKind.named
     );
 
     expectAnnotatedMetadataDefaults(named);
-    expect(named.name, namedName);
-    expect(named.type, namedType);
-    expect(named.parameterKind, ParameterKind.named);
-    expect(named.isInitializer, isFalse);
+    expect(named, isPublic);
+    expect(named, isNamed(namedName));
+    expect(named, isDynamicType);
+    expect(named, isNamedParameter);
+    expect(named, isNotInitializer);
     expect(named.isOptional, isTrue);
     expect(named.isRequired, isFalse);
   });
