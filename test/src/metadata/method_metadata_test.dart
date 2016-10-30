@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_source_metadata_test/test.dart';
 import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/metadata.dart';
@@ -20,15 +21,15 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    final functionName = 'foo';
-    final metadata = new MethodMetadata(functionName);
+    final methodName = 'foo';
+    final metadata = new MethodMetadata(methodName);
 
     // Base classes
     expectAnnotatedMetadataDefaults(metadata);
     expectFunctionMetadataDefaults(metadata);
 
     // FunctionMetadata
-    expect(metadata.name, functionName);
-    expect(metadata.returnType, dynamicType);
+    expect(metadata, isNamed(methodName));
+    expect(metadata, returnsType(dynamicType));
   });
 }
