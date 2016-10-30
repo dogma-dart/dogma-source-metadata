@@ -20,11 +20,11 @@ final TypeMetadata _constructorType = new TypeMetadata('Foo');
 final ConstructorMetadata _defaultConstructor =
     new ConstructorMetadata(_constructorType, isFactory: false);
 final ConstructorMetadata _namedConstructor =
-    new ConstructorMetadata.named('named', _constructorType, isFactory: false);
+    new ConstructorMetadata(_constructorType, name: 'named', isFactory: false);
 final ConstructorMetadata _defaultFactoryConstructor =
     new ConstructorMetadata(_constructorType, isFactory: true);
 final ConstructorMetadata _factoryConstructor =
-    new ConstructorMetadata.named('factor', _constructorType, isFactory: true);
+    new ConstructorMetadata(_constructorType, name: 'factor', isFactory: true);
 final Metadata _notConstructorMetadata = new Metadata('NotConstructor');
 
 /// Entry point for tests.

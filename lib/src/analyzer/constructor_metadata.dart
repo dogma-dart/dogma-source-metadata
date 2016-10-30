@@ -37,26 +37,17 @@ ConstructorMetadata constructorMetadata(ConstructorElement element,
 
   if (name.isEmpty) {
     _logger.fine('Found default constructor');
-
-    return new ConstructorMetadata(
-        returnType,
-        parameters: parameters,
-        isFactory: isFactory,
-        isConst: isConst,
-        annotations: annotations,
-        comments: comments
-    );
   } else {
     _logger.fine('Found named constructor $name');
-
-    return new ConstructorMetadata.named(
-        name,
-        returnType,
-        parameters: parameters,
-        isFactory: isFactory,
-        isConst: isConst,
-        annotations: annotations,
-        comments: comments
-    );
   }
+
+  return new ConstructorMetadata(
+      returnType,
+      name: name,
+      parameters: parameters,
+      isFactory: isFactory,
+      isConst: isConst,
+      annotations: annotations,
+      comments: comments
+  );
 }

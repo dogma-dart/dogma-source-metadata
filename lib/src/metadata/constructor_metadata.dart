@@ -34,28 +34,14 @@ class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
   /// Creates an instance of [ConstructorMetadata] referencing a default
   /// constructor of the [returnType].
   ConstructorMetadata(TypeMetadata returnType,
-                     {List<ParameterMetadata> parameters,
+                     {String name,
+                      List<ParameterMetadata> parameters,
                       bool isPrivate,
                       this.isConst: false,
                       this.isFactory: false,
                       List annotations,
                       String comments})
-      : super('',
-              returnType: returnType,
-              parameters: parameters,
-              annotations: annotations,
-              comments: comments);
-
-  /// Creates an instance of [ConstructorMetadata] with the given [name] and
-  /// [returnType].
-  ConstructorMetadata.named(String name,
-                            TypeMetadata returnType,
-                           {List<ParameterMetadata> parameters,
-                            this.isConst: false,
-                            this.isFactory: false,
-                            List annotations,
-                            String comments})
-      : super(name,
+      : super(name ?? '',
               returnType: returnType,
               parameters: parameters,
               annotations: annotations,
