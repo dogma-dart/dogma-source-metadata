@@ -34,19 +34,19 @@ final FieldMetadata _instanceFinalField =
 final FieldMetadata _instanceGetter =
     new FieldMetadata(
         'instanceGetter',
-        true,
-        true,
-        false,
         type: _fieldType,
+        isProperty: true,
+        getter: true,
+        setter: false,
         isConst: false,
         isFinal: false
     );
 final FieldMetadata _instanceSetter =
     new FieldMetadata(
         'instanceSetter',
-        true,
-        false,
-        true,
+        isProperty: true,
+        getter: false,
+        setter: true,
         type: _fieldType,
         isConst: false,
         isFinal: false

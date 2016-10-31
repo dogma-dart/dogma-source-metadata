@@ -67,10 +67,10 @@ class FieldMetadata extends AnnotatedMetadata
   /// Creates an instance of the [FieldMetadata] class with the given [name] of
   /// [type].
   FieldMetadata(String name,
-                this.isProperty,
-                this.getter,
-                this.setter,
                {TypeMetadata type,
+                this.isProperty: false,
+                this.getter: true,
+                this.setter: true,
                 this.isAbstract: false,
                 this.isConst: false,
                 this.isFinal: false,
@@ -90,6 +90,7 @@ class FieldMetadata extends AnnotatedMetadata
   ///       int bar;
   ///       static int baz;
   ///     }
+  @deprecated
   FieldMetadata.field(String name,
                      {TypeMetadata type,
                       this.isAbstract: false,
