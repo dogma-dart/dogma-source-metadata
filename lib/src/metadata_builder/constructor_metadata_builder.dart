@@ -49,9 +49,9 @@ class ConstructorMetadataBuilder extends FunctionMetadataBuilder
 
   @override
   ConstructorMetadata buildInternal() =>
-      new ConstructorMetadata.named(
-          name,
+      new ConstructorMetadata(
           returnType,
+          name: name,
           parameters: buildList/*<ParameterMetadata>*/(parameters),
           isConst: isConst,
           isFactory: isFactory,
@@ -68,5 +68,5 @@ ConstructorMetadataBuilder defaultConstructor() =>
 /// Creates an instance of [ConstructorMetadata] with the given [name]d
 /// constructor.
 ConstructorMetadataBuilder constructor(String name) =>
-    defaultConstructor()
+    new ConstructorMetadataBuilder()
         ..name = name;
