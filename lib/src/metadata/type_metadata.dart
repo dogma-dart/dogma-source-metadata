@@ -188,3 +188,6 @@ class TypeMetadata extends Metadata {
 
 /// An instance of [TypeMetadata] representing a dynamic type.
 final TypeMetadata dynamicType = new TypeMetadata.dynamic();
+
+/// An instance of [TypeMetadata] representing an integer type.
+final TypeMetadata intType = new TypeMetadata.int();
