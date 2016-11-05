@@ -10,14 +10,11 @@
 //---------------------------------------------------------------------
 
 import 'package:test/test.dart';
-import 'package:logging/logging.dart';
 
-import 'analyzer.dart' as analyzer;
-import 'matcher.dart' as matcher;
-import 'metadata.dart' as metadata;
-import 'metadata_ builder.dart' as metadata_builder;
-import 'path.dart' as path;
-import 'search.dart' as search;
+import 'src/metadata_builder/constructor_metadata_builder_test.dart' as constructor_metadata_builder_test;
+import 'src/metadata_builder/function_metadata_builder_test.dart' as function_metadata_builder_test;
+import 'src/metadata_builder/method_metadata_builder_test.dart' as method_metadata_builder_test;
+import 'src/metadata_builder/parameter_metadata_builder_test.dart' as parameter_metadata_builder_test;
 
 //---------------------------------------------------------------------
 // Library contents
@@ -25,17 +22,8 @@ import 'search.dart' as search;
 
 /// Entry point for tests.
 void main() {
-  // Start logging
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((LogRecord rec) {
-    print('${rec.level.name}: ${rec.time}: ${rec.message}');
-  });
-
-  // Run tests
-  group('Analyzer tests', analyzer.main);
-  group('Matcher tests', matcher.main);
-  group('Metadata tests', metadata.main);
-  group('MetadataBuilder tests', metadata_builder.main);
-  group('Path tests', path.main);
-  group('Search tests', search.main);
+  group('ConstructorMetadataBuilder', constructor_metadata_builder_test.main);
+  group('FunctionMetadataBuilder', function_metadata_builder_test.main);
+  group('MethodMetadataBuilder', method_metadata_builder_test.main);
+  group('ParameterMetadataBuilder', parameter_metadata_builder_test.main);
 }
