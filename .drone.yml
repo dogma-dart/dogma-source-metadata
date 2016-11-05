@@ -6,10 +6,13 @@ pipeline:
       - sh build.sh
     environment:
       - DARTANALYZER_FLAGS=--fatal-warnings
-#  coverage:
-#    when:
-#      matrix:
-#        DART_VERSION: latest
+
+  coverage:
+    image: plugins/coverage
+    server: https://aircover.co
+    when:
+      matrix:
+        DART_VERSION: dev
 
 matrix:
   DART_VERSION:
