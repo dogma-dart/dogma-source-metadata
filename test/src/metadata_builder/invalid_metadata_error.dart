@@ -17,7 +17,7 @@ import 'package:dogma_source_analyzer/metadata_builder.dart';
 
 /// Matcher for an [InvalidMetadataError] being thrown.
 final Matcher throwsInvalidMetadataError =
-throwsA(new isInstanceOf<InvalidMetadataError>());
+    throwsA(new isInstanceOf<InvalidMetadataError>());
 
 /// Expect that the [builder] will throw an [InvalidMetadataError].
 void expectThrowsInvalidMetadataError(MetadataBuilder builder) {

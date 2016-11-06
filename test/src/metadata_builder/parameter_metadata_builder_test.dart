@@ -14,6 +14,7 @@ import 'package:dogma_source_analyzer/metadata.dart';
 import 'package:dogma_source_analyzer/metadata_builder.dart';
 
 import 'expect_metadata.dart';
+import 'metadata_validate.dart';
 import 'invalid_metadata_error.dart';
 
 //---------------------------------------------------------------------
@@ -24,6 +25,7 @@ const String _name = 'test';
 
 /// Test entry point.
 void main() {
+  test('validate name', expectThrowsOnUnnamed(parameter('')));
   test('validate required no default', () {
     final builder = parameter(_name)
       ..defaultValue = 5;

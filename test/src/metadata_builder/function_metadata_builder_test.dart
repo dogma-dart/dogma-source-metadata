@@ -14,6 +14,7 @@ import 'package:dogma_source_analyzer/metadata.dart';
 import 'package:dogma_source_analyzer/metadata_builder.dart';
 
 import 'expect_metadata.dart';
+import 'metadata_validate.dart';
 import 'function_metadata_validate.dart';
 
 //---------------------------------------------------------------------
@@ -24,6 +25,7 @@ const String _name = 'function';
 
 /// Test entry point.
 void main() {
+  test('validate name', expectThrowsOnUnnamed(function('')));
   test('validate parameter names', expectThrowsOnRepeatedNames(function(_name)));
   test('validate parameter order', expectThrowsOnInvalidPosition(function(_name)));
   test('validate optional and named', expectThrowsOnPositionalAndNamed(function(_name)));
