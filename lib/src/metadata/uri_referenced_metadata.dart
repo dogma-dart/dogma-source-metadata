@@ -48,33 +48,8 @@ class UriReferencedMetadata extends Metadata with EnclosedMetadata {
   ///     import 'dart:async' hide Completer;
   UriReferencedMetadata({String prefix,
                          List<String> shownNames,
-                         List<String> hiddenNames})
-      : this._(prefix, shownNames, hiddenNames, null);
-
-  /// Creates an instance of [UriReferencedMetadata] which contains the
-  /// referenced library.
-  ///
-  /// A [prefix] can be specified which corresponds to an `as` directive in
-  /// an import.
-  ///
-  ///     import 'dart:html' as html;
-  ///
-  /// The [shownNames] and [hiddenNames] correspond to the `show` and `hide`
-  /// directives within an import or export statement.
-  ///
-  ///     import 'dart:html' show Element;
-  ///     import 'dart:async' hide Completer;
-  UriReferencedMetadata.withLibrary(LibraryMetadata library,
-                                   {String prefix,
-                                    List<String> shownNames,
-                                    List<String> hiddenNames})
-      : this._(prefix, shownNames, hiddenNames, library);
-
-  /// Creates an instance of [UriReferencedMetadata].
-  UriReferencedMetadata._(String prefix,
-                          List<String> shownNames,
-                          List<String> hiddenNames,
-                          this.library)
+                         List<String> hiddenNames,
+                         this.library})
       : prefix = prefix ?? ''
       , shownNames = shownNames ?? <String>[]
       , hiddenNames = hiddenNames ?? <String>[]
