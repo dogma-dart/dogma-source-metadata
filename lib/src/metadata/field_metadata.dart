@@ -80,31 +80,4 @@ class FieldMetadata extends AnnotatedMetadata
                 String comments})
       : type = type ?? dynamicType
       , super(name, annotations, comments);
-
-  /// Creates an instance of the [FieldMetadata] class with the given [name] of
-  /// [type] representing a field.
-  ///
-  /// In this instance a field corresponds to a member or class variable.
-  ///
-  ///     class Foo {
-  ///       int bar;
-  ///       static int baz;
-  ///     }
-  @deprecated
-  FieldMetadata.field(String name,
-                     {TypeMetadata type,
-                      this.isAbstract: false,
-                      bool isConst: false,
-                      bool isFinal: false,
-                      this.isStatic: false,
-                      this.defaultValue,
-                      List annotations,
-                      String comments})
-      : type = type ?? dynamicType
-      , isProperty = false
-      , getter = true
-      , setter = !(isConst || isFinal)
-      , isConst = isConst
-      , isFinal = isFinal
-      , super(name, annotations, comments);
 }

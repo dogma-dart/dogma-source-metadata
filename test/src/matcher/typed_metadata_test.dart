@@ -11,6 +11,7 @@ import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/matcher.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
+import 'package:dogma_source_analyzer/metadata_builder.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -20,9 +21,9 @@ final TypeMetadata _intType = new TypeMetadata.int();
 final TypeMetadata _stringType = new TypeMetadata.string();
 final TypeMetadata _fooType = new TypeMetadata('Foo');
 
-final FieldMetadata _intTyped = new FieldMetadata.field('intType', type: _intType);
-final FieldMetadata _stringTyped = new FieldMetadata.field('stringType', type: _stringType);
-final FieldMetadata _fooTyped = new FieldMetadata.field('fooType', type: _fooType);
+final FieldMetadata _intTyped = (field('intType')..type = _intType).build();
+final FieldMetadata _stringTyped = (field('stringType')..type = _stringType).build();
+final FieldMetadata _fooTyped = (field('fooType')..type = _fooType).build();
 final Metadata _notTypedMetadata = new Metadata('NotTyped');
 
 /// Entry point for tests.

@@ -11,46 +11,17 @@ import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/matcher.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
+import 'package:dogma_source_analyzer/metadata_builder.dart';
 
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 final TypeMetadata _fieldType = new TypeMetadata.int();
-final FieldMetadata _instanceField =
-    new FieldMetadata.field(
-        'instanceField',
-        type: _fieldType,
-        isConst: false,
-        isFinal: false
-    );
-final FieldMetadata _instanceFinalField =
-    new FieldMetadata.field(
-        'instanceField',
-        type: _fieldType,
-        isConst: false,
-        isFinal: true
-    );
-final FieldMetadata _instanceGetter =
-    new FieldMetadata(
-        'instanceGetter',
-        type: _fieldType,
-        isProperty: true,
-        getter: true,
-        setter: false,
-        isConst: false,
-        isFinal: false
-    );
-final FieldMetadata _instanceSetter =
-    new FieldMetadata(
-        'instanceSetter',
-        isProperty: true,
-        getter: false,
-        setter: true,
-        type: _fieldType,
-        isConst: false,
-        isFinal: false
-    );
+final FieldMetadata _instanceField = field('instaceField').build();
+final FieldMetadata _instanceFinalField = finalField('instanceField').build();
+final FieldMetadata _instanceGetter = getter('instanceGetter').build();
+final FieldMetadata _instanceSetter = setter('instanceSetter').build();
 final Metadata _notFieldMetadata = new Metadata('NotField');
 
 /// Entry point for tests.

@@ -11,27 +11,15 @@ import 'package:test/test.dart';
 
 import 'package:dogma_source_analyzer/matcher.dart';
 import 'package:dogma_source_analyzer/metadata.dart';
+import 'package:dogma_source_analyzer/metadata_builder.dart';
 
 //---------------------------------------------------------------------
 // Library contents
 //---------------------------------------------------------------------
 
 final TypeMetadata _fieldType = new TypeMetadata.int();
-final FieldMetadata _constField =
-    new FieldMetadata.field(
-        'constField',
-        type: _fieldType,
-        isConst: true,
-        isStatic: true,
-        isFinal: false
-    );
-final FieldMetadata _field =
-    new FieldMetadata.field(
-        'field',
-        type: _fieldType,
-        isConst: false,
-        isFinal: true
-    );
+final FieldMetadata _constField = constField('constField').build();
+final FieldMetadata _field = finalField('field').build();
 final Metadata _notConstantMetadata = new Metadata('NotConstant');
 
 /// Entry point for tests.
