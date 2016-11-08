@@ -57,8 +57,8 @@ void main() {
         returnType: returnType,
         parameters: <ParameterMetadata>[
           new ParameterMetadata(paramName)
-        ]);
-
+        ]
+    );
 
     expectMetadataEqual/*<FunctionMetadata>*/(builder, expected);
 
