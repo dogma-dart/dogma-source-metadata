@@ -12,6 +12,7 @@ import 'annotated_metadata.dart';
 import 'constructor_metadata.dart';
 import 'enclosing_metadata.dart';
 import 'field_metadata.dart';
+import 'generic_metadata.dart';
 import 'method_metadata.dart';
 import 'privacy_metadata.dart';
 import 'type_metadata.dart';
@@ -27,6 +28,7 @@ class ClassMetadata extends AnnotatedMetadata
                             EnclosedMetadata,
                             EnclosingMetadata
                  implements AbstractMetadata,
+                            GenericMetadata,
                             TypedMetadata {
   //---------------------------------------------------------------------
   // Member variables
@@ -42,7 +44,7 @@ class ClassMetadata extends AnnotatedMetadata
   final List<TypeMetadata> interfaces;
   /// The types this class mixins with.
   final List<TypeMetadata> mixins;
-  /// The type parameters for the class.
+  @override
   final List<TypeMetadata> typeParameters;
   /// The fields for the class.
   final List<FieldMetadata> fields;

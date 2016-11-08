@@ -9,6 +9,7 @@
 
 import 'annotated_metadata.dart';
 import 'enclosing_metadata.dart';
+import 'generic_metadata.dart';
 import 'parameter_metadata.dart';
 import 'privacy_metadata.dart';
 import 'type_metadata.dart';
@@ -21,7 +22,8 @@ import 'type_metadata.dart';
 class FunctionMetadata extends AnnotatedMetadata
                           with PrivacyMetadata,
                                EnclosedMetadata,
-                               EnclosingMetadata {
+                               EnclosingMetadata
+                    implements GenericMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -30,6 +32,8 @@ class FunctionMetadata extends AnnotatedMetadata
   final TypeMetadata returnType;
   /// The list of parameters for the function.
   final List<ParameterMetadata> parameters;
+  @override
+  final List<TypeMetadata> typeParameters;
 
   //---------------------------------------------------------------------
   // Constructor
@@ -40,10 +44,12 @@ class FunctionMetadata extends AnnotatedMetadata
   FunctionMetadata(String name,
                   {TypeMetadata returnType,
                    List<ParameterMetadata> parameters,
+                   List<TypeMetadata> typeParameters,
                    List annotations,
                    String comments})
       : returnType = returnType ?? dynamicType
       , parameters = parameters ?? <ParameterMetadata>[]
+      , typeParameters = typeParameters ?? <TypeMetadata>[]
       , super(name, annotations, comments)
   {
     // Use `this` to properly scope the value
