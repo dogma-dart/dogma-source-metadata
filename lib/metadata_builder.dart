@@ -54,12 +54,17 @@ library dogma_source_analyzer.metadata_builder;
 //---------------------------------------------------------------------
 
 export 'src/metadata_builder/abstract_metadata_builder.dart';
+export 'src/metadata_builder/class_metadata_builder.dart';
 export 'src/metadata_builder/constant_metadata_builder.dart';
 export 'src/metadata_builder/constructor_metadata_builder.dart';
+export 'src/metadata_builder/enum_metadata_builder.dart';
+export 'src/metadata_builder/field_metadata_builder.dart';
 export 'src/metadata_builder/function_metadata_builder.dart';
 export 'src/metadata_builder/invalid_metadata_error.dart';
+export 'src/metadata_builder/library_metadata_builder.dart';
 export 'src/metadata_builder/metadata_builder.dart';
 export 'src/metadata_builder/method_metadata_builder.dart';
 export 'src/metadata_builder/parameter_metadata_builder.dart';
 export 'src/metadata_builder/static_metadata_builder.dart';
 export 'src/metadata_builder/typed_metadata_builder.dart';
+export 'src/metadata_builder/uri_referenced_metadata_builder.dart';
