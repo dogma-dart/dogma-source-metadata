@@ -19,19 +19,7 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 /// Contains metadata for a function typedef.
-class TypedefMetadata extends AnnotatedMetadata
-                         with PrivacyMetadata,
-                              EnclosedMetadata,
-                              EnclosingMetadata {
-  //---------------------------------------------------------------------
-  // Member variables
-  //---------------------------------------------------------------------
-
-  /// The return type of the function.
-  final TypeMetadata returnType;
-  /// The list of parameters for the function.
-  final List<ParameterMetadata> parameters;
-
+class TypedefMetadata extends FunctionMetadata {
   //---------------------------------------------------------------------
   // Constructor
   //---------------------------------------------------------------------
@@ -40,13 +28,13 @@ class TypedefMetadata extends AnnotatedMetadata
   TypedefMetadata(String name,
                  {TypeMetadata returnType,
                   List<ParameterMetadata> parameters,
+                  List<TypeMetadata> typeParameters,
                   List annotations,
                   String comments})
-      : returnType = returnType ?? dynamicType
-      , parameters = parameters ?? <ParameterMetadata>[]
-      , super(name, annotations, comments)
-  {
-    // Use `this` to properly scope the value
-    encloseList(this.parameters);
-  }
+      : super(name,
+              returnType: returnType,
+              parameters: parameters,
+              typeParameters: typeParameters,
+              annotations: annotations,
+              comments: comments);
 }
