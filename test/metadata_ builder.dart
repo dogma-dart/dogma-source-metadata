@@ -12,6 +12,7 @@
 import 'package:test/test.dart';
 
 import 'src/metadata_builder/constructor_metadata_builder_test.dart' as constructor_metadata_builder_test;
+import 'src/metadata_builder/field_metadata_builder_test.dart' as field_metadata_builder_test;
 import 'src/metadata_builder/function_metadata_builder_test.dart' as function_metadata_builder_test;
 import 'src/metadata_builder/method_metadata_builder_test.dart' as method_metadata_builder_test;
 import 'src/metadata_builder/parameter_metadata_builder_test.dart' as parameter_metadata_builder_test;
@@ -23,6 +24,7 @@ import 'src/metadata_builder/parameter_metadata_builder_test.dart' as parameter_
 /// Entry point for tests.
 void main() {
   group('ConstructorMetadataBuilder', constructor_metadata_builder_test.main);
+  group('FieldMetadataBuilder', field_metadata_builder_test.main);
   group('FunctionMetadataBuilder', function_metadata_builder_test.main);
   group('MethodMetadataBuilder', method_metadata_builder_test.main);
   group('ParameterMetadataBuilder', parameter_metadata_builder_test.main);
