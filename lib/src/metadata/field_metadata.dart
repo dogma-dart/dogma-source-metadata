@@ -10,6 +10,7 @@
 import 'abstract_metadata.dart';
 import 'annotated_metadata.dart';
 import 'constant_metadata.dart';
+import 'default_metadata.dart';
 import 'enclosing_metadata.dart';
 import 'privacy_metadata.dart';
 import 'static_metadata.dart';
@@ -33,6 +34,7 @@ class FieldMetadata extends AnnotatedMetadata
                             EnclosedMetadata
                  implements AbstractMetadata,
                             ConstantMetadata,
+                            DefaultMetadata,
                             StaticMetadata,
                             TypedMetadata {
   //---------------------------------------------------------------------
@@ -55,9 +57,7 @@ class FieldMetadata extends AnnotatedMetadata
   final bool setter;
   /// Whether the field is final.
   final bool isFinal;
-  /// The default value of the field.
-  ///
-  /// This is used to write out any initialization of the field.
+  @override
   final dynamic defaultValue;
 
   //---------------------------------------------------------------------

@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'annotated_metadata.dart';
+import 'default_metadata.dart';
 import 'enclosing_metadata.dart';
 import 'parameter_kind.dart';
 import 'type_metadata.dart';
@@ -20,7 +21,8 @@ import 'typed_metadata.dart';
 /// Contains metadata for a parameter on a function or method.
 class ParameterMetadata extends AnnotatedMetadata
                            with EnclosedMetadata
-                     implements TypedMetadata {
+                     implements DefaultMetadata,
+                                TypedMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -34,7 +36,7 @@ class ParameterMetadata extends AnnotatedMetadata
   /// This should only be in constructors and signifies when `this.value` is
   /// used.
   final bool isInitializer;
-  /// The default value of the parameter.
+  @override
   final dynamic defaultValue;
 
   //---------------------------------------------------------------------
