@@ -54,6 +54,7 @@ void main() {
     expect(() => intMatcher(_notTypedMetadata), throws);
     expect(and(typedMetadataMatch, intMatcher)(_notTypedMetadata), isFalse);
   });
+  /*
   test('builtinTypeMatch', () {
     expect(builtinTypeMatch(_intTyped), isTrue);
     expect(builtinTypeMatch(_stringTyped), isTrue);
@@ -61,4 +62,5 @@ void main() {
     expect(() => builtinTypeMatch(_notTypedMetadata), throws);
     expect(and(typedMetadataMatch, builtinTypeMatch)(_notTypedMetadata), isFalse);
   });
+  */
 }
