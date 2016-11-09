@@ -21,6 +21,8 @@ bool typedMetadataMatch(Metadata metadata) => metadata is TypedMetadata;
 MetadataMatchFunction typeMatch(TypeMetadata type) =>
     (metadata) => (metadata as TypedMetadata).type == type;
 
+/*
 /// Matched typed [metadata] whose type is builtin.
 bool builtinTypeMatch(Metadata metadata) =>
     (metadata as TypedMetadata).type.isBuiltin;
+*/
