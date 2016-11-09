@@ -36,7 +36,7 @@ class FunctionMetadataBuilder extends MetadataBuilder<FunctionMetadata>
   //---------------------------------------------------------------------
 
   /// The return type of the function.
-  TypeMetadata returnType = new TypeMetadata.dynamic();
+  TypeMetadata returnType = dynamicType;
   /// The list of parameters for the function.
   List<ParameterMetadataBuilder> parameters = <ParameterMetadataBuilder>[];
 

@@ -175,9 +175,12 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
       functions.add(functionMetadata(function, annotationCreators));
     }
 
+    // Add field metadata
     for (var field in unit.topLevelVariables) {
       fields.add(fieldMetadata(field, annotationCreators));
     }
+
+    // Add typedef metadata
   }
 
   // Create the metadata

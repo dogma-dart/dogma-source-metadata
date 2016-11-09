@@ -58,7 +58,7 @@ void main() {
     field = _getField(clazz, 'classField');
     expect(field, isNotNull);
     expect(field.name, 'classField');
-    expect(field.type, new TypeMetadata.string());
+    expect(field.type, stringType);
     expect(field.isPrivate, isFalse);
     expect(field.isPublic, isTrue);
     expect(field.isStatic, isTrue);
@@ -70,7 +70,7 @@ void main() {
     field = _getField(clazz, 'classFinalField');
     expect(field, isNotNull);
     expect(field.name, 'classFinalField');
-    expect(field.type, new TypeMetadata.string());
+    expect(field.type, stringType);
     expect(field.isPrivate, isFalse);
     expect(field.isPublic, isTrue);
     expect(field.isStatic, isTrue);
@@ -82,7 +82,7 @@ void main() {
     field = _getField(clazz, 'classConstField');
     expect(field, isNotNull);
     expect(field.name, 'classConstField');
-    expect(field.type, new TypeMetadata.string());
+    expect(field.type, stringType);
     expect(field.isPrivate, isFalse);
     expect(field.isPublic, isTrue);
     expect(field.isStatic, isTrue);
@@ -94,7 +94,7 @@ void main() {
     field = _getField(clazz, '_classPrivateField');
     expect(field, isNotNull);
     expect(field.name, '_classPrivateField');
-    expect(field.type, new TypeMetadata.string());
+    expect(field.type, stringType);
     expect(field.isPrivate, isTrue);
     expect(field.isPublic, isFalse);
     expect(field.isStatic, isTrue);
@@ -106,7 +106,7 @@ void main() {
     field = _getField(clazz, 'classPrivateFieldGetter');
     expect(field, isNotNull);
     expect(field.name, 'classPrivateFieldGetter');
-    expect(field.type, new TypeMetadata.string());
+    expect(field.type, stringType);
     expect(field.isPrivate, isFalse);
     expect(field.isPublic, isTrue);
     expect(field.isStatic, isTrue);

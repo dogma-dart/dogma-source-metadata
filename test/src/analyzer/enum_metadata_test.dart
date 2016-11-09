@@ -19,8 +19,6 @@ import 'package:dogma_source_analyzer/query.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-final _objectType = new TypeMetadata('Object');
-
 EnumMetadata _getEnum(LibraryMetadata library, String name) {
   final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
       library,

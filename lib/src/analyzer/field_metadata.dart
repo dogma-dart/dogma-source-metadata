@@ -94,7 +94,7 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
   // Get the type
   //
   // This needs to go after the annotations are computed
-  final type = typeMetadata(element.type, annotations);
+  final type = typeMetadata(element.type);
 
   return new FieldMetadata(
       element.name,

@@ -16,24 +16,21 @@ import 'package:dogma_source_analyzer/metadata.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-final _intType = new TypeMetadata.int();
-final _stringType = new TypeMetadata.string();
-
 final FunctionMetadata _emptyParameters =
-    new FunctionMetadata('emptyParameters', returnType: _intType);
+    new FunctionMetadata('emptyParameters', returnType: intType);
 final FunctionMetadata _singleParameter =
     new FunctionMetadata(
         'singleParameter',
-        returnType: _intType,
-        parameters: [new ParameterMetadata('_0', type: _stringType)]
+        returnType: intType,
+        parameters: [new ParameterMetadata('_0', type: stringType)]
     );
 final FunctionMetadata _twoParameters =
     new FunctionMetadata(
         'twoParameters',
-        returnType: _intType,
+        returnType: intType,
         parameters: [
-          new ParameterMetadata('_0', type: _stringType),
-          new ParameterMetadata('_1', type: _stringType)
+          new ParameterMetadata('_0', type: stringType),
+          new ParameterMetadata('_1', type: stringType)
         ]
     );
 final Metadata _notFunctionMetadata = new Metadata('NotFunction');
@@ -71,8 +68,8 @@ void main() {
     expect(and(functionMetadataMatch, emptyParametersMatch)(_notFunctionMetadata), isFalse);
   });
   test('returnTypeMatch', () {
-    final returnsInt = returnTypeMatch(_intType);
-    final returnsString = returnTypeMatch(_stringType);
+    final returnsInt = returnTypeMatch(intType);
+    final returnsString = returnTypeMatch(stringType);
 
     expect(returnsInt(_emptyParameters), isTrue);
     expect(returnsString(_emptyParameters), isFalse);

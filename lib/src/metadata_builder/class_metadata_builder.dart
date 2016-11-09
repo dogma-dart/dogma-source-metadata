@@ -58,7 +58,7 @@ class ClassMetadataBuilder extends MetadataBuilder<ClassMetadata>
         : <ConstructorMetadataBuilder>[defaultConstructor()];
 
     // Set the type on all the constructors to be the class name
-    final classType = new TypeMetadata(name);
+    final classType = type(name);
     for (var constructor in classConstructors) {
       constructor.returnType = classType;
     }

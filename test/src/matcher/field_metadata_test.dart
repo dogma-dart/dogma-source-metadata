@@ -17,7 +17,7 @@ import 'package:dogma_source_analyzer/metadata_builder.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-final TypeMetadata _fieldType = new TypeMetadata.int();
+final TypeMetadata _fieldType = intType;
 final FieldMetadata _instanceField = field('instaceField').build();
 final FieldMetadata _instanceFinalField = finalField('instanceField').build();
 final FieldMetadata _instanceGetter = getter('instanceGetter').build();

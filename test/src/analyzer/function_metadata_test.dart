@@ -35,7 +35,7 @@ void main() {
     );
 
     expect(function, isNotNull);
-    expect(function.returnType, new TypeMetadata('void'));
+    expect(function.returnType, voidType);
     expect(function.parameters, isEmpty);
   });
 }

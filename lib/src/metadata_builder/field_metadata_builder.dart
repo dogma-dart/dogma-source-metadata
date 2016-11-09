@@ -59,7 +59,7 @@ class FieldMetadataBuilder extends MetadataBuilder<FieldMetadata>
   FieldMetadata buildInternal() =>
       new FieldMetadata(
           name,
-          type: type,
+          type: this.type,
           isProperty: isProperty,
           getter: getter,
           setter: setter,

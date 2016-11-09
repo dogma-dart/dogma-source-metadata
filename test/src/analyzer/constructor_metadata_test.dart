@@ -72,7 +72,7 @@ void main() {
     expect(parameters, hasLength(1));
 
     parameter = parameters[0];
-    expect(parameter.type, new TypeMetadata.int());
+    expect(parameter.type, intType);
     expect(parameter.name, 'value');
     expect(parameter.isInitializer, isTrue);
 
@@ -92,7 +92,7 @@ void main() {
     expect(parameters, hasLength(1));
 
     parameter = parameters[0];
-    expect(parameter.type, new TypeMetadata.int());
+    expect(parameter.type, intType);
     expect(parameter.name, 'value');
     expect(parameter.isInitializer, isTrue);
 

@@ -75,7 +75,7 @@ class ClassMetadata extends AnnotatedMetadata
                 List<ConstructorMetadata> constructors,
                 List annotations,
                 String comments})
-      : type = new TypeMetadata(name)
+      : type = new InterfaceTypeMetadata(name)
       , interfaces = interfaces ?? <TypeMetadata>[]
       , mixins = mixins ?? <TypeMetadata>[]
       , typeParameters = typeParameters ?? <TypeMetadata>[]

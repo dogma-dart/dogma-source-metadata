@@ -19,8 +19,6 @@ import 'package:dogma_source_analyzer/query.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-final _objectType = new TypeMetadata('Object');
-
 ClassMetadata _getClass(LibraryMetadata library, String name) {
   final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
       library,
@@ -43,7 +41,7 @@ void main() {
     final library = libraryMetadata(join('test/lib/inheritance.dart'), context);
 
     final clazzA = _getClass(library, 'A');
-    expect(clazzA.supertype, _objectType);
+    expect(clazzA.supertype, objectType);
     expect(clazzA.interfaces, isEmpty);
     expect(clazzA.mixins, isEmpty);
 
@@ -66,22 +64,22 @@ void main() {
     final library = libraryMetadata(join('test/lib/interfaces.dart'), context);
 
     final clazzA = _getClass(library, 'A');
-    expect(clazzA.supertype, _objectType);
+    expect(clazzA.supertype, objectType);
     expect(clazzA.interfaces, isEmpty);
     expect(clazzA.mixins, isEmpty);
 
     final clazzB = _getClass(library, 'B');
-    expect(clazzB.supertype, _objectType);
+    expect(clazzB.supertype, objectType);
     expect(clazzB.interfaces, isEmpty);
     expect(clazzB.mixins, isEmpty);
 
     final clazzC = _getClass(library, 'C');
-    expect(clazzC.supertype, _objectType);
+    expect(clazzC.supertype, objectType);
     expect(clazzC.interfaces, isEmpty);
     expect(clazzC.mixins, isEmpty);
 
     final clazzD = _getClass(library, 'D');
-    expect(clazzD.supertype, _objectType);
+    expect(clazzD.supertype, objectType);
     expect(clazzD.mixins, isEmpty);
 
     expect(clazzD.interfaces, hasLength(3));
@@ -93,17 +91,17 @@ void main() {
     final library = libraryMetadata(join('test/lib/mixins.dart'), context);
 
     final clazzA = _getClass(library, 'A');
-    expect(clazzA.supertype, _objectType);
+    expect(clazzA.supertype, objectType);
     expect(clazzA.interfaces, isEmpty);
     expect(clazzA.mixins, isEmpty);
 
     final clazzB = _getClass(library, 'B');
-    expect(clazzB.supertype, _objectType);
+    expect(clazzB.supertype, objectType);
     expect(clazzB.interfaces, isEmpty);
     expect(clazzB.mixins, isEmpty);
 
     final clazzC = _getClass(library, 'C');
-    expect(clazzC.supertype, _objectType);
+    expect(clazzC.supertype, objectType);
     expect(clazzC.interfaces, isEmpty);
     expect(clazzC.mixins, isEmpty);
 

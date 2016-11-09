@@ -13,6 +13,7 @@ import 'metadata.dart';
 // Library contents
 //---------------------------------------------------------------------
 
+/*
 const String _bool = 'bool';
 const String _int = 'int';
 const String _num = 'num';
@@ -191,3 +192,99 @@ final TypeMetadata dynamicType = new TypeMetadata.dynamic();
 
 /// An instance of [TypeMetadata] representing an integer type.
 final TypeMetadata intType = new TypeMetadata.int();
+*/
+
+class TypeMetadata implements Metadata {
+  @override
+  final String name;
+
+  const TypeMetadata._(this.name);
+}
+
+class InterfaceTypeMetadata extends TypeMetadata {
+  /// The type arguments.
+  ///
+  /// This is only present on generic types.
+  final List<TypeMetadata> typeArguments;
+
+  const InterfaceTypeMetadata(String name, [this.typeArguments = const <TypeMetadata>[]])
+      : super._(name);
+
+  @override
+  bool operator== (Object compare) {
+    if (identical(this, compare)) {
+      return true;
+    } else if (compare is TypeMetadata) {
+      return name == compare.name;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + name.hashCode;
+    result = 37 * result + typeArguments.hashCode;
+    return result;
+  }
+}
+
+class ParameterizedTypeMetadata extends TypeMetadata {
+  final InterfaceTypeMetadata extending;
+
+  const ParameterizedTypeMetadata(String name, [this.extending])
+      : super._(name);
+}
+
+class FunctionTypeMetadata extends TypeMetadata {
+  final TypeMetadata returnType;
+  final List<TypeMetadata> parameters;
+  final List<TypeMetadata> typeParameters;
+
+  const FunctionTypeMetadata(this.returnType, this.parameters, this.typeParameters)
+     : super._('');
+}
+
+InterfaceTypeMetadata type(String name, [List<TypeMetadata> arguments]) =>
+    new InterfaceTypeMetadata(name, arguments ?? <TypeMetadata>[]);
+
+const InterfaceTypeMetadata boolType = const InterfaceTypeMetadata('bool');
+
+const InterfaceTypeMetadata numType = const InterfaceTypeMetadata('num');
+
+const InterfaceTypeMetadata intType = const InterfaceTypeMetadata('int');
+
+const InterfaceTypeMetadata doubleType = const InterfaceTypeMetadata('double');
+
+const InterfaceTypeMetadata stringType = const InterfaceTypeMetadata('String');
+
+const InterfaceTypeMetadata dynamicType = const InterfaceTypeMetadata('dynamic');
+
+const InterfaceTypeMetadata objectType = const InterfaceTypeMetadata('Object');
+
+const InterfaceTypeMetadata nullType = const InterfaceTypeMetadata('Null');
+
+const InterfaceTypeMetadata voidType = const InterfaceTypeMetadata('void');
+
+const InterfaceTypeMetadata functionType = const InterfaceTypeMetadata('Function');
+
+/// Creates an instance of [InterfaceTypeMetadata] representing a list.
+///
+/// A type [argument] can be provided for additional type information. If it is
+/// not specified the type is `List<dynamic>`.
+InterfaceTypeMetadata listType([TypeMetadata argument]) =>
+    new InterfaceTypeMetadata('List', _defaultArgumentList(argument));
+
+InterfaceTypeMetadata mapType({TypeMetadata key, TypeMetadata value}) {
+  key ??= dynamicType;
+  value ??= dynamicType;
+
+  return new InterfaceTypeMetadata('Map', <TypeMetadata>[key, value]);
+}
+
+InterfaceTypeMetadata futureType([TypeMetadata argument]) =>
+    new InterfaceTypeMetadata('Future', _defaultArgumentList(argument));
+
+List<TypeMetadata> _defaultArgumentList(TypeMetadata argument) =>
+    <TypeMetadata>[argument ?? dynamicType];

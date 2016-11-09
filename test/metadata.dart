@@ -33,5 +33,5 @@ void main() {
   group('LibraryMetadata', library_metadata_test.main);
   group('MethodMetadata', method_metadata_test.main);
   group('ParameterMetadata', parameter_metadata_test.main);
-  group('TypeMetadata', type_metadata_test.main);
+  //group('TypeMetadata', type_metadata_test.main);
 }

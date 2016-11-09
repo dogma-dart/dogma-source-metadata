@@ -28,7 +28,7 @@ void main() {
   test('validate optional and named', expectThrowsOnPositionalAndNamed(defaultConstructor()));
   test('validate initializers', expectThrowsOnInitializers(defaultConstructor()..isFactory = true));
   test('builder defaults', () {
-    final returnType = new TypeMetadata('Foo');
+    final returnType = type('Foo');
     final builder = new ConstructorMetadataBuilder()
         ..returnType = returnType;
     final expected = new ConstructorMetadata(returnType);

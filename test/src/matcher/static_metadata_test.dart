@@ -17,7 +17,7 @@ import 'package:dogma_source_analyzer/metadata_builder.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-final TypeMetadata _fieldType = new TypeMetadata.int();
+final TypeMetadata _fieldType = intType;
 final FieldMetadata _staticField = (field('staticField')..isStatic = true).build();
 final FieldMetadata _instanceField = field('instanceField').build();
 final Metadata _notStaticMetadata = new Metadata('NotStatic');

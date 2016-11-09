@@ -47,7 +47,7 @@ class EnumMetadataBuilder extends MetadataBuilder<EnumMetadata> {
   EnumMetadata buildInternal() {
     // Set the type for the individual enumerations
     final count = values.length;
-    final enumType = new TypeMetadata(name);
+    final enumType = type(name);
 
     for (var i = 0; i < count; ++i) {
       values[i]
@@ -60,9 +60,9 @@ class EnumMetadataBuilder extends MetadataBuilder<EnumMetadata> {
     // Add an index field and the values field.
     final fields = <FieldMetadataBuilder>[
       finalField('index')
-          ..type = new TypeMetadata.int(),
+          ..type = intType,
       constField('values')
-          ..type = new TypeMetadata.list(enumType)
+          ..type = listType(enumType)
           ..isStatic = true
     ]..addAll(values);
 

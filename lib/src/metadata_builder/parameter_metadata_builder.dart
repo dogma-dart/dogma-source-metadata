@@ -55,7 +55,7 @@ class ParameterMetadataBuilder extends MetadataBuilder<ParameterMetadata>
   ParameterMetadata buildInternal() =>
       new ParameterMetadata(
           name,
-          type: type,
+          type: this.type,
           parameterKind: parameterKind,
           isInitializer: isInitializer,
           defaultValue: defaultValue,

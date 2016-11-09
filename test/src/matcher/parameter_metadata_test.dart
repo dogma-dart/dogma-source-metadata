@@ -16,23 +16,22 @@ import 'package:dogma_source_analyzer/metadata.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-final TypeMetadata _intType = new TypeMetadata.int();
 final ParameterMetadata _required =
     new ParameterMetadata(
         'required',
-        type: _intType,
+        type: intType,
         parameterKind: ParameterKind.required
     );
 final ParameterMetadata _positional =
     new ParameterMetadata(
         'positional',
-        type: _intType,
+        type: intType,
         parameterKind: ParameterKind.positional
     );
 final ParameterMetadata _named =
     new ParameterMetadata(
         'named',
-        type: _intType,
+        type: intType,
         parameterKind: ParameterKind.named
     );
 final Metadata _notParameterMetadata = new Metadata('NotParameter');
