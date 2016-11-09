@@ -21,7 +21,6 @@ import 'package:dogma_source_analyzer/query.dart';
 //---------------------------------------------------------------------
 
 void _expectHasProtected(AnnotatedMetadata metadata) {
-  print(metadata.annotations);
   expect(metadata.annotations, hasLength(1));
 
   final annotation = metadata.annotations[0];
