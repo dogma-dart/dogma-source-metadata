@@ -27,12 +27,12 @@ final Logger _logger =
 
 /// Creates a list of parameter metadata builders for the given executable
 /// [element].
-List<ParameterMetadata> parameterList(ExecutableElement element,
-                                      List<AnalyzeAnnotation> annotationGenerators) {
-  final values = <ParameterMetadata>[];
+List<ParameterMetadataBuilder> parameterList(ExecutableElement element,
+                                             List<AnalyzeAnnotation> annotationGenerators) {
+  final values = <ParameterMetadataBuilder>[];
 
   for (var parameter in element.parameters) {
-    values.add(parameterMetadata(parameter, annotationGenerators).build());
+    values.add(parameterMetadata(parameter, annotationGenerators));
   }
 
   return values;
@@ -43,10 +43,10 @@ ParameterMetadataBuilder parameterMetadata(ParameterElement element,
                                            List<AnalyzeAnnotation> annotationGenerators) {
   final builder = new ParameterMetadataBuilder()
       ..name = element.name
+      ..annotations = createAnnotations(element, annotationGenerators)
       ..type = typeMetadata(element.type)
       ..parameterKind = parameterKind(element.parameterKind)
-      ..isInitializer = element.isInitializingFormal
-      ..annotations = createAnnotations(element, annotationGenerators);
+      ..isInitializer = element.isInitializingFormal;
 
   var defaultValue = element.constantValue;
 

@@ -11,6 +11,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
 import 'parameter_metadata.dart';
@@ -27,23 +28,33 @@ final Logger _logger =
 /// Creates metadata for the given method [element].
 MethodMetadata methodMetadata(MethodElement element,
                               List<AnalyzeAnnotation> annotationGenerators) {
-  final annotations = createAnnotations(element, annotationGenerators);
-  final comments = elementComments(element);
+  final builder = new MethodMetadataBuilder()
+      ..name = element.name
+      ..annotations = createAnnotations(element, annotationGenerators)
+      ..comments = elementComments(element)
+      ..returnType = typeMetadata(element.returnType)
+      ..parameters = parameterList(element, annotationGenerators)
+      ..isAbstract = element.isAbstract
+      ..isStatic = element.isStatic;
 
-  final name = element.name;
-  final parameters = parameterList(element, annotationGenerators);
-  final isAbstract = element.isAbstract;
-  final returnType = typeMetadata(element.returnType);
+  _logMethod(builder);
 
-  _logger.fine('Found method $name');
+  return builder.build();
+}
 
-  return new MethodMetadata(
-      name,
-      returnType: returnType,
-      parameters: parameters,
-      isAbstract: isAbstract,
-      isStatic: element.isStatic,
-      annotations: annotations,
-      comments: comments
-  );
+/// Logs information on the method metadata [builder].
+void _logMethod(MethodMetadataBuilder builder) {
+  _logger.fine('Found method ${builder.name}');
+
+  final isAbstract = builder.isAbstract;
+
+  if (isAbstract) {
+    _logger.finer('Method is abstract');
+  }
+
+  final isStatic = builder.isStatic;
+
+  if (isStatic) {
+    _logger.finer('Method is static');
+  }
 }

@@ -11,6 +11,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
 import 'parameter_metadata.dart';
@@ -27,13 +28,23 @@ final Logger _logger =
 ConstructorMetadata constructorMetadata(ConstructorElement element,
                                         TypeMetadata returnType,
                                         List<AnalyzeAnnotation> annotationGenerators) {
-  final annotations = createAnnotations(element, annotationGenerators);
-  final comments = elementComments(element);
+  final builder = new ConstructorMetadataBuilder()
+      ..name = element.name
+      ..annotations = createAnnotations(element, annotationGenerators)
+      ..comments = elementComments(element)
+      ..returnType = returnType
+      ..parameters = parameterList(element, annotationGenerators)
+      ..isFactory = element.isFactory
+      ..isConst = element.isConst;
 
-  final name = element.name;
-  final parameters = parameterList(element, annotationGenerators);
-  final isFactory = element.isFactory;
-  final isConst = element.isConst;
+  _logConstructor(builder);
+
+  return builder.build();
+}
+
+/// Logs information on the constructor metadata [builder].
+void _logConstructor(ConstructorMetadataBuilder builder) {
+  final name = builder.name;
 
   if (name.isEmpty) {
     _logger.fine('Found default constructor');
@@ -41,13 +52,15 @@ ConstructorMetadata constructorMetadata(ConstructorElement element,
     _logger.fine('Found named constructor $name');
   }
 
-  return new ConstructorMetadata(
-      returnType,
-      name: name,
-      parameters: parameters,
-      isFactory: isFactory,
-      isConst: isConst,
-      annotations: annotations,
-      comments: comments
-  );
+  final isFactory = builder.isFactory;
+
+  if (isFactory) {
+    _logger.finer('Constructor is a factory');
+  }
+
+  final isConst = builder.isConst;
+
+  if (isConst) {
+    _logger.finer('Constructor is const');
+  }
 }

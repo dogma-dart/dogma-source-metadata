@@ -11,6 +11,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
 import 'parameter_metadata.dart';
@@ -27,20 +28,19 @@ final Logger _logger =
 /// Creates metadata for the given function [element].
 FunctionMetadata functionMetadata(FunctionElement element,
                                   List<AnalyzeAnnotation> annotationGenerators) {
-  final annotations = createAnnotations(element, annotationGenerators);
-  final comments = elementComments(element);
+  final builder = new FunctionMetadataBuilder()
+      ..name = element.name
+      ..annotations = createAnnotations(element, annotationGenerators)
+      ..comments = elementComments(element)
+      ..returnType = typeMetadata(element.returnType)
+      ..parameters = parameterList(element, annotationGenerators);
 
-  final name = element.name;
-  final parameters = parameterList(element, annotationGenerators);
-  final returnType = typeMetadata(element.returnType);
+  _logFunction(builder);
 
-  _logger.fine('Found function $name');
+  return builder.build();
+}
 
-  return new FunctionMetadata(
-      name,
-      returnType: returnType,
-      parameters: parameters,
-      annotations: annotations,
-      comments: comments
-  );
+/// Logs information on the function metadata [builder].
+void _logFunction(FunctionMetadataBuilder builder) {
+  _logger.fine('Found function ${builder.name}');
 }
