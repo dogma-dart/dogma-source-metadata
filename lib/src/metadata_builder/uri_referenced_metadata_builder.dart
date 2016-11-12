@@ -39,6 +39,7 @@ class UriReferencedMetadataBuilder extends MetadataBuilder<UriReferencedMetadata
   // Properties
   //---------------------------------------------------------------------
 
+  /// The library being referenced.
   dynamic get library => _library;
   set library(dynamic value) {
     if ((value is! LibraryMetadata) && (value is! LibraryMetadataBuilder)) {
@@ -70,7 +71,8 @@ class UriReferencedMetadataBuilder extends MetadataBuilder<UriReferencedMetadata
     return new UriReferencedMetadata(
         prefix: prefix,
         shownNames: shownNames,
-        hiddenNames: hiddenNames
+        hiddenNames: hiddenNames,
+        library: library
     );
   }
 }
