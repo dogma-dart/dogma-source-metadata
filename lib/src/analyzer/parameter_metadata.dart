@@ -12,6 +12,7 @@ import 'package:analyzer/analyzer.dart' as analyzer;
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'constant_object.dart';
 import 'type_metadata.dart';
@@ -24,47 +25,38 @@ import 'type_metadata.dart';
 final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.parameter_metadata');
 
-/// Creates a list of parameter metadata for the given executable [element].
+/// Creates a list of parameter metadata builders for the given executable
+/// [element].
 List<ParameterMetadata> parameterList(ExecutableElement element,
                                       List<AnalyzeAnnotation> annotationGenerators) {
   final values = <ParameterMetadata>[];
 
   for (var parameter in element.parameters) {
-    values.add(parameterMetadata(parameter, annotationGenerators));
+    values.add(parameterMetadata(parameter, annotationGenerators).build());
   }
 
   return values;
 }
 
 /// Creates metadata for the given parameter [element].
-ParameterMetadata parameterMetadata(ParameterElement element,
-                                    List<AnalyzeAnnotation> annotationGenerators) {
-  final annotations = createAnnotations(element, annotationGenerators);
-  final name = element.name;
-  final type = typeMetadata(element.type);
-
-  _logger.fine('Found parameter $name of type ${type.name}');
-
-  final kind = parameterKind(element.parameterKind);
-
-  _logger.finer('Parameter is ${kind.toString().split('.')[1]}');
+ParameterMetadataBuilder parameterMetadata(ParameterElement element,
+                                           List<AnalyzeAnnotation> annotationGenerators) {
+  final builder = new ParameterMetadataBuilder()
+      ..name = element.name
+      ..type = typeMetadata(element.type)
+      ..parameterKind = parameterKind(element.parameterKind)
+      ..isInitializer = element.isInitializingFormal
+      ..annotations = createAnnotations(element, annotationGenerators);
 
   var defaultValue = element.constantValue;
 
   if (defaultValue != null) {
     defaultValue = dartValue(defaultValue);
-
-    _logger.finer('Parameter has default value of $defaultValue');
   }
 
-  return new ParameterMetadata(
-      name,
-      type: type,
-      parameterKind: parameterKind(element.parameterKind),
-      annotations: annotations,
-      isInitializer: element.isInitializingFormal,
-      defaultValue: defaultValue
-  );
+  _logParameter(builder);
+
+  return builder;
 }
 
 /// Determines what kind of parameter the [value] refers to.
@@ -82,5 +74,21 @@ ParameterKind parameterKind(analyzer.ParameterKind value) {
     return ParameterKind.positional;
   } else {
     return ParameterKind.required;
+  }
+}
+
+/// Logs information on the parameter metadata [builder].
+void _logParameter(ParameterMetadataBuilder builder) {
+  _logger.fine('Found parameter ${builder.name} of type ${builder.type}');
+  _logger.finer('Parameter is ${builder.parameterKind.toString().split('.')[1]}');
+
+  if (builder.isInitializer) {
+    _logger.finer('Parameter is initializer');
+  }
+
+  final defaultValue = builder.defaultValue;
+
+  if (defaultValue != null) {
+    _logger.finer('Parameter has default value of $defaultValue');
   }
 }
