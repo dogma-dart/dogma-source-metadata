@@ -11,6 +11,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
 import 'type_metadata.dart';
@@ -32,23 +33,23 @@ final Logger _logger =
 /// library.
 FieldMetadata fieldMetadata(PropertyInducingElement element,
                             List<AnalyzeAnnotation> annotationGenerators) {
-  final name = element.name;
-
-  // Get the comments
-  final comments = elementComments(element);
+  final builder = new FieldMetadataBuilder()
+      ..name = element.name
+      ..comments = elementComments(element)
+      ..type = typeMetadata(element.type)
+      ..isStatic = element.isStatic;
 
   // Get whether the field is a property
   final isFinal = element.isFinal;
   final isConst = element.isConst;
   var isAbstract = false;
   var annotations;
-  var isProperty;
   var getter;
   var setter;
-  var defaultValue;
 
   if (element.isSynthetic) {
-    isProperty = true;
+    builder.isProperty = true;
+
     final getterElement = element.getter;
     final setterElement = element.setter;
 
@@ -67,12 +68,12 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
       annotations.addAll(createAnnotations(setterElement, annotationGenerators));
       isAbstract = setterElement.isAbstract || isAbstract;
     }
-
-    _logger.fine('Field $name is a property. Getter : $getter Setter: $setter');
   } else {
-    _logger.fine('Field $name is a field.');
+    builder
+        ..isProperty = false
+        ..defaultValue = dartValue(element.constantValue, dartEnumIndex);
 
-    isProperty = false;
+    // Field always has a getter
     getter = true;
 
     // Get the annotation on the element directly
@@ -80,34 +81,23 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
 
     // If the field is final or const it is not possible to set the value
     setter = !(isFinal || isConst);
-
-    // See if there is a default value
-    final constantValue = element.constantValue;
-
-    if (constantValue != null) {
-      defaultValue = dartValue(constantValue, dartEnumIndex);
-
-      _logger.fine('Field value defaults to $defaultValue');
-    }
   }
 
-  // Get the type
-  //
-  // This needs to go after the annotations are computed
-  final type = typeMetadata(element.type);
+  builder
+      ..getter = getter
+      ..setter = setter
+      ..isFinal = isFinal
+      ..isConst = isConst
+      ..isAbstract = isAbstract
+      ..annotations = annotations;
 
-  return new FieldMetadata(
-      element.name,
-      type: type,
-      isProperty: isProperty,
-      getter: getter,
-      setter: setter,
-      isAbstract: isAbstract,
-      isConst: isConst,
-      isFinal: isFinal,
-      isStatic: element.isStatic,
-      defaultValue: defaultValue,
-      annotations: annotations,
-      comments: comments
-  );
+  _logField(builder);
+
+  return builder.build();
+}
+
+/// Logs information on the field metadata [builder].
+void _logField(FieldMetadataBuilder builder) {
+  final fieldType = builder.isProperty ? 'property' : 'field';
+  _logger.fine('Found ${fieldType} ${builder.name}');
 }
