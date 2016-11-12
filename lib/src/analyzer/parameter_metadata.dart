@@ -46,13 +46,8 @@ ParameterMetadataBuilder parameterMetadata(ParameterElement element,
       ..annotations = createAnnotations(element, annotationGenerators)
       ..type = typeMetadata(element.type)
       ..parameterKind = parameterKind(element.parameterKind)
-      ..isInitializer = element.isInitializingFormal;
-
-  var defaultValue = element.constantValue;
-
-  if (defaultValue != null) {
-    defaultValue = dartValue(defaultValue);
-  }
+      ..isInitializer = element.isInitializingFormal
+      ..defaultValue = dartValue(element.constantValue);
 
   _logParameter(builder);
 

@@ -26,6 +26,8 @@ typedef dynamic CreateDartValue(DartObject value);
 /// instantiate properly.
 dynamic dartValue(DartObject value,
                  [CreateDartValue valueCreator]) {
+  if (value == null) return null;
+
   // No creator was supplied so use the _unknownDartValue function
   valueCreator ??= _unknownDartValue;
 
