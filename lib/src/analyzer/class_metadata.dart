@@ -68,7 +68,7 @@ ClassMetadata classMetadata(ClassElement element,
     final fieldName = field.name;
     _logger.fine('Found field $fieldName on $name');
 
-    fields.add(fieldMetadata(field, annotationCreators));
+    fields.add(fieldMetadata(field, annotationCreators).build());
   }
 
   // Get the methods

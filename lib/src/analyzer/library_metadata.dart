@@ -181,7 +181,7 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
 
     // Add field metadata
     for (var field in unit.topLevelVariables) {
-      fields.add(fieldMetadata(field, annotationCreators));
+      fields.add(fieldMetadata(field, annotationCreators).build());
     }
 
     // Add typedef metadata

@@ -10,7 +10,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
-import '../../metadata.dart';
 import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
@@ -31,8 +30,8 @@ final Logger _logger =
 /// The [PropertyInducingElement] is used instead of [FieldElement] as it is a
 /// common base class for [TopLevelVariableElement] which are fields within the
 /// library.
-FieldMetadata fieldMetadata(PropertyInducingElement element,
-                            List<AnalyzeAnnotation> annotationGenerators) {
+FieldMetadataBuilder fieldMetadata(PropertyInducingElement element,
+                                   List<AnalyzeAnnotation> annotationGenerators) {
   final builder = new FieldMetadataBuilder()
       ..name = element.name
       ..comments = elementComments(element)
@@ -93,11 +92,11 @@ FieldMetadata fieldMetadata(PropertyInducingElement element,
 
   _logField(builder);
 
-  return builder.build();
+  return builder;
 }
 
 /// Logs information on the field metadata [builder].
 void _logField(FieldMetadataBuilder builder) {
   final fieldType = builder.isProperty ? 'property' : 'field';
-  _logger.fine('Found ${fieldType} ${builder.name}');
+  _logger.fine('Found $fieldType ${builder.name}');
 }
