@@ -10,7 +10,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
-import '../../metadata.dart';
+import '../../metadata_builder.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -21,8 +21,8 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.uri_reference_metadata');
 
 /// Creates a list of uri reference metadata from the given [elements].
-List<UriReferencedMetadata> uriReferenceList(Iterable<UriReferencedElement> elements) {
-  final references = <UriReferencedMetadata>[];
+List<UriReferencedMetadataBuilder> uriReferenceList(Iterable<UriReferencedElement> elements) {
+  final references = <UriReferencedMetadataBuilder>[];
 
   for (var element in elements) {
     references.add(uriReferenceMetadata(element));
@@ -32,43 +32,27 @@ List<UriReferencedMetadata> uriReferenceList(Iterable<UriReferencedElement> elem
 }
 
 /// Creates metadata for the given reference [element].
-UriReferencedMetadata uriReferenceMetadata(UriReferencedElement element) {
-  var prefix;
+UriReferencedMetadataBuilder uriReferenceMetadata(UriReferencedElement element) {
+  final builder = new UriReferencedMetadataBuilder();
   var combinators;
 
   if (element is ImportElement) {
-    _logger.fine('Found import of ${element.uri}');
-    final prefixElement = element.prefix;
-
-    if (prefixElement != null) {
-      prefix = prefixElement.name;
-      _logger.fine('Import uses prefix $prefix');
-    }
+    builder.name = element.prefix?.name ?? '';
 
     combinators = element.combinators;
   } else if (element is ExportElement) {
-    _logger.fine('Found export of ${element.uri}');
     combinators = element.combinators;
   } else {
     throw new ArgumentError.value(element, 'Element is not an import or export statement');
   }
 
-  var shownNames;
-  var hiddenNames;
-
   for (var combinator in combinators) {
     if (combinator is ShowElementCombinator) {
-      shownNames = combinator.shownNames;
-      _logger.fine('Only ${shownNames.join(',')} shown');
+      builder.shownNames = combinator.shownNames;
     } else if (combinator is HideElementCombinator) {
-      hiddenNames = combinator.hiddenNames;
-      _logger.fine('Values ${hiddenNames.join(',')} hidden)');
+      builder.hiddenNames = combinator.hiddenNames;
     }
   }
 
-  return new UriReferencedMetadata(
-      prefix: prefix,
-      shownNames: shownNames as List<String>,
-      hiddenNames: hiddenNames as List<String>
-  );
+  return builder;
 }
