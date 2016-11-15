@@ -78,7 +78,7 @@ ClassMetadata classMetadata(ClassElement element,
     final methodName = method.name;
     _logger.fine('Found method $methodName on $name');
 
-    methods.add(methodMetadata(method, annotationCreators));
+    methods.add(methodMetadata(method, annotationCreators).build());
   }
 
   // Get the constructors

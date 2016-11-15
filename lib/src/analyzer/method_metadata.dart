@@ -10,7 +10,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
-import '../../metadata.dart';
 import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
@@ -26,8 +25,8 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.method_metadata');
 
 /// Creates metadata for the given method [element].
-MethodMetadata methodMetadata(MethodElement element,
-                              List<AnalyzeAnnotation> annotationGenerators) {
+MethodMetadataBuilder methodMetadata(MethodElement element,
+                                     List<AnalyzeAnnotation> annotationGenerators) {
   final builder = new MethodMetadataBuilder()
       ..name = element.name
       ..annotations = createAnnotations(element, annotationGenerators)
@@ -39,7 +38,7 @@ MethodMetadata methodMetadata(MethodElement element,
 
   _logMethod(builder);
 
-  return builder.build();
+  return builder;
 }
 
 /// Logs information on the method metadata [builder].
