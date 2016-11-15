@@ -11,6 +11,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
 import '../../metadata.dart';
+import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
 import 'constructor_metadata.dart';
@@ -27,97 +28,79 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.class_metadata');
 
 /// Creates class metadata from the given [element].
-ClassMetadata classMetadata(ClassElement element,
-                            List<AnalyzeAnnotation> annotationCreators) {
+MetadataBuilder<ClassMetadata> classMetadata(ClassElement element,
+                                             List<AnalyzeAnnotation> annotationCreators) {
+  final builder = element.isEnum
+      ? _enumMetadata(element, annotationCreators)
+      : _classMetadata(element, annotationCreators);
+
+  builder
+      ..name = element.name
+      ..annotations = createAnnotations(element, annotationCreators)
+      ..comments = elementComments(element);
+
+  return builder;
+}
+
+MetadataBuilder<EnumMetadata> _enumMetadata(ClassElement element,
+                                            List<AnalyzeAnnotation> annotationCreators) {
+  final builder = new EnumMetadataBuilder();
+
+  // These are assertions for how the analyzer is currently representing
+  // enumerations. This is just meant to catch any changes that are required
+  // for the EnumMetadataBuilder to be functioning properly
+  assert(element.interfaces.isEmpty);
+  assert(element.supertype.name == 'Object');
+  assert(element.constructors.isEmpty);
+
   final name = element.name;
-  _logger.info('Creating metadata for class $name');
+
+  for (var field in element.fields) {
+    if (field.type.name == name) {
+      builder.values.add(fieldMetadata(field, annotationCreators));
+    }
+  }
+
+  // Make sure the values are properly sorted
+  //
+  // They should already be sorted by the analyzer but there are no guarantees
+  // this behavior will be consistent in the future.
+  builder.values.sort((a, b) => a.defaultValue < b.defaultValue);
+
+  return builder;
+}
+
+MetadataBuilder<ClassMetadata> _classMetadata(ClassElement element,
+                                              List<AnalyzeAnnotation> annotationCreators) {
+  final builder = new ClassMetadataBuilder();
 
   // Get the supertype
-  final supertypeElement = element.supertype;
-  final supertypeName = supertypeElement.name;
-
-  _logger.fine('Found that $name extends $supertypeName');
-  final supertype = typeMetadata(supertypeElement);
+  builder.supertype = typeMetadata(element.supertype);
 
   // Get the classes that are mixed in
-  final mixins = <TypeMetadata>[];
-
   for (var mixin in element.mixins) {
-    final mixinType = typeMetadata(mixin);
-
-    _logger.fine('Found that $name mixes in ${mixinType.name}');
-
-    mixins.add(mixinType);
+    builder.mixins.add(typeMetadata(mixin));
   }
 
   // Get the interfaces the class implements
-  final interfaces = <TypeMetadata>[];
-
   for (var interface in element.interfaces) {
-    final interfaceType = typeMetadata(interface);
-
-    _logger.fine('Found that $name implements ${interfaceType.name}');
-
-    interfaces.add(interfaceType);
+    builder.interfaces.add(typeMetadata(interface));
   }
 
   // Get the fields
-  final fields = <FieldMetadata>[];
-
   for (var field in element.fields) {
-    final fieldName = field.name;
-    _logger.fine('Found field $fieldName on $name');
-
-    fields.add(fieldMetadata(field, annotationCreators).build());
+    builder.fields.add(fieldMetadata(field, annotationCreators));
   }
 
   // Get the methods
-  final methods = <MethodMetadata>[];
-
   for (var method in element.methods) {
-    final methodName = method.name;
-    _logger.fine('Found method $methodName on $name');
-
-    methods.add(methodMetadata(method, annotationCreators).build());
+    builder.methods.add(methodMetadata(method, annotationCreators));
   }
 
   // Get the constructors
-  final constructors = <ConstructorMetadata>[];
-  final constructorReturnType = type(name);
-
   for (var constructor in element.constructors) {
-    final constructorBuilder = constructorMetadata(
-        constructor,
-        annotationCreators
-    );
-
-    constructorBuilder.returnType = constructorReturnType;
-
-    constructors.add(constructorBuilder.build());
+    builder.constructors.add(constructorMetadata(constructor, annotationCreators));
   }
 
-  // Get the annotations
-  final annotations = createAnnotations(element, annotationCreators);
-
-  if (element.isEnum) {
-    return new EnumMetadata(
-        name,
-        fields,
-        annotations: annotations,
-        comments: elementComments(element)
-    );
-  } else {
-    return new ClassMetadata(
-        name,
-        supertype: supertype,
-        interfaces: interfaces,
-        isAbstract: element.isAbstract,
-        mixins: mixins,
-        fields: fields,
-        methods: methods,
-        constructors: constructors,
-        annotations: annotations,
-        comments: elementComments(element)
-    );
-  }
+  return builder;
 }

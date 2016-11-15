@@ -166,12 +166,12 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
   for (var unit in element.units) {
     // Add class metadata
     for (var type in unit.types) {
-      classes.add(classMetadata(type, annotationCreators));
+      classes.add(classMetadata(type, annotationCreators).build());
     }
 
     // Add enum metadata
     for (var type in unit.enums) {
-      classes.add(classMetadata(type, annotationCreators));
+      classes.add(classMetadata(type, annotationCreators).build());
     }
 
     // Add function metadata
