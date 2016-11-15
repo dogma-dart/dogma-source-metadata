@@ -65,7 +65,7 @@ MetadataBuilder<EnumMetadata> _enumMetadata(ClassElement element,
   //
   // They should already be sorted by the analyzer but there are no guarantees
   // this behavior will be consistent in the future.
-  builder.values.sort((a, b) => a.defaultValue < b.defaultValue);
+  builder.values.sort((a, b) => a.defaultValue - b.defaultValue);
 
   return builder;
 }
