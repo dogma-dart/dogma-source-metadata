@@ -13,6 +13,7 @@ import 'package:analyzer/src/generated/source_io.dart';
 import 'package:logging/logging.dart' as logging;
 
 import '../../metadata.dart';
+import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
 import 'constant_object.dart';
@@ -151,54 +152,44 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
     return cached[uriString];
   }
 
-  // Get the import and export directives
-  final imports = uriReferenceList(element.imports).map/*<UriReferencedMetadata>*/(
-      (value) => value.build()
-  ).toList();
-  final exports = uriReferenceList(element.exports).map/*<UriReferencedMetadata>*/(
-      (value) => value.build()
-  ).toList();
-
-  final classes = <ClassMetadata>[];
-  final functions = <FunctionMetadata>[];
-  final fields = <FieldMetadata>[];
+  // Create the builder and get the import and export directives
+  final builder = new LibraryMetadataBuilder()
+      ..uri = uri
+      ..name = element.name
+      ..annotations = createAnnotations(element, annotationCreators)
+      ..comments = elementComments(element)
+      ..imports = uriReferenceList(element.imports)
+      ..exports = uriReferenceList(element.exports);
 
   for (var unit in element.units) {
     // Add class metadata
     for (var type in unit.types) {
-      classes.add(classMetadata(type, annotationCreators).build());
+      builder.classes.add(classMetadata(type, annotationCreators));
     }
 
     // Add enum metadata
     for (var type in unit.enums) {
-      classes.add(classMetadata(type, annotationCreators).build());
+      builder.enums.add(classMetadata(type, annotationCreators));
     }
 
     // Add function metadata
     for (var function in unit.functions) {
-      functions.add(functionMetadata(function, annotationCreators));
+      builder.functions.add(functionMetadata(function, annotationCreators));
     }
 
     // Add field metadata
     for (var field in unit.topLevelVariables) {
-      fields.add(fieldMetadata(field, annotationCreators).build());
+      builder.fields.add(fieldMetadata(field, annotationCreators));
     }
 
     // Add typedef metadata
+    for (var typedef in unit.functionTypeAliases) {
+      print(typedef.name);
+    }
   }
 
   // Create the metadata
-  final metadata = new LibraryMetadata(
-      uri,
-      name: element.name,
-      imports: imports,
-      exports: exports,
-      classes: classes,
-      functions: functions,
-      fields: fields,
-      annotations: createAnnotations(element, annotationCreators),
-      comments: elementComments(element)
-  );
+  final metadata = builder.build();
 
   // Add to the cache
   cached[uriString] = metadata;
@@ -209,6 +200,8 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
   // from causing a stack overflow
 
   // Get the imported libraries
+  final imports = metadata.imports.toList();
+  final exports = metadata.exports.toList();
   final importCount = imports.length;
   assert(importCount == element.imports.length);
 

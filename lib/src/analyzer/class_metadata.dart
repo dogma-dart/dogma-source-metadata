@@ -55,6 +55,7 @@ MetadataBuilder<EnumMetadata> _enumMetadata(ClassElement element,
 
   final name = element.name;
 
+  // Get fields that correspond to enum values
   for (var field in element.fields) {
     if (field.type.name == name) {
       builder.values.add(fieldMetadata(field, annotationCreators));

@@ -26,8 +26,8 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.function_metadata');
 
 /// Creates metadata for the given function [element].
-FunctionMetadata functionMetadata(FunctionElement element,
-                                  List<AnalyzeAnnotation> annotationGenerators) {
+FunctionMetadataBuilder functionMetadata(FunctionElement element,
+                                         List<AnalyzeAnnotation> annotationGenerators) {
   final builder = new FunctionMetadataBuilder()
       ..name = element.name
       ..annotations = createAnnotations(element, annotationGenerators)
@@ -37,7 +37,7 @@ FunctionMetadata functionMetadata(FunctionElement element,
 
   _logFunction(builder);
 
-  return builder.build();
+  return builder;
 }
 
 /// Logs information on the function metadata [builder].
