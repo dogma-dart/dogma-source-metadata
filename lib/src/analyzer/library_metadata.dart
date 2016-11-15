@@ -154,10 +154,10 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
   // Get the import and export directives
   final imports = uriReferenceList(element.imports).map/*<UriReferencedMetadata>*/(
       (value) => value.build()
-  );
+  ).toList();
   final exports = uriReferenceList(element.exports).map/*<UriReferencedMetadata>*/(
       (value) => value.build()
-  );
+  ).toList();
 
   final classes = <ClassMetadata>[];
   final functions = <FunctionMetadata>[];
