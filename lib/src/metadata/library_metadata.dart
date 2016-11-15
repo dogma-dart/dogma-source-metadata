@@ -12,6 +12,7 @@ import 'enclosing_metadata.dart';
 import 'class_metadata.dart';
 import 'field_metadata.dart';
 import 'function_metadata.dart';
+import 'typedef_metadata.dart';
 import 'uri_referenced_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -36,6 +37,8 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
   final List<FunctionMetadata> functions;
   /// The fields contained within the library.
   final List<FieldMetadata> fields;
+  /// The function type definitions contained within the library.
+  final List<TypedefMetadata> typedefs;
 
   //---------------------------------------------------------------------
   // Construction
@@ -62,6 +65,7 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
                   List<ClassMetadata> classes,
                   List<FunctionMetadata> functions,
                   List<FieldMetadata> fields,
+                  List<TypedefMetadata> typedefs,
                   List annotations,
                   String comments})
       : uri = uri
@@ -70,6 +74,7 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
       , classes = classes ?? <ClassMetadata>[]
       , functions = functions ?? <FunctionMetadata>[]
       , fields = fields ?? <FieldMetadata>[]
+      , typedefs = typedefs ?? <TypedefMetadata>[]
       , super(name, annotations, comments)
   {
     // Use `this` to properly scope the value
@@ -78,6 +83,7 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
     encloseList(this.classes);
     encloseList(this.functions);
     encloseList(this.fields);
+    encloseList(this.typedefs);
   }
 
   //---------------------------------------------------------------------
