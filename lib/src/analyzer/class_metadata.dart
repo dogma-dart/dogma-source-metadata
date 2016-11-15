@@ -86,11 +86,14 @@ ClassMetadata classMetadata(ClassElement element,
   final constructorReturnType = type(name);
 
   for (var constructor in element.constructors) {
-    constructors.add(constructorMetadata(
+    final constructorBuilder = constructorMetadata(
         constructor,
-        constructorReturnType,
         annotationCreators
-    ));
+    );
+
+    constructorBuilder.returnType = constructorReturnType;
+
+    constructors.add(constructorBuilder.build());
   }
 
   // Get the annotations

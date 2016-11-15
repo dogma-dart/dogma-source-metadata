@@ -10,7 +10,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
-import '../../metadata.dart';
 import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
@@ -25,21 +24,19 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.constructor_metadata');
 
 /// Creates metadata for the given constructor [element].
-ConstructorMetadata constructorMetadata(ConstructorElement element,
-                                        TypeMetadata returnType,
-                                        List<AnalyzeAnnotation> annotationGenerators) {
+ConstructorMetadataBuilder constructorMetadata(ConstructorElement element,
+                                               List<AnalyzeAnnotation> annotationGenerators) {
   final builder = new ConstructorMetadataBuilder()
       ..name = element.name
       ..annotations = createAnnotations(element, annotationGenerators)
       ..comments = elementComments(element)
-      ..returnType = returnType
       ..parameters = parameterList(element, annotationGenerators)
       ..isFactory = element.isFactory
       ..isConst = element.isConst;
 
   _logConstructor(builder);
 
-  return builder.build();
+  return builder;
 }
 
 /// Logs information on the constructor metadata [builder].
