@@ -9,10 +9,12 @@
 
 import '../../metadata.dart';
 import 'class_metadata_builder.dart';
+import 'enum_metadata_builder.dart';
 import 'field_metadata_builder.dart';
 import 'function_metadata_builder.dart';
 import 'invalid_metadata_error.dart';
 import 'metadata_builder.dart';
+import 'typedef_metadata_builder.dart';
 import 'uri_referenced_metadata_builder.dart';
 
 //---------------------------------------------------------------------
@@ -28,15 +30,19 @@ class LibraryMetadataBuilder extends MetadataBuilder<LibraryMetadata> {
   /// The location of the library.
   Uri uri;
   /// The import references for the library.
-  List<UriReferencedMetadataBuilder> imports;
+  List<UriReferencedMetadataBuilder> imports = <UriReferencedMetadataBuilder>[];
   /// The export references for the library.
-  List<UriReferencedMetadataBuilder> exports;
+  List<UriReferencedMetadataBuilder> exports = <UriReferencedMetadataBuilder>[];
   /// The classes contained within the library.
-  List<ClassMetadataBuilder> classes;
+  List<ClassMetadataBuilder> classes = <ClassMetadataBuilder>[];
+  /// The enumerations contained within the library.
+  List<EnumMetadataBuilder> enums = <EnumMetadataBuilder>[];
   /// The functions contained within the library.
-  List<FunctionMetadataBuilder> functions;
+  List<FunctionMetadataBuilder> functions = <FunctionMetadataBuilder>[];
   /// The fields contained within the library.
-  List<FieldMetadataBuilder> fields;
+  List<FieldMetadataBuilder> fields = <FieldMetadataBuilder>[];
+  /// The function type definitions contained within the library.
+  List<TypedefMetadataBuilder> typedefs = <TypedefMetadataBuilder>[];
 
   //---------------------------------------------------------------------
   // MetadataBuilder
@@ -53,9 +59,12 @@ class LibraryMetadataBuilder extends MetadataBuilder<LibraryMetadata> {
           name: name,
           imports: buildList/*<UriReferencedMetadata>*/(imports),
           exports: buildList/*<UriReferencedMetadata>*/(exports),
-          classes: buildList/*<ClassMetadata>*/(classes),
-          functions: buildList/*<ClassMetadata>*/(functions),
-          fields: buildList/*<ClassMetadata>*/(fields),
+          classes:
+              buildList/*<ClassMetadata>*/(classes)
+                  ..addAll(buildList/*<ClassMetadata>*/(enums)),
+          functions: buildList/*<FunctionMetadata>*/(functions),
+          fields: buildList/*<FieldMetadata>*/(fields),
+          typedefs: buildList/*<TypedefMetadata>*/(typedefs),
           annotations: annotations,
           comments: comments
       );
