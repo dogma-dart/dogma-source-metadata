@@ -67,4 +67,5 @@ export 'src/metadata_builder/method_metadata_builder.dart';
 export 'src/metadata_builder/parameter_metadata_builder.dart';
 export 'src/metadata_builder/static_metadata_builder.dart';
 export 'src/metadata_builder/typed_metadata_builder.dart';
+export 'src/metadata_builder/typedef_metadata_builder.dart';
 export 'src/metadata_builder/uri_referenced_metadata_builder.dart';
