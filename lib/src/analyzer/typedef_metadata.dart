@@ -20,45 +20,23 @@ import 'function_metadata.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.constructor_metadata');
+new Logger('dogma_source_analyzer.src.analyzer.typedef_metadata');
 
 /// Creates metadata for the given constructor [element].
-ConstructorMetadataBuilder constructorMetadata(ConstructorElement element,
-                                               List<AnalyzeAnnotation> annotationGenerators) {
+TypedefMetadataBuilder typedefMetadata(FunctionTypeAliasElement element,
+                                       List<AnalyzeAnnotation> annotationGenerators) {
   final builder = functionMetadata(
       element,
       annotationGenerators,
-      new ConstructorMetadataBuilder()
-  ) as ConstructorMetadataBuilder;
+      new TypedefMetadataBuilder()
+  ) as TypedefMetadataBuilder;
 
-  builder
-      ..isFactory = element.isFactory
-      ..isConst = element.isConst;
-
-  _logConstructor(builder);
+  _logTypedef(builder);
 
   return builder;
 }
 
-/// Logs information on the constructor metadata [builder].
-void _logConstructor(ConstructorMetadataBuilder builder) {
-  final name = builder.name;
-
-  if (name.isEmpty) {
-    _logger.fine('Found default constructor');
-  } else {
-    _logger.fine('Found named constructor $name');
-  }
-
-  final isFactory = builder.isFactory;
-
-  if (isFactory) {
-    _logger.finer('Constructor is a factory');
-  }
-
-  final isConst = builder.isConst;
-
-  if (isConst) {
-    _logger.finer('Constructor is const');
-  }
+/// Logs information on the typedef metadata [builder].
+void _logTypedef(TypedefMetadataBuilder builder) {
+  _logger.fine('Found typedef ${builder.name}');
 }

@@ -26,16 +26,26 @@ final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.function_metadata');
 
 /// Creates metadata for the given function [element].
-FunctionMetadataBuilder functionMetadata(FunctionElement element,
-                                         List<AnalyzeAnnotation> annotationGenerators) {
-  final builder = new FunctionMetadataBuilder()
+FunctionMetadataBuilder functionMetadata(FunctionTypedElement element,
+                                         List<AnalyzeAnnotation> annotationGenerators,
+                                        [FunctionMetadataBuilder builder]) {
+  // If builder is null then the call is coming from a different function
+  // and logging should not be outputted in this context
+  final log = builder == null;
+
+  // Create a builder if necessary
+  builder ??= new FunctionMetadataBuilder();
+
+  builder
       ..name = element.name
       ..annotations = createAnnotations(element, annotationGenerators)
       ..comments = elementComments(element)
       ..returnType = typeMetadata(element.returnType)
       ..parameters = parameterList(element, annotationGenerators);
 
-  _logFunction(builder);
+  if (log) {
+    _logFunction(builder);
+  }
 
   return builder;
 }

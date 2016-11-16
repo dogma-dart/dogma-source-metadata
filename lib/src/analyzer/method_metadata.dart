@@ -12,9 +12,7 @@ import 'package:logging/logging.dart';
 
 import '../../metadata_builder.dart';
 import 'annotation.dart';
-import 'comments.dart';
-import 'parameter_metadata.dart';
-import 'type_metadata.dart';
+import 'function_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -27,12 +25,13 @@ final Logger _logger =
 /// Creates metadata for the given method [element].
 MethodMetadataBuilder methodMetadata(MethodElement element,
                                      List<AnalyzeAnnotation> annotationGenerators) {
-  final builder = new MethodMetadataBuilder()
-      ..name = element.name
-      ..annotations = createAnnotations(element, annotationGenerators)
-      ..comments = elementComments(element)
-      ..returnType = typeMetadata(element.returnType)
-      ..parameters = parameterList(element, annotationGenerators)
+  final builder = functionMetadata(
+      element,
+      annotationGenerators,
+      new MethodMetadataBuilder()
+  ) as MethodMetadataBuilder;
+
+  builder
       ..isAbstract = element.isAbstract
       ..isStatic = element.isStatic;
 
