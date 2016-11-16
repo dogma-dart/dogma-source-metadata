@@ -10,10 +10,10 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 
-import '../../metadata.dart';
 import '../../metadata_builder.dart';
 import 'annotation.dart';
 import 'comments.dart';
+import 'generic_metadata.dart';
 import 'parameter_metadata.dart';
 import 'type_metadata.dart';
 
@@ -41,7 +41,8 @@ FunctionMetadataBuilder functionMetadata(FunctionTypedElement element,
       ..annotations = createAnnotations(element, annotationGenerators)
       ..comments = elementComments(element)
       ..returnType = typeMetadata(element.returnType)
-      ..parameters = parameterList(element, annotationGenerators);
+      ..parameters = parameterList(element, annotationGenerators)
+      ..typeParameters = genericTypeMetadataList(element.typeParameters);
 
   if (log) {
     _logFunction(builder);

@@ -16,6 +16,7 @@ import 'annotation.dart';
 import 'comments.dart';
 import 'constructor_metadata.dart';
 import 'field_metadata.dart';
+import 'generic_metadata.dart';
 import 'method_metadata.dart';
 import 'type_metadata.dart';
 
@@ -73,35 +74,23 @@ MetadataBuilder<EnumMetadata> _enumMetadata(ClassElement element,
 
 MetadataBuilder<ClassMetadata> _classMetadata(ClassElement element,
                                               List<AnalyzeAnnotation> annotationCreators) {
-  final builder = new ClassMetadataBuilder();
-
-  // Get the supertype
-  builder.supertype = typeMetadata(element.supertype);
-
-  // Get the classes that are mixed in
-  for (var mixin in element.mixins) {
-    builder.mixins.add(typeMetadata(mixin));
-  }
-
-  // Get the interfaces the class implements
-  for (var interface in element.interfaces) {
-    builder.interfaces.add(typeMetadata(interface));
-  }
-
-  // Get the fields
-  for (var field in element.fields) {
-    builder.fields.add(fieldMetadata(field, annotationCreators));
-  }
-
-  // Get the methods
-  for (var method in element.methods) {
-    builder.methods.add(methodMetadata(method, annotationCreators));
-  }
-
-  // Get the constructors
-  for (var constructor in element.constructors) {
-    builder.constructors.add(constructorMetadata(constructor, annotationCreators));
-  }
+  final builder = new ClassMetadataBuilder()
+      ..supertype = typeMetadata(element.supertype)
+      ..mixins = typeMetadataList(element.mixins)
+      ..interfaces = typeMetadataList(element.interfaces)
+      ..typeParameters = genericTypeMetadataList(element.typeParameters)
+      ..fields =
+          element.fields.map/*<FieldMetadataBuilder>*/(
+              (value) => fieldMetadata(value, annotationCreators)
+          ).toList()
+      ..methods =
+          element.methods.map/*<MethodMetadataBuilder>*/(
+              (value) => methodMetadata(value, annotationCreators)
+          ).toList()
+      ..constructors =
+          element.constructors.map/*<ConstructorMetadataBuilder>*/(
+              (value) => constructorMetadata(value, annotationCreators)
+          ).toList();
 
   return builder;
 }
