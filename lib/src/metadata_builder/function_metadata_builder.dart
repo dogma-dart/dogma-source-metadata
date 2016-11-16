@@ -10,6 +10,7 @@
 import 'package:meta/meta.dart';
 
 import '../../metadata.dart';
+import 'generic_metadata_builder.dart';
 import 'invalid_metadata_error.dart';
 import 'metadata_builder.dart';
 import 'parameter_metadata_builder.dart';
@@ -30,7 +31,8 @@ import 'validate_metadata.dart';
 /// * Optional and named parameters cannot be used in the same function.
 /// * Initializers are not valid for function calls.
 class FunctionMetadataBuilder extends MetadataBuilder<FunctionMetadata>
-                                 with TypedMetadataBuilder {
+                                 with GenericMetadataBuilder,
+                                      TypedMetadataBuilder {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -60,6 +62,7 @@ class FunctionMetadataBuilder extends MetadataBuilder<FunctionMetadata>
         name,
         returnType: returnType,
         parameters: buildList/*<ParameterMetadata>*/(parameters),
+        typeParameters: typeParameters,
         annotations: annotations,
         comments: comments
       );

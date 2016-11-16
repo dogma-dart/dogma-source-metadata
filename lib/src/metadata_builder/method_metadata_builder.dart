@@ -41,6 +41,7 @@ class MethodMetadataBuilder extends FunctionMetadataBuilder
           name,
           returnType: returnType,
           parameters: buildList/*<ParameterMetadata>*/(parameters),
+          typeParameters: typeParameters,
           isAbstract: isAbstract,
           isStatic: isStatic,
           annotations: annotations,
