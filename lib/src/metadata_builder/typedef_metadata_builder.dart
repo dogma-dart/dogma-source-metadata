@@ -30,6 +30,7 @@ class TypedefMetadataBuilder extends FunctionMetadataBuilder {
           name,
           returnType: returnType,
           parameters: buildList/*<ParameterMetadata>*/(parameters),
+          typeParameters: typeParameters,
           annotations: annotations,
           comments: comments
       );
