@@ -39,6 +39,7 @@ class MethodMetadata extends FunctionMetadata
   MethodMetadata(String name,
                 {TypeMetadata returnType,
                  List<ParameterMetadata> parameters,
+                 List<TypeMetadata> typeParameters,
                  this.isAbstract: false,
                  this.isStatic: false,
                  List annotations,
@@ -46,6 +47,7 @@ class MethodMetadata extends FunctionMetadata
       : super(name,
               returnType: returnType,
               parameters: parameters,
+              typeParameters: typeParameters,
               annotations: annotations,
               comments: comments);
 }
