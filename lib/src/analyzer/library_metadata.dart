@@ -23,6 +23,7 @@ import 'field_metadata.dart';
 import 'function_metadata.dart';
 import 'override_annotation.dart';
 import 'protected_annotation.dart';
+import 'typedef_metadata.dart';
 import 'union_type_annotation.dart';
 import 'uri_referenced_metadata.dart';
 
@@ -184,7 +185,7 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
 
     // Add typedef metadata
     for (var typedef in unit.functionTypeAliases) {
-      print(typedef.name);
+      builder.typedefs.add(typedefMetadata(typedef, annotationCreators));
     }
   }
 
