@@ -59,10 +59,11 @@ TypeMetadata typeMetadata(DartType type,
 }
 */
 
+/// Creates a list of type metadata from the given [types].
+List<TypeMetadata> typeMetadataList(List<DartType> types) =>
+    types.map/*<TypeMetadata>*/((value) => typeMetadata(value)).toList();
+
 /// Creates type metadata from the given [type].
-///
-/// A list of [annotations] can be provided which will be searched for union
-/// type annotations.
 TypeMetadata typeMetadata(DartType type) {
   if (type is InterfaceType) {
     return _interfaceTypeMetadata(type);
