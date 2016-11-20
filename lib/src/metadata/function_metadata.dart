@@ -10,9 +10,11 @@
 import 'annotated_metadata.dart';
 import 'enclosing_metadata.dart';
 import 'generic_metadata.dart';
+import 'parameter_kind.dart';
 import 'parameter_metadata.dart';
 import 'privacy_metadata.dart';
 import 'type_metadata.dart';
+import 'typed_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -23,7 +25,8 @@ class FunctionMetadata extends AnnotatedMetadata
                           with PrivacyMetadata,
                                EnclosedMetadata,
                                EnclosingMetadata
-                    implements GenericMetadata {
+                    implements GenericMetadata,
+                               TypedMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
@@ -34,6 +37,8 @@ class FunctionMetadata extends AnnotatedMetadata
   final List<ParameterMetadata> parameters;
   @override
   final List<TypeMetadata> typeParameters;
+  /// The type of the metadata.
+  FunctionTypeMetadata _type;
 
   //---------------------------------------------------------------------
   // Constructor
@@ -54,5 +59,43 @@ class FunctionMetadata extends AnnotatedMetadata
   {
     // Use `this` to properly scope the value
     encloseList(this.parameters);
+    // Compute the type
+    _determineType();
+  }
+
+  //---------------------------------------------------------------------
+  // TypedMetadata
+  //---------------------------------------------------------------------
+
+  @override
+  TypeMetadata get type => _type;
+
+  /// Determine the type for the metadata.
+  void _determineType() {
+    // Get the function declaration types
+    final parameterTypes = <TypeMetadata>[];
+    final optionalParameterTypes = <TypeMetadata>[];
+    final namedParameterTypes = <String, TypeMetadata>{};
+
+    for (var parameter in parameters) {
+      final kind = parameter.parameterKind;
+      final type = parameter.type;
+
+      if (kind == ParameterKind.required) {
+        parameterTypes.add(type);
+      } else if (kind == ParameterKind.positional) {
+        optionalParameterTypes.add(type);
+      } else {
+        namedParameterTypes[parameter.name] = type;
+      }
+    }
+
+    _type = new FunctionTypeMetadata(
+        returnType: returnType,
+        parameterTypes: parameterTypes,
+        optionalParameterTypes: optionalParameterTypes,
+        namedParameterTypes: namedParameterTypes,
+        typeArguments: typeParameters
+    );
   }
 }

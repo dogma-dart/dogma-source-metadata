@@ -106,7 +106,7 @@ class FunctionTypeMetadata extends TypeMetadata {
   /// The name and types for the named parameters of the function.
   final Map<String, TypeMetadata> namedParameterTypes;
   /// The type arguments for the function.
-  final List<TypeMetadata> typeParameters;
+  final List<TypeMetadata> typeArguments;
 
   //---------------------------------------------------------------------
   // Construction
@@ -116,7 +116,7 @@ class FunctionTypeMetadata extends TypeMetadata {
                               this.parameterTypes: const <TypeMetadata>[],
                               this.optionalParameterTypes: const <TypeMetadata>[],
                               this.namedParameterTypes: const <String, TypeMetadata>{},
-                              this.typeParameters: const <TypeMetadata>[]})
+                              this.typeArguments: const <TypeMetadata>[]})
      : super._('');
 
   //---------------------------------------------------------------------

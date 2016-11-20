@@ -126,7 +126,7 @@ FunctionTypeMetadata _functionTypeMetadata(FunctionType type) {
       parameterTypes: parameterTypes,
       optionalParameterTypes: optionalParameterTypes,
       namedParameterTypes: namedParameterTypes,
-      typeParameters: typeArguments
+      typeArguments: typeArguments
   );
 }
 
