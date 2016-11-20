@@ -8,11 +8,8 @@
 //---------------------------------------------------------------------
 
 import '../../metadata.dart';
-import 'abstract_metadata_builder.dart';
 import 'function_metadata_builder.dart';
-import 'invalid_metadata_error.dart';
 import 'metadata_builder.dart';
-import 'static_metadata_builder.dart';
 
 //---------------------------------------------------------------------
 // Library contents

@@ -7,11 +7,8 @@
 // Imports
 //---------------------------------------------------------------------
 
-import 'annotated_metadata.dart';
-import 'enclosing_metadata.dart';
 import 'function_metadata.dart';
 import 'parameter_metadata.dart';
-import 'privacy_metadata.dart';
 import 'type_metadata.dart';
 
 //---------------------------------------------------------------------
