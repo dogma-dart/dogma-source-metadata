@@ -107,13 +107,13 @@ FunctionTypeMetadata _functionTypeMetadata(FunctionType type) {
   final parameterTypes = _typeMetadataList(type.normalParameterTypes);
 
   // Positional parameters
-  final optionalTypes = _typeMetadataList(type.optionalParameterTypes);
+  final optionalParameterTypes = _typeMetadataList(type.optionalParameterTypes);
 
   // Named parameters
-  final namedTypes = <String, TypeMetadata>{};
+  final namedParameterTypes = <String, TypeMetadata>{};
 
   type.namedParameterTypes.forEach((key, value) {
-    namedTypes[key] = typeMetadata(value);
+    namedParameterTypes[key] = typeMetadata(value);
   });
 
   // Generic type arguments
@@ -121,7 +121,13 @@ FunctionTypeMetadata _functionTypeMetadata(FunctionType type) {
       (value) => value.type
   ));
 
-  return new FunctionTypeMetadata(dynamicType, [], []);
+  return new FunctionTypeMetadata(
+      returnType: dynamicType,
+      parameterTypes: parameterTypes,
+      optionalParameterTypes: optionalParameterTypes,
+      namedParameterTypes: namedParameterTypes,
+      typeParameters: typeArguments
+  );
 }
 
 List<TypeMetadata/*=T*/> _typeMetadataList/*<T extends TypeMetadata2>*/(Iterable<DartType> types) =>

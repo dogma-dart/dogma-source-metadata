@@ -47,7 +47,7 @@ class EnumMetadataBuilder extends MetadataBuilder<EnumMetadata> {
   EnumMetadata buildInternal() {
     // Set the type for the individual enumerations
     final count = values.length;
-    final enumType = type(name);
+    final enumType = interfaceType(name);
 
     for (var i = 0; i < count; ++i) {
       values[i]

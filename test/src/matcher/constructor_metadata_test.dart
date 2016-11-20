@@ -16,7 +16,7 @@ import 'package:dogma_source_analyzer/metadata.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-final TypeMetadata _constructorType = type('Foo');
+final TypeMetadata _constructorType = interfaceType('Foo');
 final ConstructorMetadata _defaultConstructor =
     new ConstructorMetadata(_constructorType, isFactory: false);
 final ConstructorMetadata _namedConstructor =

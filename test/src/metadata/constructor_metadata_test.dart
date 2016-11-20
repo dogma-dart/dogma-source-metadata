@@ -21,7 +21,7 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    final returnType = type('Foo');
+    final returnType = interfaceType('Foo');
     final metadata = new ConstructorMetadata(returnType);
 
     // Base classes
@@ -36,7 +36,7 @@ void main() {
   });
   test('named constructor', () {
     final constructorName = 'bar';
-    final returnType = type('Foo');
+    final returnType = interfaceType('Foo');
     final metadata = new ConstructorMetadata(returnType, name: constructorName);
 
     // Base classes
