@@ -53,12 +53,16 @@ class ClassMetadataBuilder extends MetadataBuilder<ClassMetadata>
 
   @override
   ClassMetadata buildInternal() {
+    // For classes which declare no constructors there is always an implicit
+    // one created by the analyzer. This mirrors this behavior.
     final classConstructors = constructors.isNotEmpty
         ? constructors
         : <ConstructorMetadataBuilder>[defaultConstructor()];
 
     // Set the type on all the constructors to be the class name
-    final classType = interfaceType(name);
+    //
+    // The return type also includes the type parameters for the class.
+    final classType = interfaceType(name, typeParameters);
     for (var constructor in classConstructors) {
       constructor.returnType = classType;
     }

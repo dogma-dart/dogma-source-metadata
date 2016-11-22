@@ -22,43 +22,6 @@ import '../../metadata.dart';
 final Logger _logger =
     new Logger('dogma_source_analyzer.src.analyzer.type_metadata');
 
-/*
-/// Creates type metadata from the given [type].
-///
-/// A list of [annotations] can be provided which will be searched for union
-/// type annotations.
-TypeMetadata typeMetadata(DartType type,
-                         [List annotations]) {
-  final type2 = typeMetadata2(type);
-  final unionType = _unionType(annotations);
-  final name = type.name;
-  var value;
-
-  if (unionType != null) {
-    _logger.fine('Explicit union type found on field. ${unionType.types.toString()}');
-
-    if (name != 'dynamic') {
-      throw new ArgumentError.value(type, 'Is using a UnionType and is not dynamic');
-    }
-
-    value = new TypeMetadata(name);
-  } else {
-    final arguments = <TypeMetadata>[];
-
-    if (type is InterfaceType) {
-      for (var argument in type.typeArguments) {
-        _logger.fine('Found type argument ${argument.name}');
-        arguments.add(typeMetadata(argument));
-      }
-    }
-
-    value = new TypeMetadata(name, arguments: arguments);
-  }
-
-  return value;
-}
-*/
-
 /// Creates a list of type metadata from the given [types].
 List<TypeMetadata> typeMetadataList(List<DartType> types) =>
     types.map/*<TypeMetadata>*/((value) => typeMetadata(value)).toList();
@@ -103,10 +66,11 @@ ParameterizedTypeMetadata _parameterizedTypeMetadata(TypeParameterType type) {
 }
 
 FunctionTypeMetadata _functionTypeMetadata(FunctionType type) {
-  // Required parameters
-  final parameterTypes = _typeMetadataList(type.normalParameterTypes);
+  // Return type
+  final returnType = typeMetadata(type.returnType);
 
-  // Positional parameters
+  // Required and positional parameters
+  final parameterTypes = _typeMetadataList(type.normalParameterTypes);
   final optionalParameterTypes = _typeMetadataList(type.optionalParameterTypes);
 
   // Named parameters
@@ -122,11 +86,11 @@ FunctionTypeMetadata _functionTypeMetadata(FunctionType type) {
   ));
 
   return new FunctionTypeMetadata(
-      returnType: dynamicType,
-      parameterTypes: parameterTypes,
-      optionalParameterTypes: optionalParameterTypes,
-      namedParameterTypes: namedParameterTypes,
-      typeArguments: typeArguments
+      returnType,
+      parameterTypes,
+      optionalParameterTypes,
+      namedParameterTypes,
+      typeArguments
   );
 }
 
@@ -134,13 +98,3 @@ List<TypeMetadata/*=T*/> _typeMetadataList/*<T extends TypeMetadata2>*/(Iterable
     types.map/*<T>*/(
         (value) => typeMetadata(value)
     ).toList();
-
-/*
-/// Retrieve the [UnionType] from the list of [annotations].
-///
-/// If a [UnionType] is not found then `null` is returned.
-UnionType _unionType(List annotations) =>
-    annotations == null
-        ? null
-        : annotations.firstWhere((value) => value is UnionType, orElse: () => null);
-*/

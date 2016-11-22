@@ -91,11 +91,11 @@ class FunctionMetadata extends AnnotatedMetadata
     }
 
     _type = new FunctionTypeMetadata(
-        returnType: returnType,
-        parameterTypes: parameterTypes,
-        optionalParameterTypes: optionalParameterTypes,
-        namedParameterTypes: namedParameterTypes,
-        typeArguments: typeParameters
+        returnType,
+        parameterTypes,
+        optionalParameterTypes,
+        namedParameterTypes,
+        typeParameters
     );
   }
 }

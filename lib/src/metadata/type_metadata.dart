@@ -34,7 +34,8 @@ class InterfaceTypeMetadata extends TypeMetadata {
   // Construction
   //---------------------------------------------------------------------
 
-  const InterfaceTypeMetadata(String name, [this.typeArguments = const <TypeMetadata>[]])
+  const InterfaceTypeMetadata(String name,
+                              this.typeArguments)
       : super._(name);
 
   //---------------------------------------------------------------------
@@ -77,7 +78,7 @@ class ParameterizedTypeMetadata extends TypeMetadata {
   // Construction
   //---------------------------------------------------------------------
 
-  const ParameterizedTypeMetadata(String name, [this.extending])
+  const ParameterizedTypeMetadata(String name, this.extending)
       : super._(name);
 
   //---------------------------------------------------------------------
@@ -112,11 +113,11 @@ class FunctionTypeMetadata extends TypeMetadata {
   // Construction
   //---------------------------------------------------------------------
 
-  const FunctionTypeMetadata({this.returnType: dynamicType,
-                              this.parameterTypes: const <TypeMetadata>[],
-                              this.optionalParameterTypes: const <TypeMetadata>[],
-                              this.namedParameterTypes: const <String, TypeMetadata>{},
-                              this.typeArguments: const <TypeMetadata>[]})
+  const FunctionTypeMetadata(this.returnType,
+                             this.parameterTypes,
+                             this.optionalParameterTypes,
+                             this.namedParameterTypes,
+                             this.typeArguments)
      : super._('');
 
   //---------------------------------------------------------------------
@@ -136,34 +137,63 @@ ParameterizedTypeMetadata parameterizedType(String name,
                                            [TypeMetadata extending]) =>
     new ParameterizedTypeMetadata(name, extending);
 
-FunctionTypeMetadata functionType() => new FunctionTypeMetadata();
+FunctionTypeMetadata functionType({TypeMetadata returnType,
+                                   List<TypeMetadata> parameterTypes,
+                                   List<TypeMetadata> optionalParameterTypes,
+                                   Map<String, TypeMetadata> namedParameterTypes,
+                                   List<TypeMetadata> typeArguments}) {
+  returnType ??= dynamicType;
+  parameterTypes ??= <TypeMetadata>[];
+  optionalParameterTypes ??= <TypeMetadata>[];
+  namedParameterTypes ??= <String, TypeMetadata>{};
+  typeArguments ??= <TypeMetadata>[];
+
+  return new FunctionTypeMetadata(
+      returnType,
+      parameterTypes,
+      optionalParameterTypes,
+      namedParameterTypes,
+      typeArguments
+  );
+}
+
+const List<TypeMetadata> _empty = const <TypeMetadata>[];
 
 /// A boolean type.
-const InterfaceTypeMetadata boolType = const InterfaceTypeMetadata('bool');
+const InterfaceTypeMetadata boolType =
+    const InterfaceTypeMetadata('bool', _empty);
 
 /// A number type.
-const InterfaceTypeMetadata numType = const InterfaceTypeMetadata('num');
+const InterfaceTypeMetadata numType =
+    const InterfaceTypeMetadata('num', _empty);
 
 /// An integer type.
-const InterfaceTypeMetadata intType = const InterfaceTypeMetadata('int');
+const InterfaceTypeMetadata intType =
+    const InterfaceTypeMetadata('int', _empty);
 
 /// A double type.
-const InterfaceTypeMetadata doubleType = const InterfaceTypeMetadata('double');
+const InterfaceTypeMetadata doubleType =
+    const InterfaceTypeMetadata('double', _empty);
 
 /// A string type.
-const InterfaceTypeMetadata stringType = const InterfaceTypeMetadata('String');
+const InterfaceTypeMetadata stringType =
+    const InterfaceTypeMetadata('String', _empty);
 
 /// A dynamic type.
-const InterfaceTypeMetadata dynamicType = const InterfaceTypeMetadata('dynamic');
+const InterfaceTypeMetadata dynamicType =
+    const InterfaceTypeMetadata('dynamic', _empty);
 
 /// An object type.
-const InterfaceTypeMetadata objectType = const InterfaceTypeMetadata('Object');
+const InterfaceTypeMetadata objectType =
+    const InterfaceTypeMetadata('Object', _empty);
 
 /// A null type.
-const InterfaceTypeMetadata nullType = const InterfaceTypeMetadata('Null');
+const InterfaceTypeMetadata nullType =
+    const InterfaceTypeMetadata('Null', _empty);
 
 /// A void type.
-const InterfaceTypeMetadata voidType = const InterfaceTypeMetadata('void');
+const InterfaceTypeMetadata voidType =
+    const InterfaceTypeMetadata('void', _empty);
 
 /// Creates an instance of [InterfaceTypeMetadata] representing a list.
 ///
