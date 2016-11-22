@@ -19,7 +19,7 @@ import 'package:dogma_source_analyzer/metadata_builder.dart';
 
 final TypeMetadata _intType = intType;
 final TypeMetadata _stringType = stringType;
-final TypeMetadata _fooType = new InterfaceTypeMetadata('Foo');
+final TypeMetadata _fooType = interfaceType('Foo');
 
 final FieldMetadata _intTyped = (field('intType')..type = _intType).build();
 final FieldMetadata _stringTyped = (field('stringType')..type = _stringType).build();
