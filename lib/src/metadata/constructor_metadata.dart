@@ -36,7 +36,6 @@ class ConstructorMetadata extends FunctionMetadata implements ConstantMetadata {
   ConstructorMetadata(TypeMetadata returnType,
                      {String name,
                       List<ParameterMetadata> parameters,
-                      bool isPrivate,
                       this.isConst: false,
                       this.isFactory: false,
                       List annotations,
