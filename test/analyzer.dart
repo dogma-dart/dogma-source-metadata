@@ -21,6 +21,7 @@ import 'src/analyzer/function_metadata_test.dart' as function_metadata_test;
 import 'src/analyzer/mirrors_test.dart' as mirrors_test;
 import 'src/analyzer/protected_annotation_test.dart' as protected_annotation_test;
 import 'src/analyzer/type_metadata_test.dart' as type_metadata_test;
+import 'src/analyzer/typedef_metadata_test.dart' as typedef_metadata_test;
 
 //---------------------------------------------------------------------
 // Library contents
@@ -38,4 +39,5 @@ void main() {
   group('Mirrors', mirrors_test.main);
   group('Protected', protected_annotation_test.main);
   group('TypeMetadata', type_metadata_test.main);
+  group('TypedefMetadata', typedef_metadata_test.main);
 }
