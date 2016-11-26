@@ -18,7 +18,6 @@ import 'src/metadata/function_metadata_test.dart' as function_metadata_test;
 import 'src/metadata/library_metadata_test.dart' as library_metadata_test;
 import 'src/metadata/method_metadata_test.dart' as method_metadata_test;
 import 'src/metadata/parameter_metadata_test.dart' as parameter_metadata_test;
-import 'src/metadata/type_metadata_test.dart' as type_metadata_test;
 
 //---------------------------------------------------------------------
 // Library contents
@@ -33,5 +32,4 @@ void main() {
   group('LibraryMetadata', library_metadata_test.main);
   group('MethodMetadata', method_metadata_test.main);
   group('ParameterMetadata', parameter_metadata_test.main);
-  //group('TypeMetadata', type_metadata_test.main);
 }
