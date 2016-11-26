@@ -7,6 +7,7 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:dogma_source_metadata_test/test.dart';
 import 'package:meta/meta.dart';
 import 'package:test/test.dart';
 
@@ -21,10 +22,9 @@ import 'package:dogma_source_analyzer/query.dart';
 //---------------------------------------------------------------------
 
 void _expectHasProtected(AnnotatedMetadata metadata) {
-  expect(metadata.annotations, hasLength(1));
-
-  final annotation = metadata.annotations[0];
-  expect(annotation, protected);
+  expect(metadata, isNotNull);
+  expect(metadata, hasAnnotations(1));
+  expect(metadata, isProtected);
 }
 
 /// Entry point for tests.
@@ -38,9 +38,10 @@ void main() {
     );
 
     expect(library, isNotNull);
-    expect(library.classes, hasLength(2));
-    expect(library.fields, isEmpty);
-    expect(library.functions, isEmpty);
+    expect(library, hasClasses(2));
+    expect(library, hasNoFields);
+    expect(library, hasNoFunctions);
+    expect(library, hasNoTypedefs);
 
     final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
         library,
@@ -49,7 +50,8 @@ void main() {
     );
 
     expect(clazz, isNotNull);
-    expect(clazz.methods, hasLength(1));
+    expect(clazz, hasMethods(1));
+    expect(clazz, hasNoFields);
 
     final method = classMetadataQuery/*<MethodMetadata>*/(
         clazz,
@@ -58,6 +60,7 @@ void main() {
     );
 
     expect(method, isNotNull);
-    _expectHasProtected(method);
+    expect(method, hasAnnotations(1));
+    expect(method, isProtected);
   });
 }
