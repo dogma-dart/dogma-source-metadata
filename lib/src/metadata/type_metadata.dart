@@ -13,6 +13,7 @@ import 'metadata.dart';
 // Library contents
 //---------------------------------------------------------------------
 
+/// The base class for all type metadata.
 class TypeMetadata implements Metadata {
   @override
   final String name;
@@ -20,6 +21,7 @@ class TypeMetadata implements Metadata {
   const TypeMetadata._(this.name);
 }
 
+/// Represents a concrete interface type.
 class InterfaceTypeMetadata extends TypeMetadata {
   //---------------------------------------------------------------------
   // Member variables
@@ -34,6 +36,9 @@ class InterfaceTypeMetadata extends TypeMetadata {
   // Construction
   //---------------------------------------------------------------------
 
+  /// Creates an [InterfaceTypeMetadata] with the given [name].
+  ///
+  /// Additionally [typeArguments] can be provided for generic types.
   const InterfaceTypeMetadata(String name,
                               this.typeArguments)
       : super._(name);
@@ -67,23 +72,50 @@ class InterfaceTypeMetadata extends TypeMetadata {
   }
 }
 
+/// Represents a generic type.
 class ParameterizedTypeMetadata extends TypeMetadata {
   //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
+  /// The type the value is extending.
   final InterfaceTypeMetadata extending;
 
   //---------------------------------------------------------------------
   // Construction
   //---------------------------------------------------------------------
 
+  /// Creates an instance of [ParameterizedTypeMetadata].
+  ///
+  /// The [name] is the reference. The value of [extending] corresponds to the
+  /// base class the generic is extending from.
   const ParameterizedTypeMetadata(String name, this.extending)
       : super._(name);
 
   //---------------------------------------------------------------------
   // Object
   //---------------------------------------------------------------------
+
+  @override
+  bool operator== (Object compare) {
+    if (identical(this, compare)) {
+      return true;
+    } else if (compare is ParameterizedTypeMetadata) {
+      return (name == compare.name) && (extending == compare.extending);
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + name.hashCode;
+    if (extending != null) {
+      result = 37 * result + extending.hashCode;
+    }
+    return result;
+  }
 
   @override
   String toString() {
@@ -93,6 +125,7 @@ class ParameterizedTypeMetadata extends TypeMetadata {
   }
 }
 
+/// Represents a function type.
 class FunctionTypeMetadata extends TypeMetadata {
   //---------------------------------------------------------------------
   // Member variables
@@ -113,6 +146,13 @@ class FunctionTypeMetadata extends TypeMetadata {
   // Construction
   //---------------------------------------------------------------------
 
+  /// Creates an instance of [FunctionTypeMetadata].
+  ///
+  /// The [returnType] specifies the type returned by the function. The
+  /// [parameterTypes] refer to required parameters. The
+  /// [optionalParameterTypes] refers to optional parameters. The
+  /// [namedParameterTypes] is a map of parameter names and types. The
+  /// [typeArguments] are for generics.
   const FunctionTypeMetadata(this.returnType,
                              this.parameterTypes,
                              this.optionalParameterTypes,
@@ -125,39 +165,100 @@ class FunctionTypeMetadata extends TypeMetadata {
   //---------------------------------------------------------------------
 
   @override
+  bool operator== (Object compare) {
+    if (identical(this, compare)) {
+      return true;
+    } else if (compare is FunctionTypeMetadata) {
+      return
+          (returnType == compare.returnType) &&
+          _typeListEqual(parameterTypes, compare.parameterTypes) &&
+          _typeListEqual(optionalParameterTypes, compare.optionalParameterTypes) &&
+          _typeMapEqual(namedParameterTypes, compare.namedParameterTypes) &&
+          _typeListEqual(typeArguments, compare.typeArguments);
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + returnType.hashCode;
+    result = 37 * result + parameterTypes.hashCode;
+    result = 37 * result + optionalParameterTypes.hashCode;
+    result = 37 * result + namedParameterTypes.hashCode;
+    result = 37 * result + typeArguments.hashCode;
+    return result;
+  }
+
+  @override
   String toString() {
-    return '() -> $returnType';
+    final parameterList = <String>[];
+    var genericString = '';
+
+    if (parameterTypes.isNotEmpty) {
+      parameterList.add(parameterTypes.join(','));
+    }
+
+    if (optionalParameterTypes.isNotEmpty) {
+      parameterList.add('[${optionalParameterTypes.join(',')}');
+    }
+
+    if (namedParameterTypes.isNotEmpty) {
+      parameterList.add('{${namedParameterTypes.values.join(',')}');
+    }
+
+    if (typeArguments.isNotEmpty) {
+      genericString = '<${typeArguments.join(',')}>';
+    }
+
+    return '(${parameterList.join(',')})$genericString -> $returnType';
+  }
+
+  //---------------------------------------------------------------------
+  // Private class methods
+  //---------------------------------------------------------------------
+
+  /// Checks if the two lists for types, [a] and [b], are equal.
+  static bool _typeListEqual(List<TypeMetadata> a, List<TypeMetadata> b) {
+    final aCount = a.length;
+
+    if (aCount != b.length) {
+      return false;
+    }
+
+    for (var i = 0; i < aCount; ++i) {
+      if (a[i] != b[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /// Checks if two maps for types, [a] and [b], are equal.
+  static bool _typeMapEqual(Map<String, TypeMetadata> a, Map<String, TypeMetadata> b) {
+    if (a.length != b.length) {
+      return false;
+    }
+
+    for (var key in a.keys) {
+      if (!b.containsKey(key)) {
+        return false;
+      }
+
+      if (a[key] != b[key]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 
-InterfaceTypeMetadata interfaceType(String name, [List<TypeMetadata> arguments]) =>
-    new InterfaceTypeMetadata(name, arguments ?? <TypeMetadata>[]);
-
-ParameterizedTypeMetadata parameterizedType(String name,
-                                           [TypeMetadata extending]) =>
-    new ParameterizedTypeMetadata(name, extending);
-
-FunctionTypeMetadata functionType({TypeMetadata returnType,
-                                   List<TypeMetadata> parameterTypes,
-                                   List<TypeMetadata> optionalParameterTypes,
-                                   Map<String, TypeMetadata> namedParameterTypes,
-                                   List<TypeMetadata> typeArguments}) {
-  returnType ??= dynamicType;
-  parameterTypes ??= <TypeMetadata>[];
-  optionalParameterTypes ??= <TypeMetadata>[];
-  namedParameterTypes ??= <String, TypeMetadata>{};
-  typeArguments ??= <TypeMetadata>[];
-
-  return new FunctionTypeMetadata(
-      returnType,
-      parameterTypes,
-      optionalParameterTypes,
-      namedParameterTypes,
-      typeArguments
-  );
-}
-
-const List<TypeMetadata> _empty = const <TypeMetadata>[];
+//---------------------------------------------------------------------
+// Common interface types
+//---------------------------------------------------------------------
 
 /// A boolean type.
 const InterfaceTypeMetadata boolType =
@@ -195,19 +296,69 @@ const InterfaceTypeMetadata nullType =
 const InterfaceTypeMetadata voidType =
     const InterfaceTypeMetadata('void', _empty);
 
+//---------------------------------------------------------------------
+// Factory functions
+//---------------------------------------------------------------------
+
+/// Creates an [InterfaceTypeMetadata] with the given [name].
+///
+/// For generics [arguments] can be specified.
+InterfaceTypeMetadata interfaceType(String name, [List<TypeMetadata> arguments]) =>
+    new InterfaceTypeMetadata(name, arguments ?? <TypeMetadata>[]);
+
+/// Creates a [ParameterizedTypeMetadata] with the given [name].
+///
+/// If the parameterized type has a base then specify it with [extending].
+ParameterizedTypeMetadata parameterizedType(String name,
+                                           [TypeMetadata extending]) =>
+    new ParameterizedTypeMetadata(name, extending);
+
+/// Creates a [FunctionTypeMetadata].
+///
+/// If a [returnType] is not specified then the value is [dynamicType]. If
+/// [parameterTypes], [optionalParameterTypes] are not specified then the value
+/// is the empty list. If [namedParameterTypes] is not specified then the value
+/// is an empty map.
+FunctionTypeMetadata functionType({TypeMetadata returnType,
+                                   List<TypeMetadata> parameterTypes,
+                                   List<TypeMetadata> optionalParameterTypes,
+                                   Map<String, TypeMetadata> namedParameterTypes,
+                                   List<TypeMetadata> typeArguments}) {
+  returnType ??= dynamicType;
+  parameterTypes ??= <TypeMetadata>[];
+  optionalParameterTypes ??= <TypeMetadata>[];
+  namedParameterTypes ??= <String, TypeMetadata>{};
+  typeArguments ??= <TypeMetadata>[];
+
+  return new FunctionTypeMetadata(
+      returnType,
+      parameterTypes,
+      optionalParameterTypes,
+      namedParameterTypes,
+      typeArguments
+  );
+}
+
+const List<TypeMetadata> _empty = const <TypeMetadata>[];
+const String _listName = 'List';
+const String _iterableName = 'Iterable';
+const String _mapName = 'Map';
+const String _futureName = 'Future';
+const String _streamName = 'Stream';
+
 /// Creates an instance of [InterfaceTypeMetadata] representing a list.
 ///
 /// A type [argument] can be provided for additional type information. If it is
 /// not specified the type is `List<dynamic>`.
 InterfaceTypeMetadata listType([TypeMetadata argument]) =>
-    new InterfaceTypeMetadata('List', _defaultArgumentList(argument));
+    new InterfaceTypeMetadata(_listName, _defaultArgumentList(argument));
 
 /// Creates an instance of [InterfaceTypeMetadata] representing an iterable.
 ///
 /// A type [argument] can be provided for additional type information. If it is
 /// not specified the type is `Iterable<dynamic>`.
 InterfaceTypeMetadata iterableType([TypeMetadata argument]) =>
-    new InterfaceTypeMetadata('Iterable', _defaultArgumentList(argument));
+    new InterfaceTypeMetadata(_iterableName, _defaultArgumentList(argument));
 
 /// Creates an instance of [InterfaceTypeMetadata] representing a map.
 ///
@@ -226,16 +377,49 @@ InterfaceTypeMetadata mapType({TypeMetadata key, TypeMetadata value}) {
 /// A type [argument] can be provided for additional type information. If it is
 /// not specified the type is `Future<dynamic>`.
 InterfaceTypeMetadata futureType([TypeMetadata argument]) =>
-    new InterfaceTypeMetadata('Future', _defaultArgumentList(argument));
+    new InterfaceTypeMetadata(_futureName, _defaultArgumentList(argument));
 
 /// Creates an instance of [InterfaceTypeMetadata] representing a stream.
 ///
 /// A type [argument] can be provided for additional type information. If it is
 /// not specified the type is `Future<dynamic>`.
 InterfaceTypeMetadata streamType([TypeMetadata argument]) =>
-    new InterfaceTypeMetadata('Stream', _defaultArgumentList(argument));
+    new InterfaceTypeMetadata(_streamName, _defaultArgumentList(argument));
 
-///
 /// Creates a default argument list for a type with a single type [argument].
 List<TypeMetadata> _defaultArgumentList(TypeMetadata argument) =>
     <TypeMetadata>[argument ?? dynamicType];
+
+//---------------------------------------------------------------------
+// Type checks
+//---------------------------------------------------------------------
+
+/// Checks whether the [type] is a List.
+///
+/// This will not verify the correctness of any generic type arguments.
+bool isListType(TypeMetadata type) =>
+    type is InterfaceTypeMetadata ? type.name == _listName : false;
+
+/// Checks whether the [type] is an Iterable.
+///
+/// This will not verify the correctness of any generic type arguments.
+bool isIterableType(TypeMetadata type) =>
+    type is InterfaceTypeMetadata ? type.name == _iterableName : false;
+
+/// Checks whether the [type] is a Map.
+///
+/// This will not verify the correctness of any generic type arguments.
+bool isMapType(TypeMetadata type) =>
+    type is InterfaceTypeMetadata ? type.name == _mapName : false;
+
+/// Checks whether the [type] is a Future.
+///
+/// This will not verify the correctness of any generic type arguments.
+bool isFutureType(TypeMetadata type) =>
+    type is InterfaceTypeMetadata ? type.name == _futureName : false;
+
+/// Checks whether the [type] is a Stream.
+///
+/// This will not verify the correctness of any generic type arguments.
+bool isStreamType(TypeMetadata type) =>
+    type is InterfaceTypeMetadata ? type.name == _streamName : false;
