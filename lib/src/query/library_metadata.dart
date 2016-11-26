@@ -48,7 +48,8 @@ Iterable<LibraryMetadata> _libraries(LibraryMetadata library,
 Iterable<Metadata> _libraryMetadata(LibraryMetadata library,
                                     bool includeClasses,
                                     bool includeFunctions,
-                                    bool includeFields) sync* {
+                                    bool includeFields,
+                                    bool includeTypedefs) sync* {
   if (includeClasses) {
     yield* library.classes;
   }
@@ -60,6 +61,10 @@ Iterable<Metadata> _libraryMetadata(LibraryMetadata library,
   if (includeFields) {
     yield* library.fields;
   }
+
+  if (includeTypedefs) {
+    yield* library.typedefs;
+  }
 }
 
 /// Expands the metadata contained within the [library].
@@ -69,7 +74,8 @@ Iterable<Metadata /*=T*/>
                                                    bool includeExports,
                                                    bool includeClasses,
                                                    bool includeFunctions,
-                                                   bool includeFields) {
+                                                   bool includeFields,
+                                                   bool includeTypedefs) {
   // Get the libraries to search through
   final searchLibraries = _libraries(library, includeImports, includeExports);
 
@@ -80,7 +86,8 @@ Iterable<Metadata /*=T*/>
               value,
               includeClasses,
               includeFunctions,
-              includeFields
+              includeFields,
+              includeTypedefs
           )
   );
 }
@@ -94,14 +101,16 @@ Metadata/*=T*/
                                                  bool includeExports: defaultInclude,
                                                  bool includeClasses: defaultInclude,
                                                  bool includeFunctions: defaultInclude,
-                                                 bool includeFields: defaultInclude}) =>
+                                                 bool includeFields: defaultInclude,
+                                                 bool includeTypedefs: defaultInclude}) =>
         _expandLibraryMetadata/*<T>*/(
             library,
             includeImports,
             includeExports,
             includeClasses,
             includeFunctions,
-            includeFields
+            includeFields,
+            includeTypedefs
         ).firstWhere(matcher, orElse: () => null);
 
 /// Queries the [library] for a single instance of metadata which passes the
@@ -113,12 +122,14 @@ Iterable<Metadata /*=T*/>
                                                     bool includeExports: defaultInclude,
                                                     bool includeClasses: defaultInclude,
                                                     bool includeFunctions: defaultInclude,
-                                                    bool includeFields: defaultInclude}) =>
+                                                    bool includeFields: defaultInclude,
+                                                    bool includeTypedefs: defaultInclude}) =>
         _expandLibraryMetadata/*<T>*/(
             library,
             includeImports,
             includeExports,
             includeClasses,
             includeFunctions,
-            includeFields
+            includeFields,
+            includeTypedefs
         ).where(matcher);
