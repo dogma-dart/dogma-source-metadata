@@ -18,7 +18,7 @@ import '../../metadata_builder.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.uri_reference_metadata');
+    new Logger('dogma_source_metadata.src.analyzer.uri_reference_metadata');
 
 /// Creates a list of uri reference metadata from the given [elements].
 List<UriReferencedMetadataBuilder> uriReferenceList(Iterable<UriReferencedElement> elements) {

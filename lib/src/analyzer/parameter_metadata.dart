@@ -23,7 +23,7 @@ import 'type_metadata.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.parameter_metadata');
+    new Logger('dogma_source_metadata.src.analyzer.parameter_metadata');
 
 /// Creates a list of parameter metadata builders for the given executable
 /// [element].

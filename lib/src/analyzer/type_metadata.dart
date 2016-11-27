@@ -20,7 +20,7 @@ import '../../metadata.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.type_metadata');
+    new Logger('dogma_source_metadata.src.analyzer.type_metadata');
 
 /// Creates a list of type metadata from the given [types].
 List<TypeMetadata> typeMetadataList(List<DartType> types) =>

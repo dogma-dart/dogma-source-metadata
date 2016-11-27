@@ -4,7 +4,7 @@
 // the LICENSE file.
 
 @Annotation('library')
-library dogma_source_analyzer.test.lib.annotation;
+library dogma_source_metadata.test.lib.annotation;
 
 class Annotation {
   final String value;

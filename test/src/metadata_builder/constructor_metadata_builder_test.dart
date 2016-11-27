@@ -9,8 +9,8 @@
 
 import 'package:test/test.dart';
 
-import 'package:dogma_source_analyzer/metadata.dart';
-import 'package:dogma_source_analyzer/metadata_builder.dart';
+import 'package:dogma_source_metadata/metadata.dart';
+import 'package:dogma_source_metadata/metadata_builder.dart';
 
 import 'expect_metadata.dart';
 import 'metadata_validate.dart';

@@ -21,7 +21,7 @@ import 'mirrors.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.annotation');
+    new Logger('dogma_source_metadata.src.analyzer.annotation');
 
 /// A function that takes a annotation [element] from the analyzer and returns
 /// an instantiation of the metadata.

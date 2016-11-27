@@ -47,7 +47,7 @@
 ///
 /// When metadata cannot be built correctly from the provided values an
 /// InvalidMetadataError is thrown.
-library dogma_source_analyzer.metadata_builder;
+library dogma_source_metadata.metadata_builder;
 
 //---------------------------------------------------------------------
 // Exports

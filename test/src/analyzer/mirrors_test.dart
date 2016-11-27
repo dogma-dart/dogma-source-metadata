@@ -9,7 +9,7 @@
 
 import 'package:test/test.dart';
 
-import 'package:dogma_source_analyzer/analyzer.dart';
+import 'package:dogma_source_metadata/analyzer.dart';
 
 import '../../lib/mirrors.dart';
 
@@ -18,7 +18,7 @@ import '../../lib/mirrors.dart';
 //---------------------------------------------------------------------
 
 const String _class = 'A';
-const String _library = 'dogma_source_analyzer.test.lib.mirrors';
+const String _library = 'dogma_source_metadata.test.lib.mirrors';
 const String _function = 'function';
 const String _notFound = 'NotFound';
 

@@ -1,17 +1,18 @@
-name: dogma_source_analyzer
-version: 0.0.1
-description: Source code analysis for the Dogma libraries.
+name: dogma_source_metadata
+version: 0.1.0
+description: Source code metadata for the Dogma libraries.
 author: Don Olmstead <don.j.olmstead@gmail.com>
 homepage: http://dogma-dart.github.io/
+
 environment:
   sdk: '>=1.14.0-any <2.0.0'
+
 dependencies:
   analyzer: ^0.29.0
   cli_util: ^0.0.1+2
-  dogma_union_type:
-    path: ../dogma-union-type
   logging: ^0.11.2
   meta: ^1.0.0
+
 dev_dependencies:
   dogma_source_metadata_test:
     path: ../dogma-source-metadata-test

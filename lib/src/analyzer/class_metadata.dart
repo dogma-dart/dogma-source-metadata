@@ -26,7 +26,7 @@ import 'type_metadata.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.class_metadata');
+    new Logger('dogma_source_metadata.src.analyzer.class_metadata');
 
 /// Creates class metadata from the given [element].
 MetadataBuilder<ClassMetadata> classMetadata(ClassElement element,

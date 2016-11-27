@@ -24,7 +24,7 @@
 /// source code. If the uri points to a file then only file uri's will be
 /// instantiated. This is done to minimize the amount of source code that needs
 /// to be analyzed.
-library dogma_source_analyzer.analyzer;
+library dogma_source_metadata.analyzer;
 
 //---------------------------------------------------------------------
 // Imports

@@ -23,7 +23,7 @@ import 'type_metadata.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.function_metadata');
+    new Logger('dogma_source_metadata.src.analyzer.function_metadata');
 
 /// Creates metadata for the given function [element].
 FunctionMetadataBuilder functionMetadata(FunctionTypedElement element,

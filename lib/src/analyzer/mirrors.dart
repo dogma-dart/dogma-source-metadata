@@ -21,7 +21,7 @@ import 'package:logging/logging.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.mirrors');
+    new Logger('dogma_source_metadata.src.analyzer.mirrors');
 
 /// Creates an instance of an annotation using the class [mirror] and invoking
 /// the [constructor] with the [positionalArguments] and [namedArguments].

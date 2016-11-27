@@ -20,7 +20,7 @@ import 'function_metadata.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.method_metadata');
+    new Logger('dogma_source_metadata.src.analyzer.method_metadata');
 
 /// Creates metadata for the given method [element].
 MethodMetadataBuilder methodMetadata(MethodElement element,

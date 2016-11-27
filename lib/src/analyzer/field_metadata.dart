@@ -23,7 +23,7 @@ import 'constant_object.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.field_metadata');
+    new Logger('dogma_source_metadata.src.analyzer.field_metadata');
 
 /// Creates metadata for the given field [element].
 ///

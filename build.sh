@@ -1,8 +1,7 @@
 #!/bin/sh
 set -ex
 
-# Clone Dogma libraries
-git clone https://github.com/dogma-dart/dogma-union-type.git ../dogma-union-type
+# Clone metadata test
 git clone https://github.com/dogma-dart/dogma-source-metadata-test.git ../dogma-source-metadata-test
 
 # Get version

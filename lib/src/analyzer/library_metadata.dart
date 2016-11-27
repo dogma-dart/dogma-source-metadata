@@ -24,7 +24,6 @@ import 'function_metadata.dart';
 import 'override_annotation.dart';
 import 'protected_annotation.dart';
 import 'typedef_metadata.dart';
-import 'union_type_annotation.dart';
 import 'uri_referenced_metadata.dart';
 
 //---------------------------------------------------------------------
@@ -33,7 +32,7 @@ import 'uri_referenced_metadata.dart';
 
 /// The logger for the library.
 final logging.Logger _logger =
-    new logging.Logger('dogma_source_analyzer.src.analyzer.library');
+    new logging.Logger('dogma_source_metadata.src.analyzer.library');
 
 /// A function that determines if the library [element] should be loaded by the
 /// analyzer and searched for metadata.
@@ -242,8 +241,7 @@ void _addDefaultAnnotationGenerators(List<AnalyzeAnnotation> annotationGenerator
   annotationGenerators
       ..add(analyzeDeprecatedAnnotation)
       ..add(analyzeOverrideAnnotation)
-      ..add(analyzeProtectedAnnotation)
-      ..add(analyzeTypeUnionAnnotation);
+      ..add(analyzeProtectedAnnotation);
 }
 
 /// A function that does not transform the uri [input].

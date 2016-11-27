@@ -16,7 +16,7 @@ import 'package:logging/logging.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.override_annotation');
+    new Logger('dogma_source_metadata.src.analyzer.override_annotation');
 
 /// Determines if the annotation corresponds to an @override annotation.
 dynamic analyzeOverrideAnnotation(ElementAnnotation element) {

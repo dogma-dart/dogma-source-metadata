@@ -9,8 +9,8 @@
 
 import 'package:test/test.dart';
 
-import 'package:dogma_source_analyzer/matcher.dart';
-import 'package:dogma_source_analyzer/metadata.dart';
+import 'package:dogma_source_metadata/matcher.dart';
+import 'package:dogma_source_metadata/metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents

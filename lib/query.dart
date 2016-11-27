@@ -14,8 +14,8 @@
 ///
 /// A simple example that matches all functions with two parameters follows.
 ///
-///     import 'package:dogma_source_analyzer/analyzer.dart';
-///     import 'package:dogma_source_analyzer/search.dart';
+///     import 'package:dogma_source_metadata/analyzer.dart';
+///     import 'package:dogma_source_metadata/search.dart';
 ///
 ///     bool _twoParameterFunctions(Metadata metadata) =>
 ///         ((metadata is FunctionMetadata) && (metadata.parameters.length == 2));
@@ -54,7 +54,7 @@
 ///         not(_nParameterFunctions(3))
 ///         includeFunctions: true
 ///     );
-library dogma_source_analyzer.query;
+library dogma_source_metadata.query;
 
 //---------------------------------------------------------------------
 // Exports

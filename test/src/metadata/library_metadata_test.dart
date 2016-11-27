@@ -9,7 +9,7 @@
 
 import 'package:test/test.dart';
 
-import 'package:dogma_source_analyzer/metadata.dart';
+import 'package:dogma_source_metadata/metadata.dart';
 
 import 'base_metadata.dart';
 
@@ -20,7 +20,7 @@ import 'base_metadata.dart';
 /// Test entry point.
 void main() {
   test('default constructor', () {
-    final uri = Uri.parse('package:dogma_source_analyzer/metadata.dart');
+    final uri = Uri.parse('package:dogma_source_metadata/metadata.dart');
     final metadata = new LibraryMetadata(uri);
 
     // Base classes

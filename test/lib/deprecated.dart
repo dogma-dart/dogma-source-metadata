@@ -4,7 +4,7 @@
 // the LICENSE file.
 
 @deprecated
-library dogma_source_analyzer.test.lib.deprecated;
+library dogma_source_metadata.test.lib.deprecated;
 
 @deprecated
 final int oldValue = 0;

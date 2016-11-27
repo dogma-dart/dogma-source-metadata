@@ -8,14 +8,13 @@
 //---------------------------------------------------------------------
 
 import 'package:dogma_source_metadata_test/test.dart';
-import 'package:meta/meta.dart';
 import 'package:test/test.dart';
 
-import 'package:dogma_source_analyzer/analyzer.dart';
-import 'package:dogma_source_analyzer/matcher.dart';
-import 'package:dogma_source_analyzer/metadata.dart';
-import 'package:dogma_source_analyzer/path.dart';
-import 'package:dogma_source_analyzer/query.dart';
+import 'package:dogma_source_metadata/analyzer.dart';
+import 'package:dogma_source_metadata/matcher.dart';
+import 'package:dogma_source_metadata/metadata.dart';
+import 'package:dogma_source_metadata/path.dart';
+import 'package:dogma_source_metadata/query.dart';
 
 //---------------------------------------------------------------------
 // Library contents

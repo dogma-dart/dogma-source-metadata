@@ -4,7 +4,7 @@
 // the LICENSE file.
 
 /// Contains metadata for Dart source code.
-library dogma_source_analyzer.metadata;
+library dogma_source_metadata.metadata;
 
 //---------------------------------------------------------------------
 // Exports

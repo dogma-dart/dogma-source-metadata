@@ -17,7 +17,7 @@ import 'package:meta/meta.dart';
 
 /// The logger for the library.
 final Logger _logger =
-    new Logger('dogma_source_analyzer.src.analyzer.protected_annotation');
+    new Logger('dogma_source_metadata.src.analyzer.protected_annotation');
 
 /// Determines if the annotation corresponds to a @protected annotation.
 dynamic analyzeProtectedAnnotation(ElementAnnotation element) {

@@ -8,7 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'package:test/test.dart';
-import 'package:dogma_source_analyzer/path.dart';
+import 'package:dogma_source_metadata/path.dart';
 
 //---------------------------------------------------------------------
 // Library contents

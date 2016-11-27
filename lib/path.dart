@@ -8,7 +8,7 @@
 /// The majority of the functions are wrappers around functionality found in
 /// the `path` library. They are expanded to support Uri values which are used
 /// heavily within the analyzer to get paths to resources.
-library dogma_source_analyzer.path;
+library dogma_source_metadata.path;
 
 //---------------------------------------------------------------------
 // Imports

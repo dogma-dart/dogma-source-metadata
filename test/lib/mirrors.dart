@@ -3,7 +3,7 @@
 // Use of this source code is governed by a zlib license that can be found in
 // the LICENSE file.
 
-library dogma_source_analyzer.test.lib.mirrors;
+library dogma_source_metadata.test.lib.mirrors;
 
 class A {
   final int value;
