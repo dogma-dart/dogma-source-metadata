@@ -24,7 +24,7 @@ import 'package:dogma_source_metadata/query.dart';
 //---------------------------------------------------------------------
 
 FieldMetadata _getField(ClassMetadata clazz, String name) {
-  final field = classMetadataQuery/*<FieldMetadata>*/(
+  final field = classMetadataQuery<FieldMetadata>(
       clazz,
       nameMatch(name),
       includeFields: true
@@ -44,7 +44,7 @@ void main() {
     final library = libraryMetadata(join('test/lib/fields.dart'), context);
 
     // Get the class
-    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery<ClassMetadata>(
         library,
         nameMatch('ClassFields'),
         includeClasses: true

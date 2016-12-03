@@ -68,7 +68,7 @@ class EnumMetadataBuilder extends MetadataBuilder<EnumMetadata> {
 
     return new EnumMetadata(
         name,
-        buildList/*<FieldMetadata>*/(fields),
+        buildList<FieldMetadata>(fields),
         annotations: annotations,
         comments: comments
     );

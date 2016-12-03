@@ -24,7 +24,7 @@ final Logger _logger =
 
 /// Creates a list of type metadata from the given [types].
 List<TypeMetadata> typeMetadataList(List<DartType> types) =>
-    types.map/*<TypeMetadata>*/((value) => typeMetadata(value)).toList();
+    types.map<TypeMetadata>((value) => typeMetadata(value)).toList();
 
 /// Creates type metadata from the given [type].
 TypeMetadata typeMetadata(DartType type) {
@@ -46,7 +46,7 @@ TypeMetadata typeMetadata(DartType type) {
 
 InterfaceTypeMetadata _interfaceTypeMetadata(InterfaceType type) {
   // Get type arguments
-  final typeArguments = type.typeArguments.map/*<TypeMetadata2>*/(
+  final typeArguments = type.typeArguments.map<TypeMetadata>(
       (value) => typeMetadata(value)
   ).toList();
 
@@ -81,7 +81,7 @@ FunctionTypeMetadata _functionTypeMetadata(FunctionType type) {
   });
 
   // Generic type arguments
-  final typeArguments = _typeMetadataList(type.typeFormals.map/*<DartType>*/(
+  final typeArguments = _typeMetadataList(type.typeFormals.map<DartType>(
       (value) => value.type
   ));
 
@@ -94,7 +94,7 @@ FunctionTypeMetadata _functionTypeMetadata(FunctionType type) {
   );
 }
 
-List<TypeMetadata/*=T*/> _typeMetadataList/*<T extends TypeMetadata2>*/(Iterable<DartType> types) =>
-    types.map/*<T>*/(
+List<T> _typeMetadataList<T extends TypeMetadata>(Iterable<DartType> types) =>
+    types.map<T>(
         (value) => typeMetadata(value)
     ).toList();

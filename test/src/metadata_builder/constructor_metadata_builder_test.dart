@@ -33,8 +33,8 @@ void main() {
         ..returnType = returnType;
     final expected = new ConstructorMetadata(returnType);
 
-    expectMetadataEqual/*<ConstructorMetadata>*/(builder, expected);
-    expectMetadataEqual/*<ConstructorMetadata>*/(defaultConstructor()..returnType = returnType, expected);
+    expectMetadataEqual<ConstructorMetadata>(builder, expected);
+    expectMetadataEqual<ConstructorMetadata>(defaultConstructor()..returnType = returnType, expected);
   });
   test('initializers', () {
     final builder = defaultConstructor()

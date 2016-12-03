@@ -25,10 +25,10 @@ void main() {
 
   test('function tests', () {
     final library = libraryMetadata(join('test/lib/union_type.dart'), context);
-    final function = libraryMetadataQuery/*<FunctionMetadata*/(
+    final function = libraryMetadataQuery<FunctionMetadata>(
         library,
         nameMatch('function'),
-        includeFunctions: true
+        includeFunctions: true,
     );
 
     expect(function, isNotNull);

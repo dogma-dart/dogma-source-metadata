@@ -28,10 +28,10 @@ void main() {
 
     var function;
 
-    function = libraryMetadataQuery/*<FunctionMetadata*/(
+    function = libraryMetadataQuery<FunctionMetadata>(
         library,
         nameMatch('empty'),
-        includeFunctions: true
+        includeFunctions: true,
     );
 
     expect(function, isNotNull);

@@ -29,8 +29,8 @@ void main() {
         ..name = _name;
     final expected = new FieldMetadata(_name);
 
-    expectMetadataEqual/*<FieldMetadata>*/(builder, expected);
-    expectMetadataEqual/*<FieldMetadata>*/(field(_name), expected);
+    expectMetadataEqual<FieldMetadata>(builder, expected);
+    expectMetadataEqual<FieldMetadata>(field(_name), expected);
   });
   test('values set', () {
 
@@ -44,7 +44,7 @@ void main() {
         setter: true
     );
 
-    expectMetadataEqual/*<FieldMetadata>*/(builder, expected);
+    expectMetadataEqual<FieldMetadata>(builder, expected);
   });
   test('constField', () {
     final builder = constField(_name);
@@ -56,7 +56,7 @@ void main() {
         isConst: true
     );
 
-    expectMetadataEqual/*<FieldMetadata>*/(builder, expected);
+    expectMetadataEqual<FieldMetadata>(builder, expected);
   });
   test('finalField', () {
     final builder = finalField(_name);
@@ -68,7 +68,7 @@ void main() {
         isFinal: true
     );
 
-    expectMetadataEqual/*<FieldMetadata>*/(builder, expected);
+    expectMetadataEqual<FieldMetadata>(builder, expected);
   });
   test('property', () {
     final builder = property(_name);
@@ -79,7 +79,7 @@ void main() {
         setter: true
     );
 
-    expectMetadataEqual/*<FieldMetadata>*/(builder, expected);
+    expectMetadataEqual<FieldMetadata>(builder, expected);
   });
   test('getter', () {
     final builder = getter(_name);
@@ -90,7 +90,7 @@ void main() {
         setter: false
     );
 
-    expectMetadataEqual/*<FieldMetadata>*/(builder, expected);
+    expectMetadataEqual<FieldMetadata>(builder, expected);
   });
   test('setter', () {
     final builder = setter(_name);
@@ -101,6 +101,6 @@ void main() {
         setter: true
     );
 
-    expectMetadataEqual/*<FieldMetadata>*/(builder, expected);
+    expectMetadataEqual<FieldMetadata>(builder, expected);
   });
 }

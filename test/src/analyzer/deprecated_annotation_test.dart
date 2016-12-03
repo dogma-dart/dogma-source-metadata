@@ -43,7 +43,7 @@ void main() {
 
     _expectHasDeprecated(library);
 
-    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery<ClassMetadata>(
         library,
         nameMatch('DoNotUse'),
         includeClasses: true
@@ -52,7 +52,7 @@ void main() {
     expect(clazz, isNotNull);
     expect(clazz.methods, hasLength(1));
 
-    final method = classMetadataQuery/*<MethodMetadata>*/(
+    final method = classMetadataQuery<MethodMetadata>(
         clazz,
         nameMatch('old'),
         includeMethods: true

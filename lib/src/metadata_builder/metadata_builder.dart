@@ -59,5 +59,5 @@ abstract class MetadataBuilder<T extends Metadata> {
 }
 
 /// Builds a list of [MetadataBuilder]s.
-List/*<T>*/ buildList/*<T extends Metadata>*/(Iterable<MetadataBuilder/*<T>*/> builders) =>
-    builders.map/*<T>*/((value) => value.build()).toList();
+List<T> buildList<T extends Metadata>(Iterable<MetadataBuilder<T>> builders) =>
+    builders.map<T>((value) => value.build()).toList();

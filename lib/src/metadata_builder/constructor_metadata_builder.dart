@@ -18,7 +18,7 @@ import 'validate_metadata.dart';
 //---------------------------------------------------------------------
 
 /// A [MetadataBuilder] for [ConstructorMetadata].
-class ConstructorMetadataBuilder extends FunctionMetadataBuilder
+class ConstructorMetadataBuilder extends FunctionMetadataBuilder<ConstructorMetadata>
                                     with ConstantMetadataBuilder {
   //---------------------------------------------------------------------
   // Member variables
@@ -52,7 +52,7 @@ class ConstructorMetadataBuilder extends FunctionMetadataBuilder
       new ConstructorMetadata(
           returnType,
           name: name,
-          parameters: buildList/*<ParameterMetadata>*/(parameters),
+          parameters: buildList<ParameterMetadata>(parameters),
           isConst: isConst,
           isFactory: isFactory,
           annotations: annotations,

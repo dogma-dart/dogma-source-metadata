@@ -30,7 +30,7 @@ import 'validate_metadata.dart';
 /// * Optional and named parameters must follow required parameters.
 /// * Optional and named parameters cannot be used in the same function.
 /// * Initializers are not valid for function calls.
-class FunctionMetadataBuilder extends MetadataBuilder<FunctionMetadata>
+class FunctionMetadataBuilder<T extends FunctionMetadata> extends MetadataBuilder<T>
                                  with GenericMetadataBuilder,
                                       TypedMetadataBuilder {
   //---------------------------------------------------------------------
@@ -61,7 +61,7 @@ class FunctionMetadataBuilder extends MetadataBuilder<FunctionMetadata>
       new FunctionMetadata(
         name,
         returnType: returnType,
-        parameters: buildList/*<ParameterMetadata>*/(parameters),
+        parameters: buildList<ParameterMetadata>(parameters),
         typeParameters: typeParameters,
         annotations: annotations,
         comments: comments

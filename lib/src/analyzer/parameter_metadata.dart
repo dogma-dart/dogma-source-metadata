@@ -29,7 +29,7 @@ final Logger _logger =
 /// [element].
 List<ParameterMetadataBuilder> parameterList(FunctionTypedElement element,
                                              List<AnalyzeAnnotation> annotationGenerators) =>
-    element.parameters.map/*<ParameterMetadataBuilder>*/(
+    element.parameters.map<ParameterMetadataBuilder>(
         (value) => parameterMetadata(value, annotationGenerators)
     ).toList();
 

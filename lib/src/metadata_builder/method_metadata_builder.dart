@@ -19,7 +19,7 @@ import 'static_metadata_builder.dart';
 //---------------------------------------------------------------------
 
 /// A [MetadataBuilder] for [MethodMetadata].
-class MethodMetadataBuilder extends FunctionMetadataBuilder
+class MethodMetadataBuilder extends FunctionMetadataBuilder<MethodMetadata>
                                with AbstractMetadataBuilder,
                                     StaticMetadataBuilder {
   //---------------------------------------------------------------------
@@ -40,12 +40,12 @@ class MethodMetadataBuilder extends FunctionMetadataBuilder
       new MethodMetadata(
           name,
           returnType: returnType,
-          parameters: buildList/*<ParameterMetadata>*/(parameters),
+          parameters: buildList<ParameterMetadata>(parameters),
           typeParameters: typeParameters,
           isAbstract: isAbstract,
           isStatic: isStatic,
           annotations: annotations,
-          comments: comments
+          comments: comments,
       );
 }
 

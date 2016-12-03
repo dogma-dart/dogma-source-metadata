@@ -20,7 +20,7 @@ import 'package:dogma_source_metadata/query.dart';
 //---------------------------------------------------------------------
 
 ClassMetadata _getClass(LibraryMetadata library, String name) {
-  final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+  final clazz = libraryMetadataQuery<ClassMetadata>(
       library,
       nameMatch(name),
       includeClasses: true
@@ -103,18 +103,18 @@ void main() {
     expect(constructors, hasLength(2));
 
     // Shouldn't have a default constructor
-    constructor = classMetadataQuery/*<ConstructorMetadata>*/(
+    constructor = classMetadataQuery<ConstructorMetadata>(
         clazz,
         defaultConstructorMatch,
-        includeConstructors: true
+        includeConstructors: true,
     );
     expect(constructor, isNull);
 
     // Should have a private constructor
-    constructors = classMetadataQueryAll/*<ConstructorMetadata>*/(
+    constructors = classMetadataQueryAll<ConstructorMetadata>(
         clazz,
         privateMatch,
-        includeConstructors: true
+        includeConstructors: true,
     );
     expect(constructors, hasLength(1));
 
@@ -125,10 +125,10 @@ void main() {
     expect(constructor.isFactory, isFalse);
 
     // Should have a named constructor
-    constructors = classMetadataQueryAll/*<ConstructorMetadata>*/(
+    constructors = classMetadataQueryAll<ConstructorMetadata>(
         clazz,
         and(namedConstructorMatch, publicMatch),
-        includeConstructors: true
+        includeConstructors: true,
     );
     expect(constructors, hasLength(1));
 

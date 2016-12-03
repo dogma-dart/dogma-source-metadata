@@ -24,7 +24,7 @@ Nums<double> numsDouble;
 void func(void f(int i),
           void o([int i]),
           void n({int i}),
-          void g/*<T>*/(dynamic/*=T*/ t),
-          void n(num/*=U*/ e/*<U extends num>*/(num/*=U*/ i))) {
+          void g<T>(T t),
+          void n(U e<U extends num>(U i))) {
   return f(2);
 }

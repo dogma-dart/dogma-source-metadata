@@ -16,7 +16,7 @@ import 'metadata_builder.dart';
 //---------------------------------------------------------------------
 
 /// A [MetadataBuilder] for [TypedefMetadata].
-class TypedefMetadataBuilder extends FunctionMetadataBuilder {
+class TypedefMetadataBuilder extends FunctionMetadataBuilder<TypedefMetadata> {
   //---------------------------------------------------------------------
   // MetadataBuilder
   //---------------------------------------------------------------------
@@ -26,9 +26,9 @@ class TypedefMetadataBuilder extends FunctionMetadataBuilder {
       new TypedefMetadata(
           name,
           returnType: returnType,
-          parameters: buildList/*<ParameterMetadata>*/(parameters),
+          parameters: buildList<ParameterMetadata>(parameters),
           typeParameters: typeParameters,
           annotations: annotations,
-          comments: comments
+          comments: comments,
       );
 }

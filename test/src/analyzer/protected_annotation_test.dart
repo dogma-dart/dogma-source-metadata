@@ -42,7 +42,7 @@ void main() {
     expect(library, hasNoFunctions);
     expect(library, hasNoTypedefs);
 
-    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery<ClassMetadata>(
         library,
         nameMatch('Base'),
         includeClasses: true
@@ -52,7 +52,7 @@ void main() {
     expect(clazz, hasMethods(1));
     expect(clazz, hasNoFields);
 
-    final method = classMetadataQuery/*<MethodMetadata>*/(
+    final method = classMetadataQuery<MethodMetadata>(
         clazz,
         nameMatch('onlySubClasses'),
         includeMethods: true

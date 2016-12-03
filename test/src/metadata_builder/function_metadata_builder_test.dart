@@ -35,8 +35,8 @@ void main() {
         ..name = _name;
     final expected = new FunctionMetadata(_name);
 
-    expectMetadataEqual/*<FunctionMetadata>*/(builder, expected);
-    expectMetadataEqual/*<FunctionMetadata>*/(function(_name), expected);
+    expectMetadataEqual<FunctionMetadata>(builder, expected);
+    expectMetadataEqual<FunctionMetadata>(function(_name), expected);
   });
   test('values set', () {
     final returnType = intType;
@@ -60,7 +60,7 @@ void main() {
         ]
     );
 
-    expectMetadataEqual/*<FunctionMetadata>*/(builder, expected);
+    expectMetadataEqual<FunctionMetadata>(builder, expected);
 
     // Make sure annotated metadata is present
     final actual = builder.build();

@@ -80,15 +80,15 @@ MetadataBuilder<ClassMetadata> _classMetadata(ClassElement element,
       ..interfaces = typeMetadataList(element.interfaces)
       ..typeParameters = genericTypeMetadataList(element.typeParameters)
       ..fields =
-          element.fields.map/*<FieldMetadataBuilder>*/(
+          element.fields.map<FieldMetadataBuilder>(
               (value) => fieldMetadata(value, annotationCreators)
           ).toList()
       ..methods =
-          element.methods.map/*<MethodMetadataBuilder>*/(
+          element.methods.map<MethodMetadataBuilder>(
               (value) => methodMetadata(value, annotationCreators)
           ).toList()
       ..constructors =
-          element.constructors.map/*<ConstructorMetadataBuilder>*/(
+          element.constructors.map<ConstructorMetadataBuilder>(
               (value) => constructorMetadata(value, annotationCreators)
           ).toList();
 

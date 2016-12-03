@@ -2,10 +2,10 @@ name: dogma_source_metadata
 version: 0.1.0
 description: Source code metadata for the Dogma libraries.
 author: Don Olmstead <don.j.olmstead@gmail.com>
-homepage: http://dogma-dart.github.io/
+homepage: http://dogma-dart.github.io
 
 environment:
-  sdk: '>=1.14.0-any <2.0.0'
+  sdk: '>=1.21.0-any <2.0.0'
 
 dependencies:
   analyzer: ^0.29.0

@@ -92,9 +92,9 @@ class LibraryMetadata extends AnnotatedMetadata with EnclosingMetadata {
 
   /// The libraries imported into this library.
   Iterable<LibraryMetadata> get imported =>
-      imports.map/*<LibraryMetadata>*/((value) => value.library);
+      imports.map<LibraryMetadata>((value) => value.library);
 
   /// The libraries exported by this library.
   Iterable<LibraryMetadata> get exported =>
-      exports.map/*<LibraryMetadata>*/((value) => value.library);
+      exports.map<LibraryMetadata>((value) => value.library);
 }

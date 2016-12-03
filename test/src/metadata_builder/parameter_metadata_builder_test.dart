@@ -37,8 +37,8 @@ void main() {
         ..name = _name;
     final expected = new ParameterMetadata(_name);
 
-    expectMetadataEqual/*<ParameterMetadata>*/(builder, expected);
-    expectMetadataEqual/*<ParameterMetadata>*/(parameter(_name), expected);
+    expectMetadataEqual<ParameterMetadata>(builder, expected);
+    expectMetadataEqual<ParameterMetadata>(parameter(_name), expected);
   });
   test('values set', () {
     final parameterKind = ParameterKind.positional;
@@ -62,7 +62,7 @@ void main() {
         defaultValue: defaultValue
     );
 
-    expectMetadataEqual/*<ParameterMetadata>*/(builder, expected);
+    expectMetadataEqual<ParameterMetadata>(builder, expected);
 
     // Make sure annotated metadata is present
     //
@@ -79,7 +79,7 @@ void main() {
         parameterKind: ParameterKind.required
     );
 
-    expectMetadataEqual/*<ParameterMetadata>*/(builder, expected);
+    expectMetadataEqual<ParameterMetadata>(builder, expected);
   });
   test('positionalParameter', () {
     final builder = positionalParameter(_name);
@@ -88,7 +88,7 @@ void main() {
         parameterKind: ParameterKind.positional
     );
 
-    expectMetadataEqual/*<ParameterMetadata>*/(builder, expected);
+    expectMetadataEqual<ParameterMetadata>(builder, expected);
   });
   test('namedParameter', () {
     final builder = namedParameter(_name);
@@ -97,6 +97,6 @@ void main() {
         parameterKind: ParameterKind.named
     );
 
-    expectMetadataEqual/*<ParameterMetadata>*/(builder, expected);
+    expectMetadataEqual<ParameterMetadata>(builder, expected);
   });
 }

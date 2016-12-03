@@ -17,7 +17,7 @@ import 'package:dogma_source_metadata/metadata_builder.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-void expectMetadataEqual/*<T extends Metadata>*/(MetadataBuilder/*<T>*/ actual,
-                                                 Metadata/*=T*/ expected) {
-  expect(actual.build(), metadataEqual/*<T>*/(expected));
+void expectMetadataEqual<T extends Metadata>(MetadataBuilder<T> actual,
+                                             T expected) {
+  expect(actual.build(), metadataEqual<T>(expected));
 }

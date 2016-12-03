@@ -11,6 +11,7 @@ import 'package:test/test.dart';
 
 import 'package:dogma_source_metadata/analyzer.dart';
 import 'package:dogma_source_metadata/matcher.dart';
+import 'package:dogma_source_metadata/metadata.dart';
 import 'package:dogma_source_metadata/path.dart';
 import 'package:dogma_source_metadata/query.dart';
 
@@ -27,14 +28,14 @@ void main() {
 
   });
   test('static field tests', () {
-    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery<ClassMetadata>(
         fieldLibrary,
         nameMatch('ClassFields'),
-        includeClasses: true
+        includeClasses: true,
     );
     expect(clazz, isNotNull);
 
-    final staticFields = classMetadataQueryAll/*<FieldMetadata>*/(
+    final staticFields = classMetadataQueryAll<FieldMetadata>(
         clazz,
         staticMatch,
         includeFields: true
@@ -44,7 +45,7 @@ void main() {
     }
     expect(staticFields, hasLength(6));
 
-    final staticConstFields = classMetadataQueryAll/*<FieldMetadata>*/(
+    final staticConstFields = classMetadataQueryAll<FieldMetadata>(
         clazz,
         and(staticMatch, constMatch),
         includeFields: true

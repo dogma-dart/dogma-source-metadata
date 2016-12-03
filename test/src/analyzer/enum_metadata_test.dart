@@ -20,7 +20,7 @@ import 'package:dogma_source_metadata/query.dart';
 //---------------------------------------------------------------------
 
 EnumMetadata _getEnum(LibraryMetadata library, String name) {
-  final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+  final clazz = libraryMetadataQuery<ClassMetadata>(
       library,
       nameMatch(name),
       includeClasses: true

@@ -57,16 +57,16 @@ class LibraryMetadataBuilder extends MetadataBuilder<LibraryMetadata> {
       new LibraryMetadata(
           uri,
           name: name,
-          imports: buildList/*<UriReferencedMetadata>*/(imports),
-          exports: buildList/*<UriReferencedMetadata>*/(exports),
+          imports: buildList<UriReferencedMetadata>(imports),
+          exports: buildList<UriReferencedMetadata>(exports),
           classes:
-              buildList/*<ClassMetadata>*/(classes)
-                  ..addAll(buildList/*<ClassMetadata>*/(enums)),
-          functions: buildList/*<FunctionMetadata>*/(functions),
-          fields: buildList/*<FieldMetadata>*/(fields),
-          typedefs: buildList/*<TypedefMetadata>*/(typedefs),
+              buildList<ClassMetadata>(classes)
+                  ..addAll(buildList<ClassMetadata>(enums)),
+          functions: buildList<FunctionMetadata>(functions),
+          fields: buildList<FieldMetadata>(fields),
+          typedefs: buildList<TypedefMetadata>(typedefs),
           annotations: annotations,
-          comments: comments
+          comments: comments,
       );
 }
 

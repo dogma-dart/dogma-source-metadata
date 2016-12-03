@@ -21,10 +21,10 @@ import 'package:dogma_source_metadata/query.dart';
 //---------------------------------------------------------------------
 
 TypedefMetadata _getTypedef(LibraryMetadata library, String name) {
-  final typedef = libraryMetadataQuery/*<TypedefMetadata>*/(
+  final typedef = libraryMetadataQuery<TypedefMetadata>(
       library,
       nameMatch(name),
-      includeTypedefs: true
+      includeTypedefs: true,
   );
 
   expect(typedef, isNotNull);
@@ -50,7 +50,7 @@ void main() {
     final param = _getTypedef(library, 'ParamFunction');
     final paramType = functionType(
         returnType: stringType,
-        parameterTypes: <TypeMetadata>[stringType, stringType]
+        parameterTypes: <TypeMetadata>[stringType, stringType],
     );
 
     expect(param, isType(paramType));
@@ -60,7 +60,7 @@ void main() {
     final genericType = functionType(
         returnType: parameterizedType('T'),
         parameterTypes: <TypeMetadata>[parameterizedType('T')],
-        typeArguments: <TypeMetadata>[parameterizedType('T')]
+        typeArguments: <TypeMetadata>[parameterizedType('T')],
     );
 
     expect(generic, isType(genericType));

@@ -44,8 +44,8 @@ void main() {
         ..name = _name;
     final expected = new MethodMetadata(_name);
 
-    expectMetadataEqual/*<MethodMetadata>*/(builder, expected);
-    expectMetadataEqual/*<MethodMetadata>*/(method(_name), expected);
+    expectMetadataEqual<MethodMetadata>(builder, expected);
+    expectMetadataEqual<MethodMetadata>(method(_name), expected);
   });
   test('values set', () {
     final returnType = intType;
@@ -68,7 +68,7 @@ void main() {
           new ParameterMetadata(paramName)
         ]);
 
-    expectMetadataEqual/*<FunctionMetadata>*/(builder, expected);
+    expectMetadataEqual<FunctionMetadata>(builder, expected);
 
     // Make sure annotated metadata is present
     final actual = builder.build();

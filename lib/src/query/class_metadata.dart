@@ -41,16 +41,16 @@ Iterable<Metadata> _classMetadata(ClassMetadata clazz,
   }
 }
 
-Iterable<Metadata /*=T*/>
-    _expandClassMetadata/*<T extends Metadata>*/(ClassMetadata clazz,
-                                                 bool includeFields,
-                                                 bool includeConstructors,
-                                                 bool includeMethods) {
+Iterable<T>
+    _expandClassMetadata<T extends Metadata>(ClassMetadata clazz,
+                                             bool includeFields,
+                                             bool includeConstructors,
+                                             bool includeMethods) {
   // Get the classes to search through
   final searchClasses = _classes(clazz, false, false, false);
 
   // Expand the metadata within the library
-  return searchClasses.expand/*<T>*/(
+  return searchClasses.expand<T>(
       (value) =>
           _classMetadata(
               value,
@@ -71,17 +71,16 @@ Iterable<Metadata /*=T*/>
 ///
 /// When specifying a generic method only one of these values should be set
 /// to true.
-Metadata/*=T*/
-    classMetadataQuery/*<T extends Metadata>*/(ClassMetadata clazz,
-                                               MetadataMatchFunction matcher,
-                                              {bool includeFields: defaultInclude,
-                                               bool includeConstructors: defaultInclude,
-                                               bool includeMethods: defaultInclude}) =>
-        _expandClassMetadata/*<T>*/(
+T classMetadataQuery<T extends Metadata>(ClassMetadata clazz,
+                                         MetadataMatchFunction matcher,
+                                        {bool includeFields: defaultInclude,
+                                         bool includeConstructors: defaultInclude,
+                                         bool includeMethods: defaultInclude}) =>
+        _expandClassMetadata<T>(
             clazz,
             includeFields,
             includeConstructors,
-            includeMethods
+            includeMethods,
         ).firstWhere(matcher, orElse: () => null);
 
 /// Queries the [clazz] for a single instance of metadata which passes the
@@ -94,15 +93,14 @@ Metadata/*=T*/
 ///
 /// When specifying a generic method only one of these values should be set
 /// to true.
-Iterable<Metadata/*=T*/>
-   classMetadataQueryAll/*<T extends Metadata>*/(ClassMetadata clazz,
-                                                 MetadataMatchFunction matcher,
-                                                {bool includeFields: defaultInclude,
-                                                 bool includeConstructors: defaultInclude,
-                                                 bool includeMethods: defaultInclude}) =>
-        _expandClassMetadata/*<T>*/(
+Iterable<T> classMetadataQueryAll<T extends Metadata>(ClassMetadata clazz,
+                                                      MetadataMatchFunction matcher,
+                                                     {bool includeFields: defaultInclude,
+                                                      bool includeConstructors: defaultInclude,
+                                                      bool includeMethods: defaultInclude}) =>
+        _expandClassMetadata<T>(
             clazz,
             includeFields,
             includeConstructors,
-            includeMethods
+            includeMethods,
         ).where(matcher);

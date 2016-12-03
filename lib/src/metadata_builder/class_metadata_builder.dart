@@ -73,9 +73,9 @@ class ClassMetadataBuilder extends MetadataBuilder<ClassMetadata>
         interfaces: interfaces,
         mixins: mixins,
         typeParameters: typeParameters,
-        fields: buildList/*<FieldMetadata>*/(fields),
-        methods: buildList/*<MethodMetadata>*/(methods),
-        constructors: buildList/*<ClassMetadata>*/(classConstructors),
+        fields: buildList<FieldMetadata>(fields),
+        methods: buildList<MethodMetadata>(methods),
+        constructors: buildList<ConstructorMetadata>(classConstructors),
         annotations: annotations,
         comments: comments
     );

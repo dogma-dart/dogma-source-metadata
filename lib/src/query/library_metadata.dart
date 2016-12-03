@@ -68,19 +68,18 @@ Iterable<Metadata> _libraryMetadata(LibraryMetadata library,
 }
 
 /// Expands the metadata contained within the [library].
-Iterable<Metadata /*=T*/>
-    _expandLibraryMetadata/*<T extends Metadata>*/(LibraryMetadata library,
-                                                   bool includeImports,
-                                                   bool includeExports,
-                                                   bool includeClasses,
-                                                   bool includeFunctions,
-                                                   bool includeFields,
-                                                   bool includeTypedefs) {
+Iterable<T> _expandLibraryMetadata<T extends Metadata>(LibraryMetadata library,
+                                                       bool includeImports,
+                                                       bool includeExports,
+                                                       bool includeClasses,
+                                                       bool includeFunctions,
+                                                       bool includeFields,
+                                                       bool includeTypedefs) {
   // Get the libraries to search through
   final searchLibraries = _libraries(library, includeImports, includeExports);
 
   // Expand the metadata within the library
-  return searchLibraries.expand/*<T>*/(
+  return searchLibraries.expand<T>(
       (value) =>
           _libraryMetadata(
               value,
@@ -94,37 +93,35 @@ Iterable<Metadata /*=T*/>
 
 /// Queries the [library] for a single instance of metadata which passes the
 /// checks within the [matcher].
-Metadata/*=T*/
-    libraryMetadataQuery/*<T extends Metadata>*/(LibraryMetadata library,
-                                                 MetadataMatchFunction matcher,
-                                                {bool includeImports: defaultInclude,
-                                                 bool includeExports: defaultInclude,
-                                                 bool includeClasses: defaultInclude,
-                                                 bool includeFunctions: defaultInclude,
-                                                 bool includeFields: defaultInclude,
-                                                 bool includeTypedefs: defaultInclude}) =>
-        _expandLibraryMetadata/*<T>*/(
+T libraryMetadataQuery<T extends Metadata>(LibraryMetadata library,
+                                           MetadataMatchFunction matcher,
+                                          {bool includeImports: defaultInclude,
+                                           bool includeExports: defaultInclude,
+                                           bool includeClasses: defaultInclude,
+                                           bool includeFunctions: defaultInclude,
+                                           bool includeFields: defaultInclude,
+                                           bool includeTypedefs: defaultInclude}) =>
+        _expandLibraryMetadata<T>(
             library,
             includeImports,
             includeExports,
             includeClasses,
             includeFunctions,
             includeFields,
-            includeTypedefs
+            includeTypedefs,
         ).firstWhere(matcher, orElse: () => null);
 
 /// Queries the [library] for a single instance of metadata which passes the
 /// checks within the [matcher].
-Iterable<Metadata /*=T*/>
-    libraryMetadataQueryAll/*<T extends Metadata>*/(LibraryMetadata library,
-                                                    MetadataMatchFunction matcher,
-                                                   {bool includeImports: defaultInclude,
-                                                    bool includeExports: defaultInclude,
-                                                    bool includeClasses: defaultInclude,
-                                                    bool includeFunctions: defaultInclude,
-                                                    bool includeFields: defaultInclude,
-                                                    bool includeTypedefs: defaultInclude}) =>
-        _expandLibraryMetadata/*<T>*/(
+Iterable<T> libraryMetadataQueryAll<T extends Metadata>(LibraryMetadata library,
+                                                        MetadataMatchFunction matcher,
+                                                       {bool includeImports: defaultInclude,
+                                                        bool includeExports: defaultInclude,
+                                                        bool includeClasses: defaultInclude,
+                                                        bool includeFunctions: defaultInclude,
+                                                        bool includeFields: defaultInclude,
+                                                        bool includeTypedefs: defaultInclude}) =>
+        _expandLibraryMetadata<T>(
             library,
             includeImports,
             includeExports,

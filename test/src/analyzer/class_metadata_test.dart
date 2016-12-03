@@ -20,10 +20,10 @@ import 'package:dogma_source_metadata/query.dart';
 //---------------------------------------------------------------------
 
 ClassMetadata _getClass(LibraryMetadata library, String name) {
-  final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+  final clazz = libraryMetadataQuery<ClassMetadata>(
       library,
       nameMatch(name),
-      includeClasses: true
+      includeClasses: true,
   );
 
   expect(clazz, isNotNull);

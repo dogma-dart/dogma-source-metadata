@@ -17,6 +17,6 @@ import 'type_metadata.dart';
 //---------------------------------------------------------------------
 
 List<TypeMetadata> genericTypeMetadataList(List<TypeParameterElement> elements) =>
-    elements.map/*<TypeMetadata>*/(
+    elements.map<TypeMetadata>(
         (value) => typeMetadata(value.type)
     ).toList();

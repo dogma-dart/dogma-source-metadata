@@ -58,10 +58,10 @@ void main() {
     _expectHasAnnotation(library.functions[0], 'function');
     _expectParamHasAnnotation(library.functions[0], 'function_parameter');
 
-    final clazz = libraryMetadataQuery/*<ClassMetadata>*/(
+    final clazz = libraryMetadataQuery<ClassMetadata>(
         library,
         nameMatch('Annotated'),
-        includeClasses: true
+        includeClasses: true,
     );
 
     expect(clazz, isNotNull);
