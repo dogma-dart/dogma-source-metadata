@@ -7,6 +7,8 @@
 // Imports
 //---------------------------------------------------------------------
 
+import 'package:meta/meta.dart';
+
 import '../../metadata.dart';
 import 'class_metadata_builder.dart';
 import 'enum_metadata_builder.dart';
@@ -16,6 +18,7 @@ import 'invalid_metadata_error.dart';
 import 'metadata_builder.dart';
 import 'typedef_metadata_builder.dart';
 import 'uri_referenced_metadata_builder.dart';
+import 'validate_metadata.dart';
 
 //---------------------------------------------------------------------
 // Library contents
@@ -50,6 +53,10 @@ class LibraryMetadataBuilder extends MetadataBuilder<LibraryMetadata> {
 
   @override
   void validate() {
+    validateUniqueNames(_declaredMetadata());
+
+    // Validate the exports
+    validateExports();
   }
 
   @override
@@ -68,6 +75,39 @@ class LibraryMetadataBuilder extends MetadataBuilder<LibraryMetadata> {
           annotations: annotations,
           comments: comments,
       );
+
+  //---------------------------------------------------------------------
+  // Protected methods
+  //---------------------------------------------------------------------
+
+  /// Validates the exports within the builder.
+  @protected
+  void validateExports() {
+    for (var export in exports) {
+      if (export.deferred) {
+        throw new InvalidMetadataError('An exported library cannot be deferred');
+      }
+
+      if (export.prefix.isNotEmpty) {
+        throw new InvalidMetadataError('An exported library cannot have a prefix');
+      }
+    }
+  }
+
+  //---------------------------------------------------------------------
+  // Private methods
+  //---------------------------------------------------------------------
+
+  /// Gets all the metadata builders contained within the builder.
+  ///
+  /// This is used to check uniqueness of metadata.
+  Iterable<MetadataBuilder> _declaredMetadata() sync* {
+    yield* classes;
+    yield* enums;
+    yield* functions;
+    yield* fields;
+    yield* typedefs;
+  }
 }
 
 LibraryMetadataBuilder library() => new LibraryMetadataBuilder();
