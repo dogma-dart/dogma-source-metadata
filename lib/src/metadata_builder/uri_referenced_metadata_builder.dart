@@ -23,30 +23,44 @@ import 'metadata_builder.dart';
 /// * The reference may either show names or hide names but not both.
 class UriReferencedMetadataBuilder extends MetadataBuilder<UriReferencedMetadata> {
   //---------------------------------------------------------------------
+  // Class variables
+  //---------------------------------------------------------------------
+
+  /// The condition for a `dart:io` context.
+  static const String dartIoCondition = 'dart.library.io';
+  /// The condition for a `dart:html` context.
+  static const String dartHtmlCondition = 'dart.library.html';
+
+  //---------------------------------------------------------------------
   // Member variables
   //---------------------------------------------------------------------
 
   /// The prefix to use for the reference.
   String prefix = '';
+  /// Whether the library loading should be deferred.
+  bool deferred = false;
   /// The names within the library that are shown.
   List<String> shownNames = <String>[];
   /// The names within the library that are hidden.
   List<String> hiddenNames = <String>[];
+  Map<String, dynamic> when = <String, dynamic>{};
   /// The library that is being referenced.
-  dynamic _library;
+  dynamic library;
 
   //---------------------------------------------------------------------
   // Properties
   //---------------------------------------------------------------------
 
-  /// The library being referenced.
-  dynamic get library => _library;
-  set library(dynamic value) {
-    if ((value is! LibraryMetadata) && (value is! LibraryMetadataBuilder)) {
-      throw new UnsupportedError('value must be LibraryMetadata or a LibraryMetadataBuilder');
-    }
+  /// The library to use for a `dart:io` program.
+  dynamic get libraryIo => when[dartIoCondition];
+  set libraryIo(dynamic value) {
+    when[dartIoCondition] = value;
+  }
 
-    _library = value;
+  /// The library to use for a `dart:html` program.
+  dynamic get libraryHtml => when[dartHtmlCondition];
+  set libraryHtml(dynamic value) {
+    when[dartHtmlCondition] = value;
   }
 
   //---------------------------------------------------------------------
@@ -58,22 +72,47 @@ class UriReferencedMetadataBuilder extends MetadataBuilder<UriReferencedMetadata
     if (shownNames.isNotEmpty && hiddenNames.isNotEmpty) {
       throw new InvalidMetadataError('Uri reference cannot both hide and show names');
     }
+
+    // Verify that a prefix is present when using deferred
+    if ((deferred) && (prefix.isEmpty)) {
+      throw new UnsupportedError('prefix is mandatory for deferred libraries');
+    }
   }
 
   @override
   UriReferencedMetadata buildInternal() {
-    var lib = library;
+    // Build the when conditions
+    final whenConditions = <String, LibraryMetadata>{};
 
-    if ((lib != null) && (lib is LibraryMetadataBuilder)) {
-      lib = lib.build();
-    }
+    when.forEach((key, value) {
+      whenConditions[key] = _buildLibrary(value);
+    });
 
     return new UriReferencedMetadata(
         prefix: prefix,
+        deferred: deferred,
         shownNames: shownNames,
         hiddenNames: hiddenNames,
-        library: library
+        library: _buildLibrary(library),
+        when: whenConditions,
     );
+  }
+
+  //---------------------------------------------------------------------
+  // Private static methods
+  //---------------------------------------------------------------------
+
+  /// Gets library metadata from the [value].
+  static LibraryMetadata _buildLibrary(dynamic value) {
+    if (value == null) {
+      return null;
+    } else if (value is LibraryMetadataBuilder) {
+        return value.build();
+    } else if (value is LibraryMetadata) {
+        return value;
+    } else {
+        throw new InvalidMetadataError('The value is not library metadata');
+    }
   }
 }
 

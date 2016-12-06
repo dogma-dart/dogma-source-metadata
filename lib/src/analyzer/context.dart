@@ -65,6 +65,7 @@ AnalysisContext analysisContext({Uri projectPath, Uri sdkPath}) {
   final options = new AnalysisOptionsImpl()
       ..preserveComments = true
       ..strongMode = true
+      ..enableGenericMethods = true
       ..analyzeFunctionBodies = false;
 
   // Return the context

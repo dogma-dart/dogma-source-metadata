@@ -8,6 +8,7 @@
 //---------------------------------------------------------------------
 
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/src/generated/engine.dart';
 import 'package:analyzer/src/generated/source_io.dart';
 import 'package:logging/logging.dart' as logging;
@@ -52,7 +53,7 @@ typedef Uri UriTransform(Uri input);
 LibraryMetadata libraryMetadata(Uri path,
                                 AnalysisContext context,
                                {List<AnalyzeAnnotation> annotationCreators,
-                                ShouldLoadLibrary shouldLoad}) {
+                                ShouldLoadLibrary shouldLoad,}) {
   // Create the source from a URI
   //
   // This handles source based and package based URIs.
@@ -85,7 +86,7 @@ LibraryMetadata libraryMetadata(Uri path,
 LibraryMetadata libraryMetadataFromElement(LibraryElement element,
                                           {List<AnalyzeAnnotation> annotationCreators,
                                            ShouldLoadLibrary shouldLoad,
-                                           UriTransform uriTransform}) {
+                                           UriTransform uriTransform,}) {
   // Sanity check that the library element is present
   if (element == null) {
     _logger.severe('Metadata cannot be created from null library element', element);
@@ -142,7 +143,7 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
                                  Map<String, LibraryMetadata> cached,
                                  ShouldLoadLibrary shouldLoad,
                                  List<AnalyzeAnnotation> annotationCreators,
-                                 UriTransform uriTransform) {
+                                 UriTransform uriTransform,) {
   // Use the URI
   final uri = uriTransform(element.source.uri);
   final uriString = uri.toString();
@@ -151,6 +152,15 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
   if (cached.containsKey(uriString)) {
     return cached[uriString];
   }
+
+  // See if the library should be loaded
+  if (!shouldLoad(element)) {
+    final metadata = new LibraryMetadata(uri);
+    cached[uriString] = metadata;
+    return metadata;
+  }
+
+  _logger.info('Creating metadata for library at $uri');
 
   // Create the builder and get the import and export directives
   final builder = new LibraryMetadataBuilder()
@@ -201,31 +211,89 @@ LibraryMetadata _libraryMetadata(LibraryElement element,
 
   // Get the imported libraries
   final imports = metadata.imports.toList();
-  final exports = metadata.exports.toList();
   final importCount = imports.length;
   assert(importCount == element.imports.length);
 
   for (var i = 0; i < importCount; ++i) {
-    final importedLibrary = element.imports[i].importedLibrary;
-
-    imports[i].library = shouldLoad(importedLibrary)
-        ? _libraryMetadata(importedLibrary, cached, shouldLoad, annotationCreators, uriTransform)
-        : new LibraryMetadata(uriTransform(importedLibrary.source.uri));
+    _libraryMetadataFromUri(
+        metadata.imports[i],
+        element.imports[i],
+        cached,
+        shouldLoad,
+        annotationCreators,
+        uriTransform,
+    );
   }
 
+  // Get the exported libraries
+  final exports = metadata.exports.toList();
   final exportCount = exports.length;
   assert(exportCount == element.exports.length);
 
   for (var i = 0; i < exportCount; ++i) {
-    final exportedLibrary = element.exports[i].exportedLibrary;
-
-    exports[i].library = shouldLoad(exportedLibrary)
-        ? _libraryMetadata(exportedLibrary, cached, shouldLoad, annotationCreators, uriTransform)
-        : new LibraryMetadata(uriTransform(exportedLibrary.source.uri));
+    _libraryMetadataFromUri(
+        metadata.exports[i],
+        element.exports[i],
+        cached,
+        shouldLoad,
+        annotationCreators,
+        uriTransform,
+    );
   }
 
   // Return the metadata
   return metadata;
+}
+
+/// Completes loading the library [element] referenced in the [metadata].
+void _libraryMetadataFromUri(UriReferencedMetadata metadata,
+                             UriReferencedElement element,
+                             Map<String, LibraryMetadata> cached,
+                             ShouldLoadLibrary shouldLoad,
+                             List<AnalyzeAnnotation> annotationCreators,
+                             UriTransform uriTransform,) {
+  // Get the library directly referenced
+  final library = _getReferencedLibrary(element);
+
+  assert(library != null);
+
+  // Create the metadata
+  metadata.library = _libraryMetadata(
+      library,
+      cached,
+      shouldLoad,
+      annotationCreators,
+      uriTransform,
+  );
+
+  // See if an AST can be created
+  //
+  // This is the only way to get the values for conditional imports currently.
+  final ast = element.computeNode() as NamespaceDirective;
+
+  // Verify there's an AST as synthetic imports will not have one
+  if (ast != null) {
+    for (var configuration in ast.configurations) {
+      metadata.when[configuration.name.toString()] = _libraryMetadata(
+          element.context.computeLibraryElement(configuration.uriSource),
+          cached,
+          shouldLoad,
+          annotationCreators,
+          uriTransform,
+      );
+    }
+  }
+}
+
+/// Retrieves the library referenced from the [element].
+LibraryElement _getReferencedLibrary(UriReferencedElement element) {
+  if (element is ImportElement) {
+    return element.importedLibrary;
+  } else if (element is ExportElement) {
+    return element.exportedLibrary;
+  } else {
+    return null;
+  }
 }
 
 /// Add default annotation generators.
