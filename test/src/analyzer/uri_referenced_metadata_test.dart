@@ -20,6 +20,17 @@ import 'package:dogma_source_metadata/query.dart';
 // Library contents
 //---------------------------------------------------------------------
 
+UriReferencedMetadata _getReference(Iterable<UriReferencedMetadata> references, Uri uri) {
+  final reference = references.firstWhere(
+      (value) => value.library.uri == uri,
+      orElse: () => null
+  );
+
+  expect(reference, isNotNull);
+
+  return reference;
+}
+
 /// Entry point for tests.
 void main() {
   final context = analysisContext();
@@ -27,10 +38,29 @@ void main() {
   test('import tests', () {
     final library = libraryMetadata(join('test/lib/imports.dart'), context);
 
-    print('Imports');
-    for (var import in library.imports) {
-      print(import.library.uri);
-    }
+    final asImport = _getReference(library.imports, Uri.parse('dart:html'));
+    expect(asImport, isPrefixed);
+    expect(asImport, prefixedBy('html'));
+    expect(asImport, notDeferred);
+
+    final showImport = _getReference(library.imports, join('test/lib/functions.dart'));
+    expect(showImport, notPrefixed);
+    expect(showImport, showsName('empty'));
+    expect(showImport, notDeferred);
+
+    final hideImport = _getReference(library.imports, join('test/lib/annotation.dart'));
+    expect(hideImport, notPrefixed);
+    expect(hideImport, notDeferred);
+    expect(hideImport, hidesName('Annotated'));
+    expect(hideImport, hidesName('AnnotationTypes'));
+
+    final deferredImport = _getReference(library.imports, join('test/lib/deprecated.dart'));
+    expect(deferredImport, isPrefixed);
+    expect(deferredImport, prefixedBy('deprecated'));
+    expect(deferredImport, isDeferred);
+
+    final interfaceImport = _getReference(library.imports, join('test/lib/library_interface.dart'));
+    expect(interfaceImport, notPrefixed);
   });
   test('export tests', () {
     final library = libraryMetadata(join('test/lib/exports.dart'), context);

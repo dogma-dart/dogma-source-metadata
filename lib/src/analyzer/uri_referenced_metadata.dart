@@ -37,7 +37,8 @@ UriReferencedMetadataBuilder uriReferenceMetadata(UriReferencedElement element) 
   var combinators;
 
   if (element is ImportElement) {
-    builder.name = element.prefix?.name ?? '';
+    builder.prefix = element.prefix?.name ?? '';
+    builder.deferred = element.isDeferred;
 
     combinators = element.combinators;
   } else if (element is ExportElement) {
