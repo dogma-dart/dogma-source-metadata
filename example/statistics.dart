@@ -32,7 +32,7 @@ void main() {
       context
   );
 
-  final classQuery = libraryMetadataQueryAll/*<ClassMetadata>*/(
+  final classQuery = libraryMetadataQueryAll<ClassMetadata>(
       library,
       (value) => value is ClassMetadata,
       includeClasses: true,
@@ -43,8 +43,8 @@ void main() {
   print('Contains $classCount classes');
 
   // Get the number of constructors
-  final constructorQuery = classQuery.expand/*<ConstructorMetadata>*/(
-      (metadata) => classMetadataQueryAll/*<ConstructorMetadata>*/(
+  final constructorQuery = classQuery.expand<ConstructorMetadata>(
+      (metadata) => classMetadataQueryAll<ConstructorMetadata>(
           metadata,
           (value) => value is ConstructorMetadata,
           includeConstructors: true
