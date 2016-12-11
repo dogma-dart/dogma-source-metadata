@@ -83,7 +83,8 @@ FieldMetadataBuilder enumValue(String name) =>
     new FieldMetadataBuilder()
         ..name = name
         ..isStatic = true
-        ..isConst = true;
+        ..isConst = true
+        ..setter = false;
 
 EnumMetadataBuilder enumerations(String name, List<String> values) {
   final clazz = enumeration(name);
